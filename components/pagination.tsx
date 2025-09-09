@@ -7,7 +7,7 @@ export default function Pagination({
   pathname,
   dict,
   section,
-  lang,
+  // lang,
 }: {
   pathname: string;
   dict: Dictionary;
