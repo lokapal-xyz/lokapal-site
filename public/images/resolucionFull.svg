@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="95.067947mm"
+   height="65.027573mm"
+   viewBox="0 0 95.067946 65.027572"
+   version="1.1"
+   id="svg1"
+   sodipodi:docname="resolutionFull.svg"
+   inkscape:version="1.4.2 (1:1.4.2+202505120737+ebf0e940d0)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#505050"
+     bordercolor="#eeeeee"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#505050"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="1.6428049"
+     inkscape:cx="186.87551"
+     inkscape:cy="92.829039"
+     inkscape:window-width="1366"
+     inkscape:window-height="736"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1">
+    <inkscape:page
+       x="0"
+       y="0"
+       width="95.067947"
+       height="65.027573"
+       id="page2"
+       margin="0"
+       bleed="0" />
+  </sodipodi:namedview>
+  <defs
+     id="defs1">
+    <marker
+       style="overflow:visible"
+       id="marker17"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Wide arrow"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         style="fill:none;stroke:context-stroke;stroke-width:1;stroke-linecap:butt"
+         d="M 3,-3 0,0 3,3"
+         transform="rotate(180,0.125,0)"
+         sodipodi:nodetypes="ccc"
+         id="path17" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="marker15"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Wide arrow"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         style="fill:none;stroke:context-stroke;stroke-width:1;stroke-linecap:butt"
+         d="M 3,-3 0,0 3,3"
+         transform="rotate(180,0.125,0)"
+         sodipodi:nodetypes="ccc"
+         id="path15" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="marker15-3"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Wide arrow"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         style="fill:none;stroke:context-stroke;stroke-width:1;stroke-linecap:butt"
+         d="M 3,-3 0,0 3,3"
+         transform="rotate(180,0.125,0)"
+         sodipodi:nodetypes="ccc"
+         id="path15-0" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="marker15-3-5"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Wide arrow"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         style="fill:none;stroke:context-stroke;stroke-width:1;stroke-linecap:butt"
+         d="M 3,-3 0,0 3,3"
+         transform="rotate(180,0.125,0)"
+         sodipodi:nodetypes="ccc"
+         id="path15-0-6" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="marker17-1"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Wide arrow"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         style="fill:none;stroke:context-stroke;stroke-width:1;stroke-linecap:butt"
+         d="M 3,-3 0,0 3,3"
+         transform="rotate(180,0.125,0)"
+         sodipodi:nodetypes="ccc"
+         id="path17-7" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="marker17-5"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Wide arrow"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         style="fill:none;stroke:context-stroke;stroke-width:1;stroke-linecap:butt"
+         d="M 3,-3 0,0 3,3"
+         transform="rotate(180,0.125,0)"
+         sodipodi:nodetypes="ccc"
+         id="path17-78" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="marker17-3"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Wide arrow"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         style="fill:none;stroke:context-stroke;stroke-width:1;stroke-linecap:butt"
+         d="M 3,-3 0,0 3,3"
+         transform="rotate(180,0.125,0)"
+         sodipodi:nodetypes="ccc"
+         id="path17-6" />
+    </marker>
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(19.133542,-2.7307356)">
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444px;font-family:'Linux Libertine Display O';-inkscape-font-specification:'Linux Libertine Display O, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;opacity:1;fill:#c4c4c5;fill-opacity:1;stroke:#c4c4c5;stroke-width:0;stroke-dasharray:none;stroke-opacity:1"
+       x="18.347073"
+       y="10.009316"
+       id="text1"><tspan
+         sodipodi:role="line"
+         id="tspan1"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444px;font-family:'Linux Libertine Display O';-inkscape-font-specification:'Linux Libertine Display O, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#c4c4c5;fill-opacity:1;stroke:#c4c4c5;stroke-width:0;stroke-dasharray:none;stroke-opacity:1"
+         x="18.347073"
+         y="10.009316">Fricción</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444px;font-family:'Linux Libertine Display O';-inkscape-font-specification:'Linux Libertine Display O, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;opacity:1;fill:#c4c4c5;fill-opacity:1;stroke:#c4c4c5;stroke-width:0;stroke-dasharray:none;stroke-opacity:1"
+       x="-17.800495"
+       y="20.024036"
+       id="text2"><tspan
+         sodipodi:role="line"
+         id="tspan2"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444px;font-family:'Linux Libertine Display O';-inkscape-font-specification:'Linux Libertine Display O, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#c4c4c5;fill-opacity:1;stroke:#c4c4c5;stroke-width:0;stroke-dasharray:none;stroke-opacity:1"
+         x="-17.800495"
+         y="20.024036">Potencial</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444px;font-family:'Linux Libertine Display O';-inkscape-font-specification:'Linux Libertine Display O, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;opacity:1;fill:#c4c4c5;fill-opacity:1;stroke:#c4c4c5;stroke-width:0;stroke-dasharray:none;stroke-opacity:1"
+       x="14.847342"
+       y="19.757666"
+       id="text3"><tspan
+         sodipodi:role="line"
+         id="tspan3"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444px;font-family:'Linux Libertine Display O';-inkscape-font-specification:'Linux Libertine Display O, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#c4c4c5;fill-opacity:1;stroke:#c4c4c5;stroke-width:0;stroke-dasharray:none;stroke-opacity:1"
+         x="14.847342"
+         y="19.757666">Templanza</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444px;font-family:'Linux Libertine Display O';-inkscape-font-specification:'Linux Libertine Display O, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;opacity:1;fill:#c4c4c5;fill-opacity:1;stroke:#c4c4c5;stroke-width:0;stroke-dasharray:none;stroke-opacity:1"
+       x="50.452904"
+       y="20.024036"
+       id="text4"><tspan
+         sodipodi:role="line"
+         id="tspan4"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444px;font-family:'Linux Libertine Display O';-inkscape-font-specification:'Linux Libertine Display O, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#c4c4c5;fill-opacity:1;stroke:#c4c4c5;stroke-width:0;stroke-dasharray:none;stroke-opacity:1"
+         x="50.452904"
+         y="20.024036">Estabilidad</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444px;font-family:'Linux Libertine Display O';-inkscape-font-specification:'Linux Libertine Display O, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;opacity:1;fill:#c4c4c5;fill-opacity:1;stroke:#c4c4c5;stroke-width:0;stroke-dasharray:none;stroke-opacity:1"
+       x="-13.697605"
+       y="36.999996"
+       id="text5"><tspan
+         sodipodi:role="line"
+         id="tspan5"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444px;font-family:'Linux Libertine Display O';-inkscape-font-specification:'Linux Libertine Display O, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#c4c4c5;fill-opacity:1;stroke:#c4c4c5;stroke-width:0;stroke-dasharray:none;stroke-opacity:1"
+         x="-13.697605"
+         y="36.999996">Caos</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444px;font-family:'Linux Libertine Display O';-inkscape-font-specification:'Linux Libertine Display O, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;opacity:1;fill:#c4c4c5;fill-opacity:1;stroke:#c4c4c5;stroke-width:0;stroke-dasharray:none;stroke-opacity:1"
+       x="11.616289"
+       y="36.773777"
+       id="text6"><tspan
+         sodipodi:role="line"
+         id="tspan6"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444px;font-family:'Linux Libertine Display O';-inkscape-font-specification:'Linux Libertine Display O, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#c4c4c5;fill-opacity:1;stroke:#c4c4c5;stroke-width:0;stroke-dasharray:none;stroke-opacity:1"
+         x="11.616289"
+         y="36.773777">VIABILIDAD</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444px;font-family:'Linux Libertine Display O';-inkscape-font-specification:'Linux Libertine Display O, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;opacity:1;fill:#c4c4c5;fill-opacity:1;stroke:#c4c4c5;stroke-width:0;stroke-dasharray:none;stroke-opacity:1"
+       x="54.826466"
+       y="36.999554"
+       id="text7"><tspan
+         sodipodi:role="line"
+         id="tspan7"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444px;font-family:'Linux Libertine Display O';-inkscape-font-specification:'Linux Libertine Display O, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#c4c4c5;fill-opacity:1;stroke:#c4c4c5;stroke-width:0;stroke-dasharray:none;stroke-opacity:1"
+         x="54.826466"
+         y="36.999554">Orden</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444px;font-family:'Linux Libertine Display O';-inkscape-font-specification:'Linux Libertine Display O, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;opacity:1;fill:#c4c4c5;fill-opacity:1;stroke:#c4c4c5;stroke-width:0;stroke-dasharray:none;stroke-opacity:1"
+       x="-17.46723"
+       y="54.213554"
+       id="text8"><tspan
+         sodipodi:role="line"
+         id="tspan8"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444px;font-family:'Linux Libertine Display O';-inkscape-font-specification:'Linux Libertine Display O, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#c4c4c5;fill-opacity:1;stroke:#c4c4c5;stroke-width:0;stroke-dasharray:none;stroke-opacity:1"
+         x="-17.46723"
+         y="54.213554">Sufrimiento</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444px;font-family:'Linux Libertine Display O';-inkscape-font-specification:'Linux Libertine Display O, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;opacity:1;fill:#c4c4c5;fill-opacity:1;stroke:#c4c4c5;stroke-width:0;stroke-dasharray:none;stroke-opacity:1"
+       x="17.458752"
+       y="54.213558"
+       id="text9"><tspan
+         sodipodi:role="line"
+         id="tspan9"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444px;font-family:'Linux Libertine Display O';-inkscape-font-specification:'Linux Libertine Display O, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#c4c4c5;fill-opacity:1;stroke:#c4c4c5;stroke-width:0;stroke-dasharray:none;stroke-opacity:1"
+         x="17.458752"
+         y="54.213558">Sacrificio</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444px;font-family:'Linux Libertine Display O';-inkscape-font-specification:'Linux Libertine Display O, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;opacity:1;fill:#c4c4c5;fill-opacity:1;stroke:#c4c4c5;stroke-width:0;stroke-dasharray:none;stroke-opacity:1"
+       x="48.297649"
+       y="54.213291"
+       id="text10"><tspan
+         sodipodi:role="line"
+         id="tspan10"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444px;font-family:'Linux Libertine Display O';-inkscape-font-specification:'Linux Libertine Display O, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#c4c4c5;fill-opacity:1;stroke:#c4c4c5;stroke-width:0;stroke-dasharray:none;stroke-opacity:1"
+         x="48.297649"
+         y="54.213291">Satisfacción</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444px;font-family:'Linux Libertine Display O';-inkscape-font-specification:'Linux Libertine Display O, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;opacity:1;fill:#c4c4c5;fill-opacity:1;stroke:#c4c4c5;stroke-width:0;stroke-dasharray:none;stroke-opacity:1"
+       x="17.14962"
+       y="64.37899"
+       id="text11"><tspan
+         sodipodi:role="line"
+         id="tspan11"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444px;font-family:'Linux Libertine Display O';-inkscape-font-specification:'Linux Libertine Display O, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#c4c4c5;fill-opacity:1;stroke:#c4c4c5;stroke-width:0;stroke-dasharray:none;stroke-opacity:1"
+         x="17.14962"
+         y="64.37899">Conflicto</tspan></text>
+    <rect
+       style="opacity:1;fill:none;stroke:#c4c4c5;stroke-width:0.3;stroke-dasharray:none;stroke-opacity:1"
+       id="rect11"
+       width="20.440437"
+       height="6.200438"
+       x="16.956108"
+       y="5.0811915" />
+    <rect
+       style="opacity:1;fill:none;stroke:#c4c4c5;stroke-width:0.305782;stroke-dasharray:none;stroke-opacity:1"
+       id="rect11-7"
+       width="21.490217"
+       height="6.1964817"
+       x="16.614174"
+       y="59.428665" />
+    <rect
+       style="opacity:1;fill:none;stroke:#c4c4c5;stroke-width:0.308918;stroke-dasharray:none;stroke-opacity:1"
+       id="rect12-2"
+       width="16.701647"
+       height="8.2462292"
+       x="53.351925"
+       y="31.04891" />
+    <ellipse
+       style="opacity:1;fill:none;stroke:#c4c4c5;stroke-width:0.329539;stroke-dasharray:none;stroke-opacity:1"
+       id="path12"
+       cx="26.912371"
+       cy="35.098545"
+       rx="19.910154"
+       ry="4.0455737" />
+    <path
+       style="opacity:1;fill:none;stroke:#c4c4c5;stroke-width:0.3;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker15)"
+       d="M -7.2748069,30.994178 V 22.521613"
+       id="path14" />
+    <path
+       style="opacity:1;fill:none;stroke:#c4c4c5;stroke-width:0.3;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker15-3)"
+       d="M 61.70275,31.073291 V 22.600726"
+       id="path14-2" />
+    <path
+       style="opacity:1;fill:none;stroke:#c4c4c5;stroke-width:0.3;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker15-3-5)"
+       d="M 26.927608,48.235865 V 41.051578"
+       id="path14-2-4" />
+    <path
+       style="opacity:1;fill:none;stroke:#c4c4c5;stroke-width:0.3;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker17)"
+       d="m 5.068191,18.46868 c 7.698186,0.0084 7.698186,0.0084 7.698186,0.0084"
+       id="path16" />
+    <path
+       style="opacity:1;fill:none;stroke:#c4c4c5;stroke-width:0.3;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker17)"
+       d="M 48.740504,18.500031 H 41.095067"
+       id="path19" />
+    <path
+       style="opacity:1;fill:none;stroke:#c4c4c5;stroke-width:0.292438;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker17-1)"
+       d="M 47.545915,52.315783 H 40.280976"
+       id="path19-4" />
+    <path
+       style="opacity:1;fill:none;stroke:#c4c4c5;stroke-width:0.30645;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker17-5)"
+       d="m 9.9594663,52.307883 c 6.6584997,0.0098 6.6584997,0.0098 6.6584997,0.0098"
+       id="path16-9" />
+    <path
+       style="opacity:1;fill:none;stroke:#c4c4c5;stroke-width:0.3;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker17)"
+       d="m -7.2748069,39.349873 c 0,8.503921 0,8.503921 0,8.503921"
+       id="path20" />
+    <path
+       style="opacity:1;fill:none;stroke:#c4c4c5;stroke-width:0.3;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker17)"
+       d="M 26.949383,22.378869 V 29.53682"
+       id="path21" />
+    <path
+       style="opacity:1;fill:none;stroke:#c4c4c5;stroke-width:0.3;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker17-3)"
+       d="m 61.6592,39.270761 c 0,8.503921 0,8.503921 0,8.503921"
+       id="path20-7" />
+    <path
+       style="opacity:1;fill:none;stroke:#c4c4c5;stroke-width:0.295015;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker17)"
+       d="M 16.403225,62.508681 C 1.5305073,56.372273 1.5305073,56.372273 1.5305073,56.372273"
+       id="path22" />
+    <path
+       style="opacity:1;fill:none;stroke:#c4c4c5;stroke-width:0.29395;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker17)"
+       d="M 38.306708,62.450914 56.038113,56.530799"
+       id="path23" />
+    <path
+       style="opacity:1;fill:none;stroke:#c4c4c5;stroke-width:0.3;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker17)"
+       d="M 16.922338,8.2399805 C -2.8200567,13.215502 -2.8200567,13.215502 -2.8200567,13.215502"
+       id="path24" />
+    <path
+       style="opacity:1;fill:none;stroke:#c4c4c5;stroke-width:0.3;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker17)"
+       d="M 37.479237,8.2472398 57.720944,13.202586"
+       id="path25" />
+    <rect
+       style="opacity:1;fill:none;stroke:#c4c4c5;stroke-width:0.3;stroke-dasharray:none;stroke-opacity:1"
+       id="rect12-2-6"
+       width="15.751313"
+       height="8.2462292"
+       x="-16.169289"
+       y="31.048735" />
+  </g>
+</svg>
