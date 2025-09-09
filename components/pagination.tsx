@@ -14,7 +14,7 @@ export default function Pagination({
   section: "devotion" | "howtodao" | "conciliatorics";
   lang: string;
 }) {
-  const res = getPreviousNext(pathname, section, lang);
+  const res = getPreviousNext(pathname, section);
 
   return (
     <div className="flex justify-between sm:py-10 py-7 gap-3">
