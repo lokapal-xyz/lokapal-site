@@ -108,7 +108,7 @@ export async function getDocsTocs(
 export function getPreviousNext(
   path: string,
   section: "devotion" | "howtodao" | "conciliatorics" | "about", // Reserved for future section filtering
-  lang: string // Reserved for future localization features
+  // lang: string Reserved for future localization features
 ) {
    // Get section-specific routes instead of all routes
   const sectionRoutes = getRoutesForSection(section);
@@ -126,7 +126,7 @@ export function getPreviousNext(
   // Find current page index by comparing the normalized path
   const currentIndex = allLinks.findIndex((link) => {
     // Remove leading slash from link href for comparison
-    let linkHref = link.href.startsWith('/') ? link.href.slice(1) : link.href;
+    const linkHref = link.href.startsWith('/') ? link.href.slice(1) : link.href;
     
     return normalizedPath === linkHref;
   });

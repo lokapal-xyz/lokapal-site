@@ -42,7 +42,6 @@ export const NAVLINKS = [
 
 export function Navbar({ 
   dict, 
-  lang 
 }: { 
   dict: Dictionary; 
   lang: string;
