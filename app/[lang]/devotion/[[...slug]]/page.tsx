@@ -29,13 +29,23 @@ export default async function DocsPage(props: PageProps) {
     <div className="flex items-start gap-10">
       <div className="flex-[4.5] pt-10">
         <Typography>
-          <h1 className="text-3xl !-mt-1.5">{res.frontmatter.title}</h1>
-          <p className="-mt-4 text-muted-foreground text-[16.5px]">
+          <h1 className="text-3xl !-mt-1.5 animate-in slide-in-from-bottom-4 fade-in duration-700">
+            {res.frontmatter.title}
+          </h1>
+          <p className="-mt-4 text-muted-foreground italic text-[16.5px] animate-in slide-in-from-bottom-4 fade-in duration-700">
             {res.frontmatter.description}
           </p>
-          <div>{res.content}</div>
-          {/* Fixed: Pass the full pathname instead of just slug.join("/") */}
-          <Pagination pathname={fullPathname} dict={dict} section="devotion" lang={lang}/>
+          <img 
+            src="/images/banner-blue.png" 
+            alt="" 
+            className="animate-in slide-in-from-bottom-4 fade-in duration-700 delay-400"
+          />
+          <div className="animate-in slide-in-from-bottom-4 fade-in duration-700 delay-600">
+            {res.content}
+          </div>
+          <div className="animate-in slide-in-from-bottom-4 fade-in duration-700 delay-800">
+            <Pagination pathname={fullPathname} dict={dict} section="devotion" lang={lang}/>
+          </div>
         </Typography>
       </div>
       <Toc section="devotion" path={slugPath} dict={dict} lang={lang}/>

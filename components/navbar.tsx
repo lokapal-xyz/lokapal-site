@@ -1,11 +1,9 @@
 "use client";
 
 import { ModeToggle } from "@/components/theme-toggle";
-import { CompassIcon } from "lucide-react";
-import { GithubIcon, XIcon, LinkedInIcon, SubstackIcon, TelegramIcon, MediumIcon } from "./icons";
+import { GithubIcon, XIcon, LinkedInIcon, SubstackIcon, TelegramIcon, MediumIcon, PhIcon } from "./icons";
 import Link from "next/link";
 import { buttonVariants } from "./ui/button";
-import Search from "./search";
 import { SheetLeftbar } from "./leftbar";
 import { getPageRoutesForSection } from "@/lib/routes-config";
 import { SheetClose } from "@/components/ui/sheet";
@@ -68,10 +66,10 @@ export function Navbar({
 
         {/* Right side controls - more conservative spacing */}
         <div className="flex items-center gap-1 shrink-0">
-          {/* Search - only on extra large screens */}
+          {/* Search - only on extra large screens
           <div className="hidden xl:block">
             <Search dict={dict} />
-          </div>
+          </div> */}
           
           <div className="flex items-center gap-1">
             <LangSelect />
@@ -125,6 +123,15 @@ export function Navbar({
                 <MediumIcon className="h-[1.1rem] w-[1.1rem]" />
               </Link>
               <Link
+                href="https://paragraph.com/@daohorizons"
+                className={buttonVariants({
+                  variant: "ghost",
+                  size: "icon",
+                })}
+              >
+                <PhIcon className="h-[1.1rem] w-[1.1rem]" />
+              </Link>
+              <Link
                 href="https://github.com/lokapal-xyz"
                 className={buttonVariants({ variant: "ghost", size: "icon" })}
               >
@@ -141,7 +148,11 @@ export function Navbar({
 export function Logo() {
   return (
     <LocalizedLink href="/" className="flex items-center gap-2.5 pl-5">
-      <CompassIcon className="w-6 h-6 text-muted-foreground" strokeWidth={2} />
+      <img 
+        src="/images/icon-transparent.png" 
+        alt="" 
+        className="w-8 h-8"
+      />
       <h2 className="text-md font-bold font-code">Lokapal</h2>
     </LocalizedLink>
   );

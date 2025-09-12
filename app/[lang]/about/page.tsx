@@ -36,11 +36,11 @@ export default async function AboutPage({ params }: LangProps) {
       {/* Main content */}
       <div className="flex-[4.5] pt-2 w-full lg:pl-32">
         <Typography>
-          <h1 className="text-3xl !-mt-1.5">{res.frontmatter.title}</h1>
-          <p className="-mt-4 text-muted-foreground text-[16.5px]">
+          <h1 className="text-3xl !-mt-1.5 animate-in slide-in-from-bottom-4 fade-in duration-700">{res.frontmatter.title}</h1>
+          <p className="-mt-4 text-muted-foreground text-[16.5px] animate-in slide-in-from-bottom-4 fade-in duration-700">
             {res.frontmatter.description}
           </p>
-          <div>{res.content}</div>
+          <div className="animate-in slide-in-from-bottom-4 fade-in duration-700 delay-400">{res.content}</div>
         </Typography>
       </div>
       

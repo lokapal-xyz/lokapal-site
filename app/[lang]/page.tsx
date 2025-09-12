@@ -14,26 +14,26 @@ export default async function Home({ params }: LangProps) {
         href="https://lokapal.eth.limo"
         target="_blank"
         rel="noopener noreferrer"
-        className="mb-5 sm:text-lg flex items-center gap-2 underline underline-offset-4"
+        className="mb-5 sm:text-lg flex items-center gap-2 underline underline-offset-4 animate-in slide-in-from-bottom-4 fade-in duration-700"
       >
         {dict.home.linktree}
         <MoveUpRightIcon className="w-4 h-4 font-extrabold" />
       </Link>
-      <h1 className="text-3xl font-bold mb-4 sm:text-6xl">
+      <h1 className="text-3xl font-bold mb-4 sm:text-6xl animate-in slide-in-from-bottom-4 fade-in duration-700">
         {dict.home.main_header}
       </h1>
-      <p className="mb-8 sm:text-lg max-w-[1200px] text-muted-foreground">
+      <p className="mb-8 sm:text-lg max-w-[1200px] text-muted-foreground animate-in slide-in-from-bottom-4 fade-in duration-700">
         {dict.home.sub_header}
       </p>
-      
+
       {/* Responsive button grid - added justify-center for desktop */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:flex lg:flex-row lg:justify-center items-center gap-4 w-full max-w-4xl px-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:flex lg:flex-row lg:justify-center items-center gap-4 w-full max-w-4xl px-4 animate-in slide-in-from-bottom-4 fade-in duration-700 delay-400">
         <LocalizedLink
           href={`/devotion${getPageRoutesForSection("devotion")[0].href}`}
-          className={buttonVariants({ 
-            variant: "secondary", 
-            className: "px-6 w-full lg:w-auto", 
-            size: "lg" 
+          className={buttonVariants({
+            variant: "devotion",
+            className: "px-6 w-full lg:w-auto",
+            size: "lg"
           })}
         >
           {dict.home.devotion}
@@ -41,7 +41,7 @@ export default async function Home({ params }: LangProps) {
         <LocalizedLink
           href={`/howtodao${getPageRoutesForSection("howtodao")[0].href}`}
           className={buttonVariants({
-            variant: "secondary",
+            variant: "howtodao",
             className: "px-6 w-full lg:w-auto",
             size: "lg",
           })}
@@ -51,7 +51,7 @@ export default async function Home({ params }: LangProps) {
         <LocalizedLink
           href={`/daohorizons`}
           className={buttonVariants({
-            variant: "secondary",
+            variant: "daohorizons",
             className: "px-6 w-full lg:w-auto",
             size: "lg",
           })}
@@ -61,7 +61,7 @@ export default async function Home({ params }: LangProps) {
         <LocalizedLink
           href={`/conciliatorics${getPageRoutesForSection("conciliatorics")[0].href}`}
           className={buttonVariants({
-            variant: "secondary",
+            variant: "conciliatorics",
             className: "px-6 w-full lg:w-auto",
             size: "lg",
           })}
@@ -69,11 +69,11 @@ export default async function Home({ params }: LangProps) {
           {dict.home.conciliatorics}
         </LocalizedLink>
       </div>
-      
-      <span className="flex flex-row items-start sm:gap-2 gap-0.5 text-muted-foreground text-md mt-7 font-code sm:text-base text-sm font-medium">
-        <CompassIcon className="w-5 h-5 sm:mr-1 mt-0.5" />
+
+      <span className="flex flex-row items-start sm:gap-2 gap-0.5 text-muted-foreground text-md mt-7 font-code sm:text-base text-sm font-medium animate-in slide-in-from-bottom-4 fade-in duration-700 delay-600">
+        <img src="/images/icon-transparent.png" alt="" className="w-6 h-6 sm:mr-1 mt-0.5" />
         {"Choose your path"}
-        <CompassIcon className="w-5 h-5 sm:mr-1 mt-0.5" />
+        <img src="/images/icon-transparent.png" alt="" className="w-6 h-6 sm:mr-1 mt-0.5" />
       </span>
     </div>
   );

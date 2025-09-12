@@ -7,9 +7,9 @@ When building a DAO, leveraging utility libraries can significantly reduce devel
 
 ---
 
-## **Why Use Utility Libraries?**  
+## Why Use Utility Libraries?  
 
-### **Advantages of Pre-Built Components**  
+### Advantages of Pre-Built Components  
 - **Security** – Libraries like OpenZeppelin are rigorously audited, reducing the risk of vulnerabilities.  
 - **Efficiency** – Developers can implement governance features quickly without reinventing core logic.  
 - **Interoperability** – Standardized libraries ensure compatibility with other governance frameworks and tools.  
@@ -19,9 +19,9 @@ However, relying on utility libraries means accepting their design constraints�
 
 ---
 
-## **Key Utility Libraries for DAOs**  
+## Key Utility Libraries for DAOs  
 
-### **OpenZeppelin Governance Contracts**  
+### OpenZeppelin Governance Contracts  
 OpenZeppelin’s Governor contract provides a secure, modular framework for token-based governance. It supports various governance configurations, including:  
 
 - **Proposal creation & voting mechanisms** (e.g., simple majority, quorum-based).  
@@ -37,7 +37,7 @@ OpenZeppelin’s Governor contract provides a secure, modular framework for toke
 
 ---
 
-### **OpenZeppelin Access Control**  
+### OpenZeppelin Access Control  
 Access control is critical for managing permissions and restricting actions within a DAO’s smart contract system. OpenZeppelin offers:  
 
 - **Ownable (`Ownable.sol`)** – A single owner or multisig controls permissions.  
@@ -47,7 +47,7 @@ Access control is critical for managing permissions and restricting actions with
 
 ---
 
-### **OpenZeppelin Upgradable Contracts**  
+### OpenZeppelin Upgradable Contracts  
 Many DAOs require contract upgrades over time. OpenZeppelin provides proxy-based upgradability patterns, allowing DAOs to:  
 
 - Deploy minimal proxies for gas-efficient contract cloning.  
@@ -58,7 +58,7 @@ Many DAOs require contract upgrades over time. OpenZeppelin provides proxy-based
 
 ---
 
-### **Snapshot.js**  
+### Snapshot.js  
 Snapshot is an off-chain voting mechanism widely used in DAOs that want to avoid gas fees for governance participation.  
 
 - Voting power is calculated at a specific block snapshot.  
@@ -69,7 +69,7 @@ Snapshot is an off-chain voting mechanism widely used in DAOs that want to avoid
 
 ---
 
-### **OZ Defender** (Optional Security Automation)  
+### OZ Defender (Optional Security Automation)  
 For DAOs needing automated security measures, OpenZeppelin Defender provides:  
 
 - **Automated proposal execution** via multisig or timelock controls.  
@@ -80,7 +80,7 @@ For DAOs needing automated security measures, OpenZeppelin Defender provides:
 
 ---
 
-## **Choosing the Right Utility Libraries for Your DAO**  
+## Choosing the Right Utility Libraries for Your DAO  
 
 | **DAO Requirement** | **Recommended Library** |
 |--------------------|----------------------|
@@ -92,7 +92,7 @@ For DAOs needing automated security measures, OpenZeppelin Defender provides:
 
 ---
 
-## **Final Thoughts**  
+## Final Thoughts  
 
 Utility libraries streamline DAO development, making it easier to implement governance mechanisms securely and efficiently. By leveraging these libraries, DAOs can focus on governance innovation rather than reinventing foundational components.  
 

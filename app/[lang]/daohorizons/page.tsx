@@ -19,10 +19,10 @@ export default async function BlogIndexPage({ params }: LangProps) {
   return (
     <div className="w-full mx-auto flex flex-col gap-1 sm:min-h-[91vh] min-h-[88vh] pt-2">
       <div className="mb-7 flex flex-col gap-2">
-        <h1 className="text-3xl font-extrabold">{dict.blog.title}</h1>
-        <p className="text-muted-foreground">{dict.blog.sub_title}</p>
+        <h1 className="text-3xl font-extrabold animate-in slide-in-from-bottom-4 fade-in duration-700">{dict.blog.title}</h1>
+        <p className="text-muted-foreground animate-in slide-in-from-bottom-4 fade-in duration-700">{dict.blog.sub_title}</p>
       </div>
-      <div className="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 sm:gap-8 gap-4 mb-5">
+      <div className="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 sm:gap-8 gap-4 mb-5 animate-in slide-in-from-bottom-4 fade-in duration-700 delay-400">
         {blogs.map((blog) => (
           <BlogCard {...blog} slug={blog.slug} key={blog.slug} dict={dict} />
         ))}
@@ -30,6 +30,7 @@ export default async function BlogIndexPage({ params }: LangProps) {
     </div>
   );
 }
+
 
 function BlogCard({
   date,

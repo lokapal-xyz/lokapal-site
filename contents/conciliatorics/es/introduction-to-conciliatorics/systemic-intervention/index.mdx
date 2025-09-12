@@ -9,17 +9,11 @@ La dinámica del comportamiento da lugar a **varios tipos** de interacciones y c
 
 - **INTERVENTOR**: Miembro que implementa la intervención sistémica en un sistema.
 
-```mermaid
----
-title: Intervención Sistémica
----
-flowchart LR
-    A(**Miembro**)
-    B(*Medio*)
-    C(Sistema)
-    A --> B
-    B --> C
-```
+<img 
+  src="/images/intervencion-sistemica.svg" 
+  alt="Boundedness Spectrum" 
+  style={{ width: '100%', margin: '0 auto', display: 'block' }} 
+/>
 
 El comportamiento de un miembro puede ser intencional o no intencional, localizado o expansivo, a corto plazo o planificado, etc. La intervención sistémica es intencional, expansiva y planificada. Este comportamiento designa a un miembro como **interventor**. Esta etiqueta no le impide desempeñar otros roles dentro del sistema. El mismo miembro puede tener muchas otras etiquetas de interacción. Los desarrollos teóricos futuros de la Dinámica del Comportamiento introducirán etiquetas de interacción adicionales.
 
@@ -29,31 +23,19 @@ De los diferentes subtipos de intervenciones sistémicas, nos centraremos en uno
 
 - **INTERVENCIÓN SISTÉMICA INVENTIVA**: Exploración del medio de un sistema que busca influir en su comportamiento.
 
-```mermaid
-flowchart TB
-    A(**Intervencion Sistemica**) --> B(Intervencion Sistemica No Inventiva)
-    A --> C(Intervencion Sistemica Inventiva)
-```
+<img 
+  src="/images/intervencion-sistemica2.svg" 
+  alt="Boundedness Spectrum" 
+  style={{ width: '100%', margin: '0 auto', display: 'block' }} 
+/>
 
 La intervención inventiva se centra en manipular el medio antes de proceder a sus efectos. Esto potencia la intervención sistémica prevista. Mientras el medio se transforma a su estado deseado, el interventor también puede mejorar su destreza. Esto crea un complejo ciclo de retroalimentación entre las tres entidades sistémicas, lo que potencia aún más su comportamiento.
 
-```mermaid
----
-title: Intervencion Sistemica Inventiva
----
-flowchart LR
-    A(**Miembro**)
-    B(*Medio A*)
-    C(Sistema)
-    D(*Medio B*)
-    E(*Medio C*)
-    A <---> B
-    B -.-> C
-    A <---> D
-    D -.-> C
-    A ==> E
-    E ==> C
-```
+<img 
+  src="/images/intervencion-sistemica-inventiva2.svg" 
+  alt="Boundedness Spectrum" 
+  style={{ width: '100%', margin: '0 auto', display: 'block' }} 
+/>
 
 Al añadir múltiples intervinientes a esta retroalimentación, y considerando la dinámica espacial y temporal, se obtiene un comportamiento altamente complejo. Para gestionar eficazmente la intervención inventiva a este nivel analítico, necesitamos una base concisa pero flexible. Por lo tanto, para abordar esta complejidad, la desglosaremos en **parcelas diferenciadas**.
 

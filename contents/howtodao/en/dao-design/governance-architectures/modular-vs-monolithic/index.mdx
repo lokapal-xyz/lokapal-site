@@ -9,30 +9,30 @@ When designing the smart contract architecture of a DAO, one of the fundamental 
 
 ## Understanding the Two Approaches  
 
-### **Monolithic Contract Design**  
+### Monolithic Contract Design  
 A monolithic contract structure places all core DAO functionalities within a single smart contract or a tightly coupled set of contracts.  
 
-#### **Benefits:**  
+#### Benefits:  
 - **Simplicity**: Easier to understand and audit since all logic is contained within a single framework.  
 - **Lower overhead**: Fewer interactions between contracts mean reduced gas costs and complexity.  
 - **Predictability**: Governance logic is hardcoded, making it more resistant to unforeseen interactions.  
 
-#### **Drawbacks:**  
+#### Drawbacks:  
 - **Limited flexibility**: Changing or upgrading governance logic often requires redeploying the entire contract.  
 - **Higher risk exposure**: A single vulnerability in the contract can compromise the entire system.  
 - **Scalability concerns**: As the DAO grows, a monolithic structure may become difficult to maintain or extend.  
 
 ---
 
-### **Modular Contract Design**  
+### Modular Contract Design  
 A modular approach breaks governance logic into multiple independent or semi-independent smart contracts that interact with each other. These modules can include core contracts, access control layers, voting mechanisms, treasury management, and governance extensions.  
 
-#### **Benefits:**  
+#### Benefits:  
 - **Flexibility**: Individual components can be updated or replaced without affecting the entire system.  
 - **Security compartmentalization**: Bugs or exploits in one module are less likely to compromise the entire DAO.  
 - **Customizability**: Different DAOs can mix and match modules to fit their governance needs.  
 
-#### **Drawbacks:**  
+#### Drawbacks:  
 - **Increased complexity**: More contracts interacting means a greater risk of unintended behaviors.  
 - **Higher gas costs**: Multiple contract calls can increase execution costs.  
 - **Interdependency risks**: If modules rely too heavily on one another, changes in one can create unexpected issues elsewhere.  

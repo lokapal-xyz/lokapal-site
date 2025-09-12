@@ -1,4 +1,4 @@
-import { siGithub, siX, siLogmein, siSubstack, siTelegram, siMedium, siProcessingfoundation, siMega } from 'simple-icons';
+import { siGithub, siX, siLogmein, siSubstack, siTelegram, siMedium, siProducthunt, siMega } from 'simple-icons';
 
 interface SimpleIconProps {
   size?: number;
@@ -95,7 +95,7 @@ export function MediumIcon({ size = 24, className = "" }: SimpleIconProps) {
   );
 }
 
-export function PfIcon({ size = 24, className = "" }: SimpleIconProps) {
+export function PhIcon({ size = 24, className = "" }: SimpleIconProps) {
   return (
     <svg
       role="img"
@@ -105,22 +105,7 @@ export function PfIcon({ size = 24, className = "" }: SimpleIconProps) {
       className={className}
       fill="currentColor"
     >
-      <path d={siProcessingfoundation.path} />
-    </svg>
-  );
-}
-
-export function MegaIcon({ size = 24, className = "" }: SimpleIconProps) {
-  return (
-    <svg
-      role="img"
-      viewBox="0 0 24 24"
-      width={size}
-      height={size}
-      className={className}
-      fill="currentColor"
-    >
-      <path d={siMega.path} />
+      <path d={siProducthunt.path} />
     </svg>
   );
 }
