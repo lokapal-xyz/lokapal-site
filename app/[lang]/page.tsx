@@ -4,6 +4,7 @@ import { getDictionary, LangProps } from "@/lib/dictionaries";
 import { getPageRoutesForSection } from "@/lib/routes-config";
 import { MoveUpRightIcon } from "lucide-react";
 import Link from "next/link";
+import Image from 'next/image';
 
 export default async function Home({ params }: LangProps) {
   const { lang } = await params;
@@ -70,10 +71,22 @@ export default async function Home({ params }: LangProps) {
         </LocalizedLink>
       </div>
 
-      <span className="flex flex-row items-start sm:gap-2 gap-0.5 text-muted-foreground text-md mt-7 font-code sm:text-base text-sm font-medium animate-in slide-in-from-bottom-4 fade-in duration-700 delay-600">
-        <img src="/images/icon-transparent.png" alt="" className="w-6 h-6 sm:mr-1 mt-0.5" />
+      <span className="flex flex-row italic items-start sm:gap-2 gap-0.5 text-muted-foreground text-md mt-7 font-code sm:text-base text-sm font-medium animate-in slide-in-from-bottom-4 fade-in duration-700 delay-600">
+        <Image
+          src="/images/icon-transparent.png"
+          alt=""
+          width={388}
+          height={388}
+          className="w-6 h-6 sm:mr-1 mt-0.5"
+        />
         {"Choose your path"}
-        <img src="/images/icon-transparent.png" alt="" className="w-6 h-6 sm:mr-1 mt-0.5" />
+        <Image
+          src="/images/icon-transparent.png"
+          alt=""
+          width={388}
+          height={388}
+          className="w-6 h-6 sm:mr-1 mt-0.5"
+        />
       </span>
     </div>
   );

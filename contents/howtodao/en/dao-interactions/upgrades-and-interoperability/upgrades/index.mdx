@@ -7,7 +7,7 @@ Smart contract upgrades are crucial for enhancing security, adding features, and
 
 ---
 
-## **Why Smart Contract Upgrades Matter**  
+## Why Smart Contract Upgrades Matter  
 
 While smart contracts are often designed to be immutable, many DAOs rely on upgradeable contracts to adapt over time. Upgrades may be necessary for:  
 
@@ -18,11 +18,11 @@ While smart contracts are often designed to be immutable, many DAOs rely on upgr
 
 ---
 
-## **Upgradeability Models for DAOs**  
+## Upgradeability Models for DAOs  
 
 DAOs can manage smart contract upgrades through different models, each with trade-offs between flexibility and security:  
 
-### **Immutable Contracts (No Upgrades)**  
+### Immutable Contracts (No Upgrades)  
 - Contracts are fully immutable after deployment.  
 - Governance changes require deploying new contracts and migrating funds/tokens.  
   - **Pro:** Maximum security and decentralization.  
@@ -30,22 +30,22 @@ DAOs can manage smart contract upgrades through different models, each with trad
 
 ---
 
-### **Proxy Upgrade Patterns**  
+### Proxy Upgrade Patterns  
 Proxy contracts allow DAOs to update logic while keeping the same contract address. Common proxy patterns include:  
 
-#### **Transparent Proxy Pattern**  
+#### Transparent Proxy Pattern  
 - Uses an admin-controlled proxy that points to an upgradeable implementation.  
 - Only authorized entities (DAO governance or multisig) can approve upgrades.  
   - **Pro:** Allows upgrades without disrupting user interactions.  
   - **Con:** Potential centralization risks if governance is not sufficiently decentralized.  
 
-#### **UUPS (Universal Upgradeable Proxy Standard)**  
+#### UUPS (Universal Upgradeable Proxy Standard)  
 - The implementation contract contains its own upgrade logic.  
 - Requires governance approval for upgrades rather than relying on an external admin contract.  
   - **Pro:** Reduces upgrade complexity and potential attack surface.  
   - **Con:** A flawed upgrade can permanently break the contract.  
 
-#### **Diamond Standard (EIP-2535)**  
+#### Diamond Standard (EIP-2535)  
 - Uses modular smart contracts (facets) instead of a single implementation contract.  
 - DAOs can upgrade or add specific functionalities without redeploying the entire contract.  
   - **Pro:** Highly flexible, supports custom governance rules.  
@@ -53,34 +53,34 @@ Proxy contracts allow DAOs to update logic while keeping the same contract addre
 
 ---
 
-## **Ensuring Decentralized and Secure Upgrades**  
+## Ensuring Decentralized and Secure Upgrades  
 
 When managing upgrades, DAOs must balance flexibility with security to prevent centralized takeovers or malicious upgrades. Best practices include:  
 
-### **Governance-Driven Upgrades**  
+### Governance-Driven Upgrades  
 - Require on-chain voting for major contract upgrades.  
 - Use time delays (Timelocks) to prevent instant malicious upgrades.  
 - Implement gradual rollouts to mitigate risks.  
 
 ---
 
-### **Security-Focused Upgrades**  
+### Security-Focused Upgrades  
 - **Pre-upgrade Audits** → Conduct internal and external audits before deployment.  
 - **Bug Bounty Programs** → Reward researchers for discovering vulnerabilities before upgrades go live.  
 - **Kill Switches & Rollback Mechanisms** → Implement emergency shutdown features in case of faulty upgrades.  
 
 ---
 
-### **Upgrade Transparency and Communication**  
+### Upgrade Transparency and Communication  
 - **Publicly document upgrade proposals** → Provide technical breakdowns and justifications.  
 - **Testnet Deployments** → Allow the community to test upgrades before mainnet implementation.  
 - **Community Signaling** → Gather feedback through forum discussions and off-chain governance tools.  
 
 ---
 
-## **Challenges and Considerations**  
+## Challenges and Considerations  
 
-### **Risks of Poorly Managed Upgrades**  
+### Risks of Poorly Managed Upgrades  
 - **Centralization Risks** → If a small group controls upgrades, it undermines DAO decentralization.  
 - **Security Vulnerabilities** → Improper upgrade logic can introduce new attack vectors.  
 - **Community Backlash** → Lack of transparency in upgrade decisions can erode trust.  

@@ -352,7 +352,7 @@ export const HOWTODAO_ROUTES: EachRoute[] = [
         noLink: true,
         items: [
           { title: "introduction", href: "/introduction" },
-          { title: "vulnerabilities", href: "/offchaivulnerabilitiesn" },
+          { title: "vulnerabilities", href: "/vulnerabilities" },
           { title: "governance-risks", href: "/governance-risks" },
           { title: "monitoring", href: "/monitoring" },
           { title: "off-chain-security", href: "/off-chain-security" },

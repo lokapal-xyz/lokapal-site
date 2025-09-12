@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import { getDocsForSlug } from "@/lib/markdown";
 import { Typography } from "@/components/typography";
 import { getDictionary, LangProps } from "@/lib/dictionaries";
+import Image from "next/image";
 
 type PageProps = {
   params: Promise<{ slug: string[] }>;
@@ -35,9 +36,11 @@ export default async function DocsPage(props: PageProps) {
           <p className="-mt-4 text-muted-foreground italic text-[16.5px] animate-in slide-in-from-bottom-4 fade-in duration-700">
             {res.frontmatter.description}
           </p>
-          <img 
-            src="/images/banner-green.png" 
-            alt="" 
+          <Image
+            src="/images/banner-green.png"
+            alt=""
+            width={1580}
+            height={140}
             className="animate-in slide-in-from-bottom-4 fade-in duration-700 delay-400"
           />
           <div className="animate-in slide-in-from-bottom-4 fade-in duration-700 delay-600">

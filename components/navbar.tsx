@@ -10,6 +10,7 @@ import { SheetClose } from "@/components/ui/sheet";
 import LangSelect from "./lang-select";
 import { Dictionary } from "@/lib/dictionaries";
 import LocalizedLink from "./localized-link";
+import Image from "next/image";
 
 // Update your navbar config
 export const NAVLINKS = [
@@ -148,9 +149,11 @@ export function Navbar({
 export function Logo() {
   return (
     <LocalizedLink href="/" className="flex items-center gap-2.5 pl-5">
-      <img 
-        src="/images/icon-transparent.png" 
-        alt="" 
+      <Image
+        src="/images/icon-transparent.png"
+        alt=""
+        width={388}
+        height={388}
         className="w-8 h-8"
       />
       <h2 className="text-md font-bold font-code">Lokapal</h2>

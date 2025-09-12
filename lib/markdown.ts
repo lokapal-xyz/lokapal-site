@@ -32,6 +32,7 @@ const components = {
   Stepper,
   StepperItem,
   img: Image,
+  Image: Image,
   a: Link,
   Outlet,
 };
