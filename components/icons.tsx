@@ -1,4 +1,4 @@
-import { siGithub, siX, siLogmein, siSubstack, siTelegram, siMedium, siProducthunt, siMega } from 'simple-icons';
+import { siGithub, siX, siLogmein, siSubstack, siTelegram, siMedium, siProducthunt } from 'simple-icons';
 
 interface SimpleIconProps {
   size?: number;
