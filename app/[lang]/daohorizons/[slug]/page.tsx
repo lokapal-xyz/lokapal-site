@@ -30,10 +30,10 @@ export async function generateMetadata(props: PageProps & LangProps) {
 }
 
 export async function generateStaticParams(props: {
-  params: Promise<{ lang: Locale }>
-}) {
-  const { lang } = await props.params;
-  const val = await getAllBlogStaticPaths(lang);
+  params: { lang: string; slug: string }
+}): Promise<{ slug: string }[]> {
+  const { lang } = props.params;
+  const val = await getAllBlogStaticPaths(lang as Locale);
   if (!val) return [];
   return val.map((it) => ({ slug: it }));
 }
