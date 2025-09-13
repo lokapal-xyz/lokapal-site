@@ -9,7 +9,6 @@ import { formatDate } from "@/lib/utils";
 import Image from "next/image";
 import { getDictionary, LangProps } from "@/lib/dictionaries";
 import LocalizedLink from "@/components/localized-link";
-import { Locale } from "@/lib/locale";
 
 type PageProps = {
   params: Promise<{ slug: string }>;
@@ -29,11 +28,9 @@ export async function generateMetadata(props: PageProps & LangProps) {
   };
 }
 
-export async function generateStaticParams(props: {
-  params: { lang: string; slug: string }
-}): Promise<{ slug: string }[]> {
-  const { lang } = props.params;
-  const val = await getAllBlogStaticPaths(lang as Locale);
+export async function generateStaticParams({ params }: LangProps) {
+  const { lang } = await params;
+  const val = await getAllBlogStaticPaths(lang);
   if (!val) return [];
   return val.map((it) => ({ slug: it }));
 }
