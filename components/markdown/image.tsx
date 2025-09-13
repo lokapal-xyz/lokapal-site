@@ -4,8 +4,8 @@ import NextImage, { ImageProps } from "next/image";
 type CustomImageProps = Omit<ImageProps, 'src' | 'alt' | 'width' | 'height'> & {
   src: string;
   alt: string;
-  width?: number; // Make these optional
-  height?: number; // Make these optional
+  width?: number;
+  height?: number;
 };
 
 export default function Image({
@@ -13,31 +13,37 @@ export default function Image({
   alt,
   width,
   height,
-  quality = 100, // Default quality to 75 (or remove to use Next.js default)
+  quality = 75, // Reduced from 100 to 75 for better performance
+  sizes,
+  priority = false,
   ...props
 }: CustomImageProps) {
   if (!src) return null;
 
-  // Next.js requires width and height for static images.
-  // A common pattern is to either:
-  // 1. Make the caller provide them.
-  // 2. Use `fill` for responsive images.
-  // 3. Use `sizes` and `width/height` with `layout="responsive"` (deprecated).
-  //
-  // If you are using this component for icons, you must pass `width` and `height`.
-  if (typeof width !== "number" || typeof height !== "number") {
-    console.warn("The `Image` component requires both `width` and `height` props for static images.");
-    // Or throw an error to fail early
-    // throw new Error("`width` and `height` are required for this `Image` component.");
-  }
+  // Provide default dimensions if not specified
+  const defaultWidth = width || 800;
+  const defaultHeight = height || 600;
+
+  // Default sizes for responsive images
+  const defaultSizes = sizes || "(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 60vw";
 
   return (
     <NextImage
       src={src}
       alt={alt}
-      width={width}
-      height={height}
+      width={defaultWidth}
+      height={defaultHeight}
       quality={quality}
+      sizes={defaultSizes}
+      priority={priority}
+      // Add loading optimization
+      placeholder="blur"
+      blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQAAAAEAAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bK"
+      style={{
+        width: '100%',
+        height: 'auto',
+        ...props.style
+      }}
       {...props}
     />
   );
