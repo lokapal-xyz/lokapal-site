@@ -3,7 +3,7 @@ import { ThemeProvider } from "@/components/contexts/theme-provider";
 import { Navbar } from "@/components/navbar";
 import { Space_Mono, Space_Grotesk } from "next/font/google";
 import { Footer } from "@/components/footer";
-import { getDictionary, LangProps } from "@/lib/dictionaries";
+import { getDictionary } from "@/lib/dictionaries";
 import { ClientDictionary } from "@/components/contexts/dictionary-provider";
 import { locales, Locale } from "@/lib/locale";
 import "@/styles/globals.css";
