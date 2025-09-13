@@ -5,8 +5,9 @@ import { Space_Mono, Space_Grotesk } from "next/font/google";
 import { Footer } from "@/components/footer";
 import { getDictionary, LangProps } from "@/lib/dictionaries";
 import { ClientDictionary } from "@/components/contexts/dictionary-provider";
-import { locales } from "@/lib/locale";
+import { locales, Locale } from "@/lib/locale";
 import "@/styles/globals.css";
+
 
 const sansFont = Space_Grotesk({
   subsets: ["latin"],
@@ -22,9 +23,13 @@ const monoFont = Space_Mono({
   weight: "400",
 });
 
-export async function generateMetadata(params: LangProps): Promise<Metadata> {
-  const { lang } = await params.params;
-  const dict = await getDictionary(lang);
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ lang: string }>;
+}): Promise<Metadata> {
+  const { lang } = await params;
+  const dict = await getDictionary(lang as Locale);
   return {
     title: dict.metadata.title,
     metadataBase: new URL("https://lokapal.xyz/"),
@@ -38,13 +43,12 @@ export async function generateMetadata(params: LangProps): Promise<Metadata> {
 export default async function RootLayout({
   children,
   params,
-}: Readonly<
-  {
-    children: React.ReactNode;
-  } & LangProps
->) {
+}: Readonly<{
+  children: React.ReactNode;
+  params: Promise<{ lang: string }>;
+}>) {
   const { lang } = await params;
-  const dict = await getDictionary(lang);
+  const dict = await getDictionary(lang as Locale);
   return (
     <html lang={lang} suppressHydrationWarning>
       <body
@@ -58,7 +62,7 @@ export default async function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <Navbar dict={dict} lang={lang} />
+            <Navbar dict={dict} lang={lang as Locale} />
             <main className="sm:container mx-auto w-[90vw] h-auto scroll-smooth">
               {children}
             </main>
