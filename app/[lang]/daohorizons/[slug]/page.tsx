@@ -74,6 +74,7 @@ export default async function BlogPage(props: PageProps & LangProps) {
             alt="cover"
             width={700}
             height={400}
+            priority
             className="w-full h-[400px] rounded-md border object-cover"
           />
         </div>

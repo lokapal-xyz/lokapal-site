@@ -54,6 +54,7 @@ function BlogCard({
           width={400}
           height={150}
           quality={80}
+          priority
           className="w-full rounded-md object-cover h-[180px] border"
         />
       </div>
