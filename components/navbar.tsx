@@ -25,8 +25,8 @@ export const NAVLINKS = [
     absolute: true,
   },
   {
-    title: "daohorizons",
-    href: "/daohorizons",
+    title: "thoughtchain",
+    href: "/thoughtchain",
   },
   {
     title: "conciliatorics",
@@ -124,7 +124,7 @@ export function Navbar({
                 <MediumIcon className="h-[1.1rem] w-[1.1rem]" />
               </Link>
               <Link
-                href="https://paragraph.com/@daohorizons"
+                href="https://paragraph.com/@thoughtchain"
                 className={buttonVariants({
                   variant: "ghost",
                   size: "icon",

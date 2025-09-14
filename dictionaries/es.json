@@ -1,16 +1,16 @@
 {
     "metadata": {
         "title": "Lokapal",
-        "description": "Lokapal es una plataforma de contenido para el diseño, la comprensión y el impacto de los DAOs."
+        "description": "Lokapal es una plataforma de contenido para el diseño, la comprensión y el impacto de la web3."
     },
     "home": {
         "linktree": "Un proyecto de lokapal.eth",
-        "main_header": "Explorando el Futuro de la Gobernanza Descentralizada.",
-        "sub_header": "Una plataforma de contenidos sobre DAOs — que incluye relatos web3, guías educativas, artículos de investigación, indagaciones filosóficas y apoyo en gobernanza.",
-        "devotion": "Devoción - Para DAO Exploradores",
-        "howtodao": "Guía DAO - Para DAO Principiantes",
-        "daohorizons": "DAO Horizontes - Para DAO Entusiastas",
-        "conciliatorics": "Concliatórica - Para DAO Teóricos",
+        "main_header": "Explorando historias e ideas en la Web3",
+        "sub_header": "Una plataforma de contenidos web3 — que incluye criptonovelas, ensayos, guías educativas e indagaciones filosóficas.",
+        "devotion": "Devoción - Para Lectores",
+        "howtodao": "Guía DAO - Para Estudiantes",
+        "thoughtchain": "Thoughtchain - Para Exploradores",
+        "conciliatorics": "Concliatórica - Para Teóricos",
         "name": "Lokapal"
     },
     "footer": {
@@ -21,9 +21,9 @@
     },
     "navbar": {
         "links": {
-            "devotion": "Serie Web3",
+            "devotion": "Literatura",
             "howtodao": "Educación",
-            "daohorizons": "Investigación",
+            "thoughtchain": "Ensayos",
             "conciliatorics": "Filosofía",
             "about": "Sobre Nosotros"
         },
@@ -266,8 +266,8 @@
         
     },
     "blog": {
-        "title": "DAO Horizontes",
-        "sub_title": "Bienvenidos a la plataforma de investigación de Lokapal, dedicada a explorar la gobernanza descentralizada (DeGov), las estructuras de las DAOs, y los fundamentos filosófico-sistémicos de la descentralización. Mediante análisis rigurosos y perspectivas interdisciplinarias, DAO Horizontes busca conectar la teoría con la práctica en el cambiante mundo de las DAOs.",
+        "title": "Thoughtchain",
+        "sub_title": "Bienvenidos al espacio de ensayos de Lokapal. Esta sección incluye artículos de investigación, tópicos web3 relevantes, herramientas educativas, expansiones narrativas, exploraciones filosóficas y actualizaciones de Lokapal.",
         "published_on": "Publicado el",
         "back_to_blog": "Volver al Inicio",
         "posted_by": "Publicado por"

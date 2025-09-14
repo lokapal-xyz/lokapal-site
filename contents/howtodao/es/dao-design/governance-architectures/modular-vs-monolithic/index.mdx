@@ -9,32 +9,32 @@ Al diseñar la arquitectura de contratos inteligentes de una DAO, una de las dec
 
 ## Entendiendo los dos enfoques
 
-### **Diseño monolítico de contratos**
+### Diseño monolítico de contratos
 Una estructura monolítica de contratos integra todas las funcionalidades principales de una DAO en un único contrato inteligente o en un conjunto de contratos estrechamente acoplados.
 
-#### **Beneficios:**
+#### Beneficios:
 - **Simplicidad**: Más fácil de entender y auditar, ya que toda la lógica se encuentra en un único marco.
 - **Menor sobrecarga**: Menos interacciones entre contratos implican menores costos de gas y complejidad.
 - **Predictibilidad**: La lógica de gobernanza está codificada, lo que la hace más resistente a interacciones imprevistas.
 
-#### **Desventajas:**
+#### Desventajas:
 - **Flexibilidad limitada**: Cambiar o actualizar la lógica de gobernanza a menudo requiere reimplementar todo el contrato. 
 - **Mayor exposición al riesgo**: Una sola vulnerabilidad en el contrato puede comprometer todo el sistema.
 - **Problemas de escalabilidad**: A medida que la DAO crece, una estructura monolítica puede resultar difícil de mantener o ampliar.
 
 ---
 
-### **Diseño de contrato modular**
+### Diseño de contrato modular
 Un enfoque modular divide la lógica de gobernanza en múltiples contratos inteligentes independientes o semi-independientes que interactúan entre sí. Estos módulos pueden incluir contratos centrales, capas de control de acceso, mecanismos de votación, gestión de tesorería y extensiones de gobernanza.
 
-#### **Beneficios:**
+#### Beneficios:
 - **Flexibilidad**: Los componentes individuales se pueden actualizar o reemplazar sin afectar a todo el sistema.
 
 - **Compartimentación de seguridad**: Es menos probable que los errores o exploits en un módulo comprometan toda la DAO.
 
 - **Personalización**: Diferentes DAOs pueden combinar módulos para adaptarse a sus necesidades de gobernanza.
 
-#### **Desventajas:**
+#### Desventajas:
 - **Mayor complejidad**: Un mayor número de contratos interactuando implica un mayor riesgo de comportamientos no deseados. 
 - **Mayores costos de gas**: Múltiples llamadas a contratos pueden aumentar los costos de ejecución.
 - **Riesgos de interdependencia**: Si los módulos dependen demasiado unos de otros, los cambios en uno pueden generar problemas inesperados en otros.

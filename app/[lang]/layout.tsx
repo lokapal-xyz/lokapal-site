@@ -48,7 +48,7 @@ export default async function RootLayout({
   return (
     <html lang={lang} suppressHydrationWarning>
       <body
-        className={`${sansFont.variable} ${monoFont.variable} font-regular antialiased tracking-wide`}
+        className={`${sansFont.variable} ${monoFont.variable} font-regular antialiased tracking-wide min-h-screen flex flex-col`}
         suppressHydrationWarning
       >
         <ClientDictionary dict={dict}>
@@ -59,7 +59,7 @@ export default async function RootLayout({
             disableTransitionOnChange
           >
             <Navbar dict={dict} lang={lang} />
-            <main className="sm:container mx-auto w-[90vw] h-auto scroll-smooth">
+            <main className="sm:container mx-auto w-[90vw] flex-1 scroll-smooth">
               {children}
             </main>
             <Footer dict={dict} />

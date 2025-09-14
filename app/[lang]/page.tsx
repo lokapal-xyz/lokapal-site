@@ -10,12 +10,22 @@ export default async function Home({ params }: LangProps) {
   const { lang } = await params;
   const dict = await getDictionary(lang);
   return (
-    <div className="flex min-h-[calc(100vh-4rem)] flex-col items-center justify-center text-center px-2 py-8">
+    <div className="flex flex-col items-center justify-center text-center px-2 py-8 min-h-[50vh] sm:min-h-[60vh] lg:min-h-[80vh] relative">
+      <div className="absolute inset-0 -z-10">
+        <div 
+          className="absolute h-full w-full opacity-25"
+          style={{
+            background: 'radial-gradient(currentColor 1px, transparent 1px)',
+            backgroundSize: '16px 16px',
+            maskImage: 'radial-gradient(ellipse 60% 60% at 50% 50%, #000 40%, transparent 80%)'
+          }}
+        ></div>
+      </div>
       <Link
         href="https://lokapal.eth.limo"
         target="_blank"
         rel="noopener noreferrer"
-        className="mb-5 sm:text-lg flex items-center gap-2 underline underline-offset-4 animate-in slide-in-from-bottom-4 fade-in duration-700"
+        className="mb-5 sm:text-lg flex items-center gap-2 underline underline-offset-4 animate-in slide-in-from-bottom-4 fade-in duration-700 transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
       >
         {dict.home.linktree}
         <MoveUpRightIcon className="w-4 h-4 font-extrabold" />
@@ -33,7 +43,7 @@ export default async function Home({ params }: LangProps) {
           href={`/devotion${getPageRoutesForSection("devotion")[0].href}`}
           className={buttonVariants({
             variant: "devotion",
-            className: "px-6 w-full lg:w-auto",
+            className: "px-6 w-full lg:w-auto transition-all duration-300 hover:shadow-lg hover:-translate-y-1",
             size: "lg"
           })}
         >
@@ -43,27 +53,27 @@ export default async function Home({ params }: LangProps) {
           href={`/howtodao${getPageRoutesForSection("howtodao")[0].href}`}
           className={buttonVariants({
             variant: "howtodao",
-            className: "px-6 w-full lg:w-auto",
+            className: "px-6 w-full lg:w-auto transition-all duration-300 hover:shadow-lg hover:-translate-y-1",
             size: "lg",
           })}
         >
           {dict.home.howtodao}
         </LocalizedLink>
         <LocalizedLink
-          href={`/daohorizons`}
+          href={`/thoughtchain`}
           className={buttonVariants({
-            variant: "daohorizons",
-            className: "px-6 w-full lg:w-auto",
+            variant: "thoughtchain",
+            className: "px-6 w-full lg:w-auto transition-all duration-300 hover:shadow-lg hover:-translate-y-1",
             size: "lg",
           })}
         >
-          {dict.home.daohorizons}
+          {dict.home.thoughtchain}
         </LocalizedLink>
         <LocalizedLink
           href={`/conciliatorics${getPageRoutesForSection("conciliatorics")[0].href}`}
           className={buttonVariants({
             variant: "conciliatorics",
-            className: "px-6 w-full lg:w-auto",
+            className: "px-6 w-full lg:w-auto transition-all duration-300 hover:shadow-lg hover:-translate-y-1",
             size: "lg",
           })}
         >
@@ -77,7 +87,7 @@ export default async function Home({ params }: LangProps) {
           alt=""
           width={388}
           height={388}
-          className="w-6 h-6 sm:mr-1 mt-0.5"
+          className="w-6 h-6 sm:mr-1 mt-0.5 animate-pulse"
         />
         {"Choose your path"}
         <Image
@@ -85,7 +95,7 @@ export default async function Home({ params }: LangProps) {
           alt=""
           width={388}
           height={388}
-          className="w-6 h-6 sm:mr-1 mt-0.5"
+          className="w-6 h-6 sm:mr-1 mt-0.5 animate-pulse delay-1000"
         />
       </span>
     </div>

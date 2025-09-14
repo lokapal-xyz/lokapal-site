@@ -32,7 +32,20 @@ export default async function AboutPage({ params }: LangProps) {
   if (!res) notFound();
 
   return (
-    <div className="flex flex-col lg:flex-row items-start gap-6 lg:gap-10 max-w-7xl mx-auto px-4 sm:px-6">
+    <div className="flex flex-col lg:flex-row items-start gap-6 lg:gap-10 max-w-7xl mx-auto px-4 sm:px-6 relative">
+      
+      {/* Dot pattern background */}
+      <div className="absolute inset-0 -z-10">
+        <div 
+          className="absolute h-full w-full opacity-25"
+          style={{
+            background: 'radial-gradient(currentColor 1px, transparent 1px)',
+            backgroundSize: '16px 16px',
+            maskImage: 'radial-gradient(ellipse 60% 60% at 50% 50%, #000 40%, transparent 80%)'
+          }}
+        ></div>
+      </div>
+
       {/* Main content */}
       <div className="flex-[4.5] pt-2 w-full lg:pl-32">
         <Typography>

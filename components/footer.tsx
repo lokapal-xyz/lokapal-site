@@ -13,7 +13,7 @@ export function Footer({ dict }: { dict: Dictionary }) {
             {dict.footer.built_by}{" "}
             <Link
               className="px-1 underline underline-offset-2"
-              href="https://x.com/lokapalxyz"
+              href="https://app.ens.domains/lokapal.eth"
             >
               lokapal.eth
             </Link>

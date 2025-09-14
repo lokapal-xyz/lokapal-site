@@ -1,16 +1,16 @@
 {
     "metadata": {
         "title": "Lokapal",
-        "description": "Lokapal is a content platform for DAO design, understanding, and impact."
+        "description": "Lokapal is a content platform for web3 design, understanding, and impact."
     },
     "home": {
         "linktree": "A project by lokapal.eth",
-        "main_header": "Exploring the Future of Decentralized Governance.",
-        "sub_header": "A platform for DAO-focused content — including web3 stories, educational guides, research articles, philosophical inquiries, and governance support.",
-        "devotion": "Devotion - For DAO Explorers",
-        "howtodao": "HowToDAO - For DAO Learners",
-        "daohorizons": "DAO Horizons - For DAO Enthusiasts",
-        "conciliatorics": "Conciliatorics - For DAO Theorists",
+        "main_header": "Exploring Stories and Thought in Web3",
+        "sub_header": "A web3 content platform — including crypto novels, essays, educational guides and philosophical inquiries.",
+        "devotion": "Devotion - For Readers",
+        "howtodao": "HowToDAO - For Learners",
+        "thoughtchain": "Thoughtchain - For Explorers",
+        "conciliatorics": "Conciliatorics - For Theorists",
         "name": "Lokapal"
     },
     "footer": {
@@ -21,9 +21,9 @@
     },
     "navbar": {
         "links": {
-            "devotion": "Web3 Series",
+            "devotion": "Literature",
             "howtodao": "Education",
-            "daohorizons": "Research",
+            "thoughtchain": "Essays",
             "conciliatorics": "Philosophy",
             "about": "About"
         },
@@ -39,7 +39,7 @@
         }
     },
     "devotion": {
-        "on_this_page": "Story sections",
+        "on_this_page": "On this page",
         "next": "Next",
         "previous": "Previous"
     },
@@ -263,8 +263,8 @@
 
     },
     "blog": {
-        "title": "DAO Horizons",
-        "sub_title": "Welcome to the research publication arm of Lokapal, dedicated to exploring decentralized governance (DeGov), DAO structures, and the philosophical and systemic foundations of decentralization. Through rigorous analysis and interdisciplinary insights, DAO Horizons aims to bridge theory and practice in the evolving world of DAOs.",
+        "title": "Thoughtchain",
+        "sub_title": "Welcome to the essays platform of Lokapal. This section includes research articles, web3 highlights, educational tools, lore expansions, philosophical explorations, and Lokapal updates.",
         "published_on": "Published on",
         "back_to_blog": "Back to Main",
         "posted_by": "Posted by"

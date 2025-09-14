@@ -7,42 +7,42 @@ La seguridad es la base de la confianza en las DAOs. Los contratos inteligentes 
 
 ---
 
-## **Principios para el desarrollo seguro de contratos inteligentes**
+## Principios para el desarrollo seguro de contratos inteligentes
 
-### **Minimizar la superficie de ataque**
+### Minimizar la superficie de ataque
 - Mantener los contratos lo más simples y modulares posible.
 - Reducir la complejidad on-chain innecesaria.
 - Evitar llamadas externas a contratos a menos que sea absolutamente necesario.
 
-### **Seguir patrones de seguridad establecidos**
+### Seguir patrones de seguridad establecidos
 - Utilizar librerías ampliamente probadas (p. ej., OpenZeppelin).
 - Implementar control de acceso con permisos "Ownable" o basados ​​en roles ("AccessControl").
 - Aplicar mecanismos de seguridad como interruptores automáticos y mecanismos de pausa de emergencia.
 
-### **Priorizar la actualizabilidad y la seguridad de la gobernanza**
+### Priorizar la actualizabilidad y la seguridad de la gobernanza
 - Si se utilizan contratos actualizables, garantizar controles administrativos estrictos. 
 - Documentar y restringir las acciones de gobernanza para evitar actualizaciones maliciosas.
 
 ---
 
-## **Prácticas de desarrollo seguro**
+## Prácticas de desarrollo seguro
 
-### **Usar frameworks y librerías de alta calidad**
+### Usar frameworks y librerías de alta calidad
 - Contratos OpenZeppelin para gobernanza, control de acceso y utilidades de seguridad.
 - Foundry o Hardhat para testeo fuzz y análisis de seguridad avanzados.
 
-### **Implementar tests y revisiones de seguridad exhaustivas**
+### Implementar tests y revisiones de seguridad exhaustivas
 - Tests unitarios para funciones individuales del contrato.
 - Tests basados en propiedades para casos extremos y entradas inesperadas.
 - Tests fuzz para simular vectores de ataque aleatorios.
 
-### **Diseño de contrato modular y actualizable**
+### Diseño de contrato modular y actualizable
 - Utilizar patrones de proxy (p. ej., UUPS o Proxy Transparente) con controles de administración restringidos.
 - Garantizar la inmutabilidad cuando no se requiera la capacidad de actualización.
 
 ---
 
-## **Auditoría y verificación formal**
+## Auditoría y verificación formal
 
 - **Revisiones internas**: Realizar revisiones por pares antes de implementar el código. 
 - **Auditorías de terceros**: Contrate auditores profesionales para revisiones de seguridad independientes.
@@ -50,7 +50,7 @@ La seguridad es la base de la confianza en las DAOs. Los contratos inteligentes 
 
 ---
 
-## **Mejores prácticas de seguridad para implementaciones de DAOs**
+## Mejores prácticas de seguridad para implementaciones de DAOs
 
 - Utilice multifirmas para controles de administración (p. ej., Gnosis Safe).
 - Implemente timelocks para cambios importantes en la gobernanza.
@@ -59,6 +59,6 @@ La seguridad es la base de la confianza en las DAOs. Los contratos inteligentes 
 
 ---
 
-## **Reflexiones finales**
+## Reflexiones finales
 
 El desarrollo seguro es fundamental para las DAOs. Al seguir estándares de seguridad probados, aprovechar librerías auditadas y realizar pruebas rigurosas, las DAOs pueden mitigar vulnerabilidades, prevenir exploits de gobernanza y desarrollar resiliencia a largo plazo.

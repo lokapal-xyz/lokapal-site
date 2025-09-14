@@ -240,7 +240,7 @@ export type BlogMdxFrontmatter = BaseMdxFrontmatter & {
 
 export async function getAllBlogStaticPaths(lang: Locale) {
   try {
-    const blogFolder = path.join(process.cwd(), `/contents/daohorizons/${lang}`);
+    const blogFolder = path.join(process.cwd(), `/contents/thoughtchain/${lang}`);
     const res = await fs.readdir(blogFolder);
     return res.map((file) => file.split(".")[0]);
   } catch (err) {
@@ -249,14 +249,14 @@ export async function getAllBlogStaticPaths(lang: Locale) {
 }
 
 export async function getAllBlogs(lang: Locale) {
-  const blogFolder = path.join(process.cwd(), `/contents/daohorizons/${lang}`);
+  const blogFolder = path.join(process.cwd(), `/contents/thoughtchain/${lang}`);
   const files = await fs.readdir(blogFolder);
   const uncheckedRes = await Promise.all(
     files.map(async (file) => {
       if (!file.endsWith(".mdx")) return undefined;
       const filepath = path.join(
         process.cwd(),
-        `/contents/daohorizons/${lang}/${file}`,
+        `/contents/thoughtchain/${lang}/${file}`,
       );
       const rawMdx = await fs.readFile(filepath, "utf-8");
       return {
@@ -273,7 +273,7 @@ export async function getAllBlogs(lang: Locale) {
 export async function getBlogForSlug(slug: string, lang: Locale) {
   const blogFile = path.join(
     process.cwd(),
-    "/contents/daohorizons/",
+    "/contents/thoughtchain/",
     `${lang}/${slug}.mdx`,
   );
   try {

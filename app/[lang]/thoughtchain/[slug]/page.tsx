@@ -45,42 +45,43 @@ export default async function BlogPage(props: PageProps & LangProps) {
 
   if (!res) notFound();
   return (
-    <div className="lg:w-[60%] sm:[95%] md:[75%] mx-auto">
-      <LocalizedLink
-        className={buttonVariants({
-          variant: "link",
-          className: "!mx-0 !px-0 mb-7 !-ml-1 animate-in slide-in-from-bottom-4 fade-in duration-700 ",
-        })}
-        href="/daohorizons"
-      >
-        <ArrowLeftIcon className="w-4 h-4 mr-1.5" /> {dict.blog.back_to_blog}
-      </LocalizedLink>
-      <div className="flex flex-col gap-3 pb-7 w-full mb-2">
-        <p className="text-muted-foreground text-sm animate-in slide-in-from-bottom-4 fade-in duration-700">
-          {formatDate(res.frontmatter.date)}
-        </p>
-        <h1 className="sm:text-4xl text-3xl font-extrabold animate-in slide-in-from-bottom-4 fade-in duration-700 delay-400">
-          {res.frontmatter.title}
-        </h1>
-        <div className="mt-6 flex flex-col gap-3 animate-in slide-in-from-bottom-4 fade-in duration-700 delay-400">
-          <p className="text-sm text-muted-foreground">{dict.blog.posted_by}</p>
-          <Authors authors={res.frontmatter.authors} />
+
+      <div className="lg:w-[60%] sm:[95%] md:[75%] mx-auto">
+        <LocalizedLink
+          className={buttonVariants({
+            variant: "link",
+            className: "!mx-0 !px-0 mb-7 !-ml-1 animate-in slide-in-from-bottom-4 fade-in duration-700 ",
+          })}
+          href="/thoughtchain"
+        >
+          <ArrowLeftIcon className="w-4 h-4 mr-1.5" /> {dict.blog.back_to_blog}
+        </LocalizedLink>
+        <div className="flex flex-col gap-3 pb-7 w-full mb-2">
+          <p className="text-muted-foreground text-sm animate-in slide-in-from-bottom-4 fade-in duration-700">
+            {formatDate(res.frontmatter.date)}
+          </p>
+          <h1 className="sm:text-4xl text-3xl font-extrabold animate-in slide-in-from-bottom-4 fade-in duration-700 delay-400">
+            {res.frontmatter.title}
+          </h1>
+          <div className="mt-6 flex flex-col gap-3 animate-in slide-in-from-bottom-4 fade-in duration-700 delay-400">
+            <p className="text-sm text-muted-foreground">{dict.blog.posted_by}</p>
+            <Authors authors={res.frontmatter.authors} />
+          </div>
+        </div>
+        <div className="!w-full animate-in slide-in-from-bottom-4 fade-in duration-700 delay-600">
+          <div className="w-full mb-7">
+            <Image
+              src={res.frontmatter.cover}
+              alt="cover"
+              width={700}
+              height={400}
+              priority
+              className="w-full h-[400px] rounded-md border object-cover"
+            />
+          </div>
+            <Typography>{res.content}</Typography>
         </div>
       </div>
-      <div className="!w-full animate-in slide-in-from-bottom-4 fade-in duration-700 delay-600">
-        <div className="w-full mb-7">
-          <Image
-            src={res.frontmatter.cover}
-            alt="cover"
-            width={700}
-            height={400}
-            priority
-            className="w-full h-[400px] rounded-md border object-cover"
-          />
-        </div>
-        <Typography>{res.content}</Typography>
-      </div>
-    </div>
   );
 }
 
