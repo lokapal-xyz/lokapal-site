@@ -68,7 +68,7 @@ export default async function BlogPage(props: PageProps & LangProps) {
             <Authors authors={res.frontmatter.authors} />
           </div>
         </div>
-        <div className="!w-full animate-in slide-in-from-bottom-4 fade-in duration-700 delay-600">
+        <div className="!w-full animate-in fade-in duration-700 delay-400">
           <div className="w-full mb-7">
             <Image
               src={res.frontmatter.cover}

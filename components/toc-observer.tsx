@@ -13,15 +13,28 @@ export default function TocObserver({ data }: Props) {
 
   useEffect(() => {
     const handleIntersect = (entries: IntersectionObserverEntry[]) => {
-      const visibleEntry = entries.find((entry) => entry.isIntersecting);
-      if (visibleEntry) {
-        setActiveId(visibleEntry.target.id);
+      const intersectingEntries: { id: string; top: number }[] = [];
+      
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const id = entry.target.getAttribute('id');
+          if (id) {
+            const rect = entry.target.getBoundingClientRect();
+            intersectingEntries.push({ id, top: rect.top });
+          }
+        }
+      });
+
+      if (intersectingEntries.length > 0) {
+        // Sort by position and pick the topmost
+        intersectingEntries.sort((a, b) => a.top - b.top);
+        setActiveId(intersectingEntries[0].id);
       }
     };
 
     observer.current = new IntersectionObserver(handleIntersect, {
       root: null,
-      rootMargin: "-20px 0px 0px 0px",
+      rootMargin: "0px 0px -75% 0px",
       threshold: 0.1,
     });
 
@@ -53,13 +66,21 @@ export default function TocObserver({ data }: Props) {
           <Link
             key={href + text + level + index}
             href={href}
-            className={clsx({
-              "pl-0": level == 2,
-              "pl-4": level == 3,
-              "pl-8 ": level == 4,
-              "dark:font-medium font-semibold !text-red-500":
-                activeId == href.slice(1),
-            })}
+            className={clsx(
+              // Base styles with transition
+              "transition-opacity duration-200 ease-in-out hover:opacity-75",
+              // Padding based on level
+              {
+                "pl-0": level == 2,
+                "pl-4": level == 3,
+                "pl-8": level == 4,
+              },
+              // Active state
+              {
+                "dark:font-medium font-semibold !text-red-500 !opacity-100":
+                  activeId == href.slice(1),
+              }
+            )}
           >
             {text}
           </Link>

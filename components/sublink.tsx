@@ -32,6 +32,7 @@ export default function SubLink({
     <LocalizedLink
       activeClassName="text-red-500 dark:font-medium font-semibold"
       href={href}
+      className="hover:text-red-400/70 dark:hover:text-red-400/60"
     >
       {dict.leftbar[title as keyof typeof dict.leftbar]}
     </LocalizedLink>
@@ -44,7 +45,7 @@ export default function SubLink({
       Comp
     )
   ) : (
-    <h4 className="font-medium sm:text-sm text-primary">
+    <h4 className="font-medium sm:text-sm text-primary hover:opacity-70 transition-opacity duration-200">
       {dict.leftbar[title as keyof typeof dict.leftbar]}
     </h4>
   );
@@ -57,11 +58,11 @@ export default function SubLink({
     <div className="flex flex-col gap-1 w-full">
       <Collapsible open={isOpen} onOpenChange={setIsOpen}>
         <CollapsibleTrigger className="w-full pr-5">
-<div className="flex items-center cursor-pointer w-full">
-  <div className="flex-1 text-left">
-    {titleOrLink}
-  </div>
-  <span className="flex-shrink-0 ml-2">
+          <div className="flex items-center cursor-pointer w-full">
+            <div className="flex-1 text-left">
+              {titleOrLink}
+            </div>
+            <span className="flex-shrink-0 ml-2">
               {!isOpen ? (
                 <ChevronRight className="h-[0.9rem] w-[0.9rem]" />
               ) : (

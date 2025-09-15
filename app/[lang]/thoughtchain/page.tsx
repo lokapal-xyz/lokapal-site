@@ -43,7 +43,7 @@ function BlogCard({
   return (
     <LocalizedLink
       href={`/thoughtchain/${slug}`}
-      className="flex flex-col gap-2 items-start border rounded-md py-5 px-3 min-h-[400px]"
+      className="flex flex-col gap-2 items-start border rounded-md py-5 px-3 min-h-[400px] transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
     >
       <h3 className="text-md font-semibold -mt-1 pr-7">{title}</h3>
       <div className="w-full">
@@ -54,7 +54,7 @@ function BlogCard({
           height={150}
           quality={80}
           priority
-          className="w-full rounded-md object-cover h-[180px] border"
+          className="w-full rounded-md object-cover h-[180px] border animate-in fade-in duration-700 delay-400"
         />
       </div>
       <p className="text-sm text-muted-foreground">{description}</p>

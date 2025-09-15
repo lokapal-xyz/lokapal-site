@@ -42,7 +42,7 @@ export default async function DocsPage(props: PageProps) {
             width={1580}
             height={140}
             priority
-            className="animate-in slide-in-from-bottom-4 fade-in duration-700 delay-400"
+            className="animate-in fade-in duration-700 delay-400"
           />
           <div className="animate-in slide-in-from-bottom-4 fade-in duration-700 delay-600">
             {res.content}

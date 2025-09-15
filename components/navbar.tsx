@@ -156,7 +156,7 @@ export function Logo() {
         height={388}
         className="w-8 h-8"
       />
-      <h2 className="text-md font-bold font-code">Lokapal</h2>
+      <h2 className="text-md font-bold font-code hover:opacity-75 transition-opacity duration-200">Lokapal</h2>
     </LocalizedLink>
   );
 }
@@ -174,7 +174,7 @@ export function NavMenu({
         const Comp = (
           <LocalizedLink
             key={item.title + item.href}
-            className="flex items-center gap-1 dark:text-stone-300/85 text-stone-800 whitespace-nowrap text-sm"
+            className="flex items-center gap-1 dark:text-stone-300/85 text-stone-800 whitespace-nowrap text-sm hover:opacity-75 transition-opacity duration-200"
             activeClassName="!text-red-600 dark:font-medium font-semibold"
             href={item.href}
             absolute={item.absolute}
