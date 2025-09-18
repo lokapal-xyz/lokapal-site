@@ -17,7 +17,7 @@ import { Dictionary } from "@/lib/dictionaries";
 import LocalizedLink from "./localized-link";
 import { usePathname } from 'next/navigation';
 
-type Section = "devotion" | "howtodao" | "conciliatorics";
+type Section = "fealty" | "howtodao" | "conciliatorics";
 
 export default function Search({ 
   dict
@@ -28,15 +28,15 @@ export default function Search({
   const [searchedInput, setSearchedInput] = useState("");
   const [isOpen, setIsOpen] = useState(false);
 
-  // Extract section from pathname like "/en/devotion/getting-started/introduction"
+  // Extract section from pathname like "/en/fealty/getting-started/introduction"
   const pathParts = pathname.split('/').filter(part => part !== '');
   const currentSection = pathParts[1];
   
-  // Default to 'devotion' if no section or invalid section
-  const validSections: Section[] = ["devotion", "howtodao", "conciliatorics"];
+  // Default to 'fealty' if no section or invalid section
+  const validSections: Section[] = ["fealty", "howtodao", "conciliatorics"];
   const section = validSections.includes(currentSection as Section) 
     ? currentSection as Section
-    : "devotion"; // fallback
+    : "fealty"; // fallback
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {

@@ -6,7 +6,7 @@ export default async function Outlet({
   path,
   lang
 }: {
-  section: "devotion" | "howtodao" | "conciliatorics";
+  section: "fealty" | "howtodao" | "conciliatorics";
   path: string;
   lang: string;
 }) {

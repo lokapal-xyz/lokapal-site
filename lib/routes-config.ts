@@ -7,8 +7,8 @@ export type EachRoute = {
   items?: EachRoute[];
 };
 
-// Devotion-specific routes
-export const DEVOTION_ROUTES: EachRoute[] = [
+// Fealty-specific routes
+export const FEALTY_ROUTES: EachRoute[] = [
   {
     title: "welcome",
     href: "/welcome",
@@ -19,25 +19,26 @@ export const DEVOTION_ROUTES: EachRoute[] = [
     ],
   },
 {
-    title: "devotion-whitepaper",
-    href: "/devotion-whitepaper",
+    title: "fealty-whitepaper",
+    href: "/fealty-whitepaper",
     noLink: true,
     items: [
       {
-        title: "dw-part-1",
-        href: "/dw-part-1",
+        title: "fw-part-1",
+        href: "/fw-part-1",
         noLink: true,
         items: [
-          { title: "devotion-a-web3-series", href: "/devotion-a-web3-series" },
+          { title: "fealty-a-crypto-novel", href: "/fealty-a-crypto-novel" },
           { title: "objectives", href: "/objectives" },
-          { title: "narrative-structure", href: "/narrative-structure" },
-          { title: "series-format", href: "/series-format" },
+          { title: "crypto-novel", href: "/crypto-novel" },
+          { title: "web3-chapter", href: "/web3-chapter" },
+          { title: "story-format", href: "/story-format" },
           { title: "roadmap", href: "/roadmap" },
         ],
       },
       {
-        title: "dw-part-2",
-        href: "/dw-part-2",
+        title: "fw-part-2",
+        href: "/fw-part-2",
         noLink: true,
         items: [
           { title: "lore-summary", href: "/lore-summary" },
@@ -46,16 +47,16 @@ export const DEVOTION_ROUTES: EachRoute[] = [
         ],
       },
       {
-        title: "dw-part-3",
-        href: "/dw-part-3",
+        title: "fw-part-3",
+        href: "/fw-part-3",
         noLink: true,
         items: [
-          { title: "devotion-web3-framework", href: "/devotion-web3-framework" },
+          { title: "fealty-web3-framework", href: "/fealty-web3-framework" },
         ],
       },
       {
-        title: "dw-appendix",
-        href: "/dw-appendix",
+        title: "fw-appendix",
+        href: "/fw-appendix",
         noLink: true,
         items: [
           { title: "references-license-and-contact", href: "/references-license-and-contact" },
@@ -551,16 +552,16 @@ export const CONCILIATORICS_ROUTES: EachRoute[] = [
 ];
 
 // Function to get routes for a specific section
-export function getRoutesForSection(section: "devotion" | "howtodao" | "conciliatorics" | "about"): EachRoute[] {
+export function getRoutesForSection(section: "fealty" | "howtodao" | "conciliatorics" | "about"): EachRoute[] {
   switch (section) {
-    case "devotion":
-      return DEVOTION_ROUTES;
+    case "fealty":
+      return FEALTY_ROUTES;
     case "howtodao":
       return HOWTODAO_ROUTES;
     case "conciliatorics":
       return CONCILIATORICS_ROUTES;
     default:
-      return DEVOTION_ROUTES; // fallback
+      return FEALTY_ROUTES; // fallback
   }
 }
 
@@ -579,15 +580,15 @@ export function getRecurrsiveAllLinks(node: EachRoute): Page[] {
 }
 
 // Function to get all page routes for a specific section
-export function getPageRoutesForSection(section: "devotion" | "howtodao" | "conciliatorics"): Page[] {
+export function getPageRoutesForSection(section: "fealty" | "howtodao" | "conciliatorics"): Page[] {
   const sectionRoutes = getRoutesForSection(section);
   return sectionRoutes.map((it) => getRecurrsiveAllLinks(it)).flat();
 }
 
 // For components that need to work with all sections (like navbar)
-export function getAllFirstRoutes(): { section: "devotion" | "howtodao" | "conciliatorics", firstRoute: Page }[] {
+export function getAllFirstRoutes(): { section: "fealty" | "howtodao" | "conciliatorics", firstRoute: Page }[] {
   return [
-    { section: "devotion", firstRoute: getPageRoutesForSection("devotion")[0] },
+    { section: "fealty", firstRoute: getPageRoutesForSection("fealty")[0] },
     { section: "howtodao", firstRoute: getPageRoutesForSection("howtodao")[0] },
     { section: "conciliatorics", firstRoute: getPageRoutesForSection("conciliatorics")[0] },
   ];
@@ -595,5 +596,5 @@ export function getAllFirstRoutes(): { section: "devotion" | "howtodao" | "conci
 
 // DEPRECATED: These are kept for backward compatibility but should be avoided
 // Components should use getRoutesForSection() and getPageRoutesForSection() instead
-export const ROUTES: EachRoute[] = DEVOTION_ROUTES;
-export const page_routes = getPageRoutesForSection("devotion");
+export const ROUTES: EachRoute[] = FEALTY_ROUTES;
+export const page_routes = getPageRoutesForSection("fealty");

@@ -49,7 +49,7 @@ export function helperSearch(
   return res;
 }
 // Update advanceSearch to accept section-specific routes
-export function advanceSearch(query: string, dict: Dictionary, section?: "devotion" | "howtodao" | "conciliatorics") {
+export function advanceSearch(query: string, dict: Dictionary, section?: "fealty" | "howtodao" | "conciliatorics") {
   const routesToSearch = section ? getRoutesForSection(section) : ROUTES;
   return routesToSearch.map((node) =>
     helperSearch(query, dict, node, "", 1, query.length == 0 ? 2 : undefined)

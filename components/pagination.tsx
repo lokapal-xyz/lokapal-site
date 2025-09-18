@@ -11,7 +11,7 @@ export default function Pagination({
 }: {
   pathname: string;
   dict: Dictionary;
-  section: "devotion" | "howtodao" | "conciliatorics";
+  section: "fealty" | "howtodao" | "conciliatorics";
   lang: string;
 }) {
   const res = getPreviousNext(pathname, section);

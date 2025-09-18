@@ -11,7 +11,7 @@ export default async function Toc({
 }: {
   path: string;
   dict: Dictionary;
-  section: "devotion" | "howtodao" | "conciliatorics" | "about";
+  section: "fealty" | "howtodao" | "conciliatorics" | "about";
   lang: string;
 }) {
   const tocs = await getDocsTocs(section, path, lang);

@@ -1,7 +1,7 @@
 "use client";
 
 import { ModeToggle } from "@/components/theme-toggle";
-import { GithubIcon, XIcon, LinkedInIcon, SubstackIcon, TelegramIcon, MediumIcon, PhIcon } from "./icons";
+import { GithubIcon, XIcon, LinkedInIcon, SubstackIcon, TelegramIcon, MediumIcon, PhIcon, InstagramIcon, EnsIcon } from "./icons";
 import Link from "next/link";
 import { buttonVariants } from "./ui/button";
 import { SheetLeftbar } from "./leftbar";
@@ -15,8 +15,8 @@ import Image from "next/image";
 // Update your navbar config
 export const NAVLINKS = [
   {
-    title: "devotion",
-    href: `/devotion${getPageRoutesForSection("devotion")[0].href}`,
+    title: "fealty",
+    href: `/fealty${getPageRoutesForSection("fealty")[0].href}`,
     absolute: true,
   },
   {
@@ -88,6 +88,15 @@ export function Navbar({
                 <XIcon className="h-[1.1rem] w-[1.1rem]" />
               </Link>
               <Link
+                href="https://www.instagram.com/lokapalxyz/"
+                className={buttonVariants({
+                  variant: "ghost",
+                  size: "icon",
+                })}
+              >
+                <InstagramIcon className="h-[1.1rem] w-[1.1rem]" />
+              </Link>
+              <Link
                 href="https://t.me/lokapalxyz"
                 className={buttonVariants({
                   variant: "ghost",
@@ -96,15 +105,7 @@ export function Navbar({
               >
                 <TelegramIcon className="h-[1.1rem] w-[1.1rem]" />
               </Link>
-              <Link
-                href="https://www.linkedin.com/in/ricardo-mauro-pintos/"
-                className={buttonVariants({
-                  variant: "ghost",
-                  size: "icon",
-                })}
-              >
-                <LinkedInIcon className="h-[1.1rem] w-[1.1rem]" />
-              </Link>
+
               <Link
                 href="https://lokapal.substack.com/"
                 className={buttonVariants({
@@ -131,6 +132,24 @@ export function Navbar({
                 })}
               >
                 <PhIcon className="h-[1.1rem] w-[1.1rem]" />
+              </Link>
+              <Link
+                href="https://app.ens.domains/lokapal.eth"
+                className={buttonVariants({
+                  variant: "ghost",
+                  size: "icon",
+                })}
+              >
+                <EnsIcon className="h-[1.1rem] w-[1.1rem]" />
+              </Link>
+              <Link
+                href="https://www.linkedin.com/in/ricardopintos"
+                className={buttonVariants({
+                  variant: "ghost",
+                  size: "icon",
+                })}
+              >
+                <LinkedInIcon className="h-[1.1rem] w-[1.1rem]" />
               </Link>
               <Link
                 href="https://github.com/lokapal-xyz"

@@ -76,7 +76,7 @@ export default async function BlogPage(props: PageProps & LangProps) {
               width={700}
               height={400}
               priority
-              className="w-full h-[400px] rounded-md border object-cover"
+              className="w-full h-[400px] rounded-md border object-cover animate-in fade-in duration-700 delay-400"
             />
           </div>
             <Typography>{res.content}</Typography>

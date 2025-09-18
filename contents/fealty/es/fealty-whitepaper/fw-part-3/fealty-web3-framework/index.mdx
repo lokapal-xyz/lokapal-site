@@ -1,0 +1,92 @@
+---
+title: Marco Web3 de Lealtad
+description: 'Parte 3: Marco de web3'
+---
+
+El marco de Fealty se basa en un modelo de gobernanza dual:  
+- **Señalización Comunitaria** a través del token BHAKTI  
+- **Autoridad Formal** a través del token RAKSHA  
+
+Esta separación refleja el equilibrio entre la devoción mortal y la tutela divina.
+
+## 3.1 Contratos Inteligentes
+
+### Gobernanza: OpenZeppelin Governor
+- **Red**: Base  
+- **Marco**: Contrato OpenZeppelin Governor  
+- **Función**: Ejecuta propuestas vinculantes y votación en cadena  
+- **Integración**: ERC721Votes (RAKSHA) determina el poder de voto  
+
+### BHAKTI: ERC20Votes
+- **Nombre**: Token Lokapal Bhakti (BHAKTI)  
+- **Suministro**: Fijo en 100 millones, acuñado en el despliegue  
+- **Custodia**: Todo el suministro transferido al Trimurti Safe  
+- **Función**: Votación delegada en Snapshot para señalización fuera de cadena  
+- **Mecánicas**: Completamente transferible, permitiendo que la influencia cambie entre guardianes  
+
+### RAKSHA: ERC721Votes
+- **Nombre**: Token Lokapal Raksha (RAKSHA)  
+- **Suministro**: 8 NFTs, uno para cada guardián  
+- **Transferibilidad**: Vinculado al alma a direcciones de guardianes  
+- **Poder de Voto**: Cada NFT otorga 1 voto formal en Tally  
+- **Propósito**: Representa autoridad de guardián en gobernanza en cadena  
+
+---
+
+## 3.2 Carteras y Cuentas
+
+### EOAs: Roles de Personajes
+- **Guardianes**: 8 direcciones dedicadas (Indra, Agni, Yama, Nirrti, Varuna, Vayu, Kubera, Ishana)  
+- **Trimurti**: 3 direcciones dedicadas (Brahma, Vishnu, Shiva)  
+- **Financiación**: Todas activas en Base con ETH para transacciones  
+- **Uso**: Ejecución de transacciones y participación en gobernanza  
+
+### Safe: Supervisión del Trimurti
+- **Configuración**: Multifirma 3/3 (Trimurti como firmantes)  
+- **Umbral**: 2-de-3 requerido para ejecución  
+- **Tesorería**: Mantiene todo el suministro BHAKTI en el lanzamiento  
+- **Extensiones**: Módulos Zodiac para controles de gobernanza mejorados  
+- **Autoridad**: Rol supervisorio y de intervención de emergencia  
+
+---
+
+## 3.3 Plataformas de Gobernanza
+
+### Snapshot: Señalización Devocional
+- **Integración**: Vinculado al contrato BHAKTI  
+- **Poder de Voto**: Proporcional a las tenencias de BHAKTI  
+- **Acceso**: Participación abierta para todos los tenedores  
+- **Propósito**: Propuestas no vinculantes, señalización alineada narrativamente  
+
+### Tally: Autoridad de Guardianes
+- **Integración**: Vinculado al contrato RAKSHA  
+- **Derechos de Voto**: Restringido a direcciones de guardianes  
+- **Función**: Envío y ejecución de propuestas en cadena  
+- **Propósito**: Gobernanza vinculante y formal  
+
+### Foro: Cámara de Debate
+- **Plataforma**: Alojado en `lokapal.xyz`  
+- **Control**: Inicialmente curado por `lokapal.eth`  
+- **Propósito**: Juego de roles de guardianes, discusión de propuestas, desarrollo de tradición  
+- **Futuro**: Expansión gradual a co-autoría comunitaria  
+
+---
+
+## 3.4 Plataformas Comunitarias
+
+### Canales Sociales
+- **Inicial**: X (Twitter), Discord  
+- **Fases**: De actualizaciones amigables para observadores a compromiso participativo de tradición  
+- **Mecánicas**: Indicaciones de tradición, lanzamientos aéreos BHAKTI, actividades colaborativas  
+
+### Documentación y Análisis
+- **Libro Blanco**: Material de referencia central  
+- **Panel**: Datos de gobernanza, historial de votación, registros de personajes  
+- **Subgrafo**: Integración The Graph para indexación de transferencias de devoción  
+- **Análisis**: Seguimiento histórico de influencia de guardianes  
+
+### Estrategia NFT
+- **Cronología**: Fase post-fundación  
+- **Propósito**: Apoyo al ecosistema, recompensas comunitarias, conmemoración de tradición  
+- **Tipos**: Coleccionables de guardianes, ubicaciones clave, eventos cruciales de la historia  
+- **Enfoque**: Impulsado por utilidad, narrativa primero, evitando especulación pura  

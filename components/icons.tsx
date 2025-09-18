@@ -1,4 +1,4 @@
-import { siGithub, siX, siLogmein, siSubstack, siTelegram, siMedium, siProducthunt } from 'simple-icons';
+import { siGithub, siX, siLogmein, siSubstack, siTelegram, siMedium, siProducthunt, siInstagram, siEns } from 'simple-icons';
 
 interface SimpleIconProps {
   size?: number;
@@ -106,6 +106,36 @@ export function PhIcon({ size = 24, className = "" }: SimpleIconProps) {
       fill="currentColor"
     >
       <path d={siProducthunt.path} />
+    </svg>
+  );
+}
+
+export function InstagramIcon({ size = 24, className = "" }: SimpleIconProps) {
+  return (
+    <svg
+      role="img"
+      viewBox="0 0 24 24"
+      width={size}
+      height={size}
+      className={className}
+      fill="currentColor"
+    >
+      <path d={siInstagram.path} />
+    </svg>
+  );
+}
+
+export function EnsIcon({ size = 24, className = "" }: SimpleIconProps) {
+  return (
+    <svg
+      role="img"
+      viewBox="0 0 24 24"
+      width={size}
+      height={size}
+      className={className}
+      fill="currentColor"
+    >
+      <path d={siEns.path} />
     </svg>
   );
 }

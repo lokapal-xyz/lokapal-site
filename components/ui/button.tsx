@@ -19,7 +19,7 @@ const buttonVariants = cva(
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
 
-        devotion: "bg-[#041b3b] text-white hover:bg-[#062552]",
+        fealty: "bg-[#041b3b] text-white hover:bg-[#062552]",
         howtodao: "bg-[#04313b] text-white hover:bg-[#033b47]",
         thoughtchain: "bg-[#1e043b] text-white hover:bg-[#29074f]",
         conciliatorics: "bg-[#3b0404] text-white hover:bg-[#450606]",
