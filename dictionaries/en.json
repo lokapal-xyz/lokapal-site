@@ -17,7 +17,8 @@
         "built_by": "Built by",
         "source_code_available": "The source code is available on",
         "deploy": "Lokapal Linktree",
-        "sponsor": "Support Lokapal"
+        "styleGuide": "Style Guide",
+        "styleGuideUrl": "/guides/lokapal-style-guide.pdf"
     },
     "navbar": {
         "links": {

@@ -22,7 +22,7 @@ export default async function Home({ params }: LangProps) {
         ></div>
       </div>
       <Link
-        href="https://lokapal.eth.limo"
+        href="https://lokapal.eth.link/"
         target="_blank"
         rel="noopener noreferrer"
         className="mb-5 sm:text-lg flex items-center gap-2 underline underline-offset-4 animate-in slide-in-from-bottom-4 fade-in duration-300 transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
