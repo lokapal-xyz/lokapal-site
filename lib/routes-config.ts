@@ -15,6 +15,7 @@ export const FEALTY_ROUTES: EachRoute[] = [
     noLink: true,
     items: [
       { title: "introduction", href: "/introduction" },
+      { title: "from-the-plexus", href: "/from-the-plexus" },
       { title: "prologue", href: "/prologue" },
     ],
   },
