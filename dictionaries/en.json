@@ -254,7 +254,7 @@
         "crypto-novel": "1.3 Crypto Novel",
         "web3-chapter": "1.4 Web3 Chapter",
         "story-format": "1.5 Story Format",
-        "roadmap": "1.6 Roadmap",
+        "roadmap": "1.7 Roadmap",
         "lore-summary": "2.1 Lore Summary",
         "character-profiles": "2.2 Character Profiles",
         "locations": "2.3 Locations",
@@ -262,6 +262,7 @@
         "references-license-and-contact": "References, License and Contact",
         "fealty-whitepaper": "💠 Fealty Whitepaper",
         "prologue": "Fealty Prologue",
+        "plexus": "1.6 Pre-Launch",
         "from-the-plexus": "From the Plexus"
 
     },

@@ -34,6 +34,7 @@ export const FEALTY_ROUTES: EachRoute[] = [
           { title: "crypto-novel", href: "/crypto-novel" },
           { title: "web3-chapter", href: "/web3-chapter" },
           { title: "story-format", href: "/story-format" },
+          { title: "plexus", href: "/plexus" },
           { title: "roadmap", href: "/roadmap" },
         ],
       },

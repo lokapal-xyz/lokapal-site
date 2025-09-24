@@ -257,7 +257,7 @@
         "crypto-novel": "1.3 Criptonovela",
         "web3-chapter": "1.4 Capítulo web3",
         "story-format": "1.5 Formato de la historia",
-        "roadmap": "1.6 Hoja de ruta",
+        "roadmap": "1.7 Hoja de ruta",
         "lore-summary": "2.1 Resumen del lore",
         "character-profiles": "2.2 Perfiles de personajes",
         "locations": "2.3 Localizaciones",
@@ -265,7 +265,9 @@
         "references-license-and-contact": "Referencias, Licencia y Contacto",
         "fealty-whitepaper": "💠 Libro blanco de Lealtad",
         "prologue": "Prólogo de Lealtad",
+        "plexus": "1.6 Pre-lanzamiento",
         "from-the-plexus": "Desde el Plexo"
+
         
     },
     "blog": {
