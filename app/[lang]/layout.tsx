@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { ThemeProvider } from "@/components/contexts/theme-provider";
+import { ApolloProviderWrapper } from "@/components/providers/apollo-provider";
 import { Navbar } from "@/components/navbar";
 import { Space_Mono, Space_Grotesk } from "next/font/google";
 import { Footer } from "@/components/footer";
@@ -51,20 +52,22 @@ export default async function RootLayout({
         className={`${sansFont.variable} ${monoFont.variable} font-regular antialiased tracking-wide min-h-screen flex flex-col`}
         suppressHydrationWarning
       >
-        <ClientDictionary dict={dict}>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-            <Navbar dict={dict} lang={lang} />
-            <main className="sm:container mx-auto w-[90vw] flex-1 scroll-smooth">
-              {children}
-            </main>
-            <Footer dict={dict} />
-          </ThemeProvider>
-        </ClientDictionary>
+        <ApolloProviderWrapper language={lang}>
+          <ClientDictionary dict={dict}>
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="system"
+              enableSystem
+              disableTransitionOnChange
+            >
+              <Navbar dict={dict} lang={lang} />
+              <main className="sm:container mx-auto w-[90vw] flex-1 scroll-smooth">
+                {children}
+              </main>
+              <Footer dict={dict} />
+            </ThemeProvider>
+          </ClientDictionary>
+        </ApolloProviderWrapper>
       </body>
     </html>
   );

@@ -283,5 +283,21 @@
         "sub_text": "Lo sentimos, pero se produjo un error al procesar su solicitud.",
         "reload_page": "Recargar la página",
         "back_to_homepage": "Volver a la página de inicio"
+    },
+    "shard": {
+        "reveal_logs": "Revelar Registros",
+        "scan_shard": "Escanear Esquirla",
+        "shard_title": "Esquirla ",
+        "plexus_archive": " | Archivo del Plexo",
+        "shard_tag": "Etiqueta de Esquirla",
+        "echo_source": "Fuente del Eco",
+        "earth_time": "Tiempo Terrestre",
+        "lanka_time": "Tiempo de Lanka",
+        "archivist_log": "Registro del Archivista",
+        "block_number": "Número de Bloque",
+        "transaction": "Transacción",
+        "close": "Cerrar",
+        "loading_shard_data": "Cargando datos de la esquirla...",
+        "error_loading_shard": "Error al cargar esquirla:"
     }
 }

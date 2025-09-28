@@ -279,5 +279,21 @@
         "sub_text": "We're sorry, but an error occurred while processing your request.",
         "reload_page": "Reload Page",
         "back_to_homepage": "Back to homepage"
+    },
+    "shard": {
+        "reveal_logs": "Reveal Logs",
+        "scan_shard": "Scan Shard",
+        "shard_title": "Shard ",
+        "plexus_archive": " | Plexus Archive",
+        "shard_tag": "Shard Tag",
+        "echo_source": "Echo Source",
+        "earth_time": "Earth Time",
+        "lanka_time": "Lanka Time",
+        "archivist_log": "Archivist Log",
+        "block_number": "Block Number",
+        "transaction": "Transaction",
+        "close": "Close",
+        "loading_shard_data": "Loading shard data...",
+        "error_loading_shard": "Error loading shard:"
     }
 }
