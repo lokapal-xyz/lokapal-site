@@ -17,7 +17,20 @@ La serie emplea un formato estandarizado de micro-historia, con cada entrega des
 
 ## Marco narrativo
 
-La serie utiliza El Plexo — la red interdimensional que conecta los reinos mortales y divinos — como contenedor temático y justificación narrativa. Este marco posiciona las micro-historias como intercepción de transmisiones capturadas durante el flujo de datos entre reinos, permitiendo perspectivas narrativas diversas mientras mantiene consistencia interna con los parámetros establecidos de la narrativa.
+La serie utiliza El Plexo — la red interdimensional que conecta los reinos mortales y divinos — como contenedor temático y justificación narrativa. Este marco posiciona las micro-historias como intercepción de transmisiones capturadas durante el flujo de datos entre reinos, permitiendo perspectivas narrativas diversas mientras mantiene consistencia interna con los parámetros establecidos de la narrativa. Estas esquirlas son curadas por una entidad llamada *El Archivista*.
+
+---
+
+## Integración de la Capa de Datos (Implementación de The Graph)
+
+Toda la serie *Desde el Plexo* está sustentada por una capa de datos Web3 integrada a través de **The Graph**. Cada esquirla corresponde a una transacción única que emite un evento con **Registros Meta-Narrativos** (o **Logs Meta-Narrativos**) esenciales.
+
+Estos registros proporcionan datos contextuales críticos, como la *Fuente del Eco* (el distrito de Lanka Prime desde donde se originó la transmisión), las dos marcas de tiempo (*Tiempo Terrestre* y *Tiempo de Lanka*) de su captura, y el *Registro del Archivista* — observaciones del Archivista del Plexo que refuerzan la narrativa.
+
+Se despliega un **Subgrafo** para indexar estos registros de eventos, transformando los datos de transacciones sin procesar en **entidades GraphQL** fácilmente consultables. Esta implementación logra dos objetivos clave:
+
+1.  **Autenticidad:** Ancla los micro-relatos a la blockchain, proporcionando un registro inmutable y verificable de su existencia y parámetros contextuales clave.
+2.  **Visualización Mejorada:** Las aplicaciones *front-end* del proyecto consultan este Subgrafo para obtener los *registros meta-narrativos* correspondientes, que luego se muestran dinámicamente junto al texto de la esquirla. Esto crea una experiencia de lectura enriquecida y contextual que fusiona la narrativa con su historial en la cadena de bloques.
 
 ---
 

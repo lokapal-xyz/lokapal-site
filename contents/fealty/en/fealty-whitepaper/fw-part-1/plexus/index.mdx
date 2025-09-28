@@ -18,7 +18,20 @@ The series employs a standardized micro-story format, with each installment desi
 
 ## Narrative Framework
 
-The series utilizes The Plexus—the interdimensional network connecting mortal and divine realms—as both thematic container and narrative justification. This framework positions the micro-stories as intercepted transmissions captured during data flow between realms, allowing for diverse narrative perspectives while maintaining internal consistency with established narrative parameters.
+The series utilizes The Plexus—the interdimensional network connecting mortal and divine realms—as both thematic container and narrative justification. This framework positions the micro-stories as intercepted transmissions captured during data flow between realms, allowing for diverse narrative perspectives while maintaining internal consistency with established narrative parameters. These shards are curated by an entity named *The Archivist*.
+
+---
+
+## Data Layer Integration (The Graph Implementation)
+
+The entire *From the Plexus* series is underpinned by a Web3 data layer integrated via **The Graph**. Each shard corresponds to a unique transaction that emits an event containing essential **Meta-Narrative Logs**.
+
+These logs provide critical contextual data, such as the specific *Echo Source* (the district of Lanka Prime where the transmission originated), the two time stamps (*Earth Time* and *Lanka Time*) of its capture, and the *Archivist Log* — observations from the Plexus Archivist that reinforce the narrative.
+
+A **Subgraph** is deployed to index these event logs, transforming raw transaction data into easily queryable **GraphQL entities**. This implementation achieves two key objectives:
+
+1.  **Authenticity:** It anchors the micro-stories to the blockchain, providing an immutable, verifiable record of their existence and key contextual parameters.
+2.  **Enhanced Display:** The project's front-ends query this Subgraph to fetch the corresponding **Meta-Narrative Logs**, which are then dynamically displayed alongside the Shard's text. This creates an enriched, contextual reading experience that blends the narrative with its on-chain history.
 
 ---
 
