@@ -1,0 +1,100 @@
+---
+title: "Notes on Lit3 Frameworks"
+description: "Modular Tools for Decentralized Storytelling"
+date: 24-09-2025
+authors:
+  - avatar: "/images/LokapalMain.png"
+    handle: lokapalxyz
+    username: lokapal.eth
+    handleUrl: "https://x.com/lokapalxyz"
+cover: "/images/lit3-frameworks.jpg"
+---
+
+## Introduction
+
+**Note:** This article expands on the concepts developed in [*The Dawn of Lit3*](https://www.lokapal.xyz/en/thoughtchain/the-dawn-of-lit3).
+
+Lit3 is intended as an evolution of not just publishing, but of **structure**. We are moving beyond the simple digitization of books and into the realm of programmable narratives. Enhancing an off-chain story with on-chain capabilities opens up many artitic possibilities, but also requires a solid coordination between these two structural components.
+
+To navigate this new space, we must define the tools we are using. We'll share a draft taxonomy of **Lit3 Frameworks**: modular, non-exclusive approaches that creators can adopt based on their narrative goals. A single project may implement one or more frameworks simultaneously, or create a new custom framework from these examples.
+
+---
+
+## Framework 1: The Token Framework (The Collectible)
+
+This is the easiest entry point into Lit3, prioritizing **distribution, ownership, and scarcity**.
+
+### Purpose:
+The token framework uses NFTs or other tokens primarily to establish **ownership rights** over the digital text. Its goal can be to create collectibles, grant access to token-gated content, or establish scarcity in a digital environment.
+
+### Mechanics:
+* A chapter, poem, or entire novel is minted as a token.
+* The token serves as a digital key, granting the holder access, rights, or collectible value.
+* **The narrative itself remains static.** The blockchain proves who owns the text, not what the text contains.
+
+### Goal:
+To establish a direct, economically viable relationship between the creator and the collector. Tokens can also be used to create customizable user experiences, where the token holder have exclusive access to narrative content related to the project. 
+
+> **Project Example:** [*The Quest of Evolution*](https://www.thequestofevolution.com/) was a decentralised platform that provided frameworks for creatives to collaborate on multimedia projects, with in-built royalty splitters and their native $QEV token.
+
+---
+
+## Framework 2: The Ledger Framework (The Archive)
+
+This framework is built to address the unique challenges of integrity and verifiability in a decentralized narrative. It is the **structural backbone** necessary for advanced, evolving stories.
+
+### Purpose:
+The ledger framework uses Web3 infrastructure to create a **transparent, immutable, and queryable history** of meta-narrative content for a Lit3 story. This ledger creates an intentional separation between the content of the off-chain and on-chain components, which can be used in many creative ways:
+- To create narrative tension — the off-chain content could raise questions that the on-chain text resolves.
+- To change narrative perspectives — for example, you can have an on-chain narrator challenging the assersions made on the off-chain text.
+- To add non-narrative elements — with an on-chain ledger, you can expand the lore in ways that would be forced, boring or disruptive to have alongside the off-chain text.
+- To enhance the story without interrupting its flow — readers may prefer to avoid the on-chain component in a first read, but when they come back for a second read, they can appreciate these narrative additions.
+- And many more options pending to explore by the community.
+
+### Mechanics:
+* Critical narrative events (chapter archival, character state changes, timestamps) trigger **smart contract events**.
+* This data (the meta-narrative logs) is indexed into a decentralized data layer, which we call a *Lit3 ledger*.
+* **Direct access** to the ledger can be provided via tools like GraphQl, which queries the data layer and makes the raw, verifiable records publicly visible (locally or externally).
+* **Indirect access** can be used as well, in cases that the platform doesn't allow for GraphQl queries (e.g., publishing platforms like Substack, Medium, Paragraph).
+* For savy web3 readers, there is also the option of **raw access** to the blockchain via manual transactions reading directly from the smart contract storage.
+
+### Necessity for Advanced Storytelling:
+The ledger is crucial for any story that is **designed to evolve**. It proves that the history of your world is perpetual and unalterable—a foundation upon which complex community participation can be built.
+
+> **Project Example:** [*From the Plexus*](https://www.lokapal.xyz/en/fealty/welcome/from-the-plexus) uses its **Plexus Archive** as the Lit3 ledger to record the meta-narrative logs for every **Shard**, proving the verifiability of its history. If you want to learn more about the web3 GraphQl stack used for the Plexus Archive, please read our article series *Making Fealty*, in which we'll release articles describing the entire process of creating a Lit3 ledger.
+
+---
+
+## Framework 3: The Governance Framework (The DAO Narrative)
+
+This framework is focused on **participation, influence, and community ownership** of creative direction. It pushes the boundaries of authorship itself.
+
+### Purpose:
+The governance framework uses tokens or whitelists (also called allowlists) to grant readers voting power (via a DAO or similar mechanism) that directly influences major plot points, character arcs, or the future development of the world. The level of participation openness must be calibrated according to the project, and it requires clear guidelines to maintain narrative coherence over the course of the story.
+
+### Mechanics:
+* Readers use tokens to vote on predetermined choices or parameters (e.g., "Which district is the next Shard set in?"). The project can also grant special access to readers accounts via allowlists. 
+* The project can use off-chain signaling (e.g., Snapshot) to avoid transaction costs for readers.
+* If the project uses on-chain governance, the results of the vote are processed by a smart contract, which then dictates the next event in the story.
+* Lit3 governance is best served by also implementing the ledger framework. The vote results and the corresponding narrative change can be immediately archived to the ledger to prove that the community's will was verifiably enacted.
+
+### Goal:
+To turn the reader from a passive consumer into an active co-creator, establishing true decentralized creative ownership.
+
+> **Project Example:** [*Fealty*](https://www.lokapal.xyz/en/fealty/welcome/introduction) is set up to use off-chain Snapshot voting for readers input after every chapter introduction. The results of that vote will influence the continuation of the story, leading to the on-chain vote reserved to the Guardians, the in-story governing body of *Fealty*.
+
+---
+
+## Final Thoughts: The Modularity of Lit3
+
+These three frameworks—**token, ledger, and governance**—are not mutually exclusive stages of a hierarchy, but modular tools that can be combined for unique creative outcomes.
+
+* A poet may use only the **token framework** to distribute unique NFT poems.
+* A collaborative world-builder may combine the **ledger and token frameworks** to give collectors verifiable ownership of lore.
+* A project can use ledgers for one specific narrative element, and governance for the core story.
+
+We encourage to balance the creative exploration of any Lit3 framework with their ultimate goal: to invite readers to engage with our stories and to excite them to explore novel possibilities — not to make them feel obligated to move outside our narrative world or force them to do homework. Our technical capabilities and creativy as creators must be oriented towards the fulfillment of the art form, not the other way around. 
+
+---
+
+*The current phase in the Lit3 history is about building these necessary frameworks. The next step is for writers to experiment, combine, and ultimately invent new frameworks that expand what literature can accomplish in a programmable world. We hope to meet you there.*

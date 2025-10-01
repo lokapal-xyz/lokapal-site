@@ -1,0 +1,150 @@
+---
+title: "Escribiendo Lealtad — Parte 4: Haciendo el Archivo Legible"
+description: "En este artículo, lokapal.eth describe como consultar un registro Lit3 usando GraphQl, Subgraph y The Graph."
+date: 27-09-2025
+authors:
+  - avatar: "/images/LokapalMain.png"
+    handle: lokapalxyz
+    username: lokapal.eth
+    handleUrl: "https://x.com/lokapalxyz"
+cover: "/images/making-fealty.jpg"
+---
+
+## Introducción
+
+El Archivo del Plexo existe. Está desplegado en Base Mainnet, almacenando metadatos para cada esquirla de *Desde el Plexo*. Pero aquí está el problema: los datos blockchain no están diseñados para ser leídos fácilmente.
+
+Imagina intentar disfrutar una novela consultando una base de datos. Necesitarías conocer las estructuras exactas de las tablas, escribir consultas SQL, analizar respuestas en bruto y manejar fallas de conexión. Incluso si tuvieras las habilidades técnicas, destruiría cualquier sentido de inmersión.
+
+Este es un desafío que enfrentará la mayoría de los proyectos Lit3: **¿cómo haces que los datos blockchain se sientan accesibles sin comprometer su verificabilidad?**
+
+Nuestra solución involucró The Graph Protocol — un servicio de indexación descentralizado que traduce eventos blockchain en datos consultables. Pero más importante aún, requirió pensar cuidadosamente sobre *qué necesitan realmente los lectores* versus *qué es técnicamente posible*.
+
+---
+
+## El problema de traducción
+
+Cuando nuestro contrato inteligente archiva una esquirla, emite un evento:
+
+```solidity
+emit ShardArchived(
+    shardIndex,
+    "Encender un cigarro",
+    "Red ferroviaria de la Bolsa de Lobha",
+    "2025-09-28 14:47:53 UTC",
+    "Varsam 7E9, Dinam 10F, Kala 455",
+    "El honor no es propio de un necio."
+);
+```
+
+Este evento se registra en los logs de transacciones del blockchain. Técnicamente, cualquiera puede acceder a él — pero "técnicamente accesible" y "realmente utilizable" son cosas muy diferentes.
+
+**Las consultas directas al blockchain requieren**:
+- Ejecutar o pagar por acceso a nodos RPC
+- Escribir lógica compleja de filtrado
+- Manejar la paginación manualmente
+- Gestionar la fiabilidad de la conexión
+- Entender las estructuras de datos blockchain
+
+Para un lector que solo quiere ver el registro del Archivista sobre un fragmento particular, esto es absurdo. Es como requerir conocimiento de química para leer un libro impreso en papel.
+
+---
+
+## The Graph como traductor
+
+The Graph Protocol resuelve esto monitoreando continuamente los eventos blockchain y organizándolos en una base de datos estructurada y consultable. Piénsalo como crear un catálogo de biblioteca para datos blockchain — los libros (eventos de contratos inteligentes) permanecen inmutables, pero ahora hay un índice que hace que encontrar información sea más directo.
+
+Para nuestra implementación, esto significó:
+
+**Definir qué datos importan**: No todo en el blockchain es relevante. Creamos un esquema que captura exactamente lo que los lectores podrían querer consultar — metadatos de esquirlas, marcas de tiempo, hashes de transacciones para verificación.
+
+**Crear el índice**: Escribimos manejadores de eventos que procesan cada evento `ShardArchived` y lo almacenan en la base de datos de The Graph con estructura y relaciones apropiadas.
+
+**Exponer una interfaz de consulta**: The Graph genera automáticamente un endpoint de API GraphQL donde cualquiera puede consultar nuestros datos sin necesitar experiencia en blockchain.
+
+¿El resultado? En lugar de consultas complejas al blockchain, los lectores (o nuestro sitio web) pueden hacer preguntas simples:
+
+"Muéstrame las 10 esquirlas más recientes"
+"Encuentra todas las esquirlas del Distrito Ahamkara"
+"Obtén el registro del Archivista para la esquirla #5"
+
+---
+
+## Lo que esto significa para proyectos Lit3
+
+He aquí por qué esta arquitectura importa más allá de la simple conveniencia técnica:
+
+**Separación de responsabilidades**: El blockchain maneja la *verificación* (probando la autenticidad de los datos), mientras que The Graph maneja la *accesibilidad* (haciendo los datos legibles). Cada sistema hace lo que mejor sabe hacer.
+
+**Persistencia sin mantenimiento**: Una vez que nuestro subgrafo está desplegado, continúa indexando los eventos de nuestro contrato automáticamente. Si dejáramos de mantener nuestro sitio web por completo, los datos permanecerían consultables.
+
+**Apertura a la interpretación**: Otros desarrolladores podrían construir interfaces completamente diferentes para nuestro Archivo. Alguien podría crear una herramienta de visualización, una aplicación móvil, o incluso integrar nuestros fragmentos en su propio proyecto Lit3 — todos consultando la misma fuente de datos verificada.
+
+**Independencia del lector**: Los lectores no necesitan confiar en nuestro sitio web. Pueden verificar la autenticidad de cualquier fragmento revisando el blockchain directamente usando el hash de transacción que proporcionamos.
+
+Esto es fundamentalmente diferente de la publicación tradicional donde el editor controla no solo el contenido sino también toda su infraestructura de distribución.
+
+---
+
+## Realidad de implementación
+
+La teoría es limpia. La práctica es desordenada.
+
+**Lo que tomó más tiempo de lo esperado**: Escribir los manejadores de eventos en AssemblyScript (el lenguaje requerido por The Graph) significó aprender otro stack tecnológico más. Cada herramienta adicional agrega fricción.
+
+**Lo que nos sorprendió**: El proceso de despliegue de The Graph Studio es notablemente fluido — más fácil que desplegar contratos inteligentes. Y el subgrafo tarda menos de un minuto en sincronizarse después del despliegue, lo que hizo que las iteraciones de prueba fueran rápidas.
+
+**Lo que haríamos diferente**: Deberíamos haber diseñado los eventos de nuestro contrato inteligente con The Graph en mente desde el principio. Por ejemplo, los eventos indexados se convierten de `string` a `bytes`, lo que luego hace que The Graph devuelva valores distorsionados para esos registros de cadenas. La solución más fácil fue usar `indexed` solo para el campo uint256 `shardIndex`.
+
+**Lo que funcionó bien**: Tener subgrafos separados para contratos en inglés y español significa que el Archivo de cada idioma opera independientemente mientras usa infraestructura idéntica.
+
+---
+
+## La experiencia de lectura
+
+Así es como se ve esto desde la perspectiva de un lector:
+
+Está leyendo una esquirla de *Desde el Plexo* — una micro-historia sobre un personaje en Lanka Prime. Al final, ven un botón: "Revelar Registros."
+
+Al hacer clic, se les muestra:
+- De dónde se originó esta transmisión (Fuente de Eco)
+- Cuándo la interceptamos (Tiempo Terrestre)
+- Cuándo ocurrió en el universo de la historia (Tiempo de Lanka)
+- Las observaciones del Archivista sobre esta esquirla
+
+Esta experiencia completa — desde el clic del botón hasta la visualización de datos — sucede en milisegundos. No se requiere conexión de billetera. No se necesita conocimiento de blockchain. No hay sensación de que estés interactuando con una "base de datos descentralizada."
+
+Pero si *quieres* verificar, el botón "Escanear Esquirla" enlaza al explorador BaseScan. Haz clic en él, y verás el registro blockchain en bruto que prueba que estos datos no han sido alterados desde el archivo.
+
+La tecnología es invisible hasta que quieres que sea visible.
+
+---
+
+## Decodificando transmisiones del plexo
+
+Enmarcamos todo este proceso a través de nuestro lore: The Graph no es solo un protocolo de indexación, es nuestra forma de "decodificar transmisiones del Plexo."
+
+El Archivista opera en un reino fuera del espacio-tiempo normal. Sus inscripciones no son inmediatamente legibles para nosotros — requieren traducción. The Graph Protocol se convierte en esa capa de traducción, haciendo el Archivo místico accesible a los lectores mortales.
+
+¿Es necesaria esta capa metafórica? No. Pero mantiene la coherencia narrativa mientras enseña a los lectores sobre la infraestructura blockchain sin que se den cuenta de que están aprendiendo.
+
+Esta es la ventaja de construir proyectos Lit3 con construcción de mundo integrada: las implementaciones técnicas pueden servir propósitos duales — funcionales *y* narrativos.
+
+---
+
+## Qué sigue
+
+El Archivo ahora es tanto permanente como accesible. Los lectores pueden consultar datos de esquirlas, verificar su autenticidad y explorar metadatos que mejoran su comprensión del mundo de la historia.
+
+Pero consultar una API desde código sigue siendo diferente a leer una historia. En la Parte 5, exploraremos cómo integramos estos datos blockchain en la experiencia de lectura real — incrustando el acceso al Archivo directamente en nuestras historias MDX sin romper la inmersión.
+
+El objetivo: hacer que interactuar con datos en cadena se sienta tan natural como hacer clic en una nota al pie en un libro digital.
+
+<Image
+  src="/images/banner-purple.png"
+  alt=""
+  width={1580}
+  height={140}
+/>
+
+**Gracias por leer — nos vemos en Lealtad.**
