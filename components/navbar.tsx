@@ -102,7 +102,7 @@ export function Navbar({
               </Link>
 
               <Link
-                href="https://lokapal.substack.com/"
+                href="https://substack.com/@lokapal"
                 className={buttonVariants({
                   variant: "ghost",
                   size: "icon",
@@ -120,7 +120,7 @@ export function Navbar({
                 <MediumIcon className="h-[1.1rem] w-[1.1rem]" />
               </Link>
               <Link
-                href="https://paragraph.com/@thoughtchain"
+                href="https://paragraph.com/@lokapal"
                 className={buttonVariants({
                   variant: "ghost",
                   size: "icon",
