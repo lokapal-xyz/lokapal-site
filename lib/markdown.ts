@@ -70,7 +70,7 @@ export type BaseMdxFrontmatter = {
 };
 
 export async function getDocsForSlug(
-  section: "fealty" | "howtodao" | "conciliatorics",
+  section: "fmao" | "conciliatorics",
   slug: string,
   lang: string
 ) {
@@ -85,7 +85,7 @@ export async function getDocsForSlug(
 
 
 export async function getDocsTocs(
-  section: "fealty" | "howtodao" | "conciliatorics" | "about",
+  section: "fmao" | "conciliatorics" | "about",
   slug: string,
   lang: string
 ) {
@@ -111,7 +111,7 @@ export async function getDocsTocs(
 
 export function getPreviousNext(
   path: string,
-  section: "fealty" | "howtodao" | "conciliatorics" | "about", // Reserved for future section filtering
+  section: "fmao" | "conciliatorics" | "about", // Reserved for future section filtering
   // lang: string Reserved for future localization features
 ) {
    // Get section-specific routes instead of all routes
@@ -175,7 +175,7 @@ function getDocsContentPath(section: string, lang: string, slug: string) {
 }
 
 
-export async function getAllChilds(section: "fealty" | "howtodao" | "conciliatorics" | "about", pathString: string, lang: string) {
+export async function getAllChilds(section: "fmao" | "conciliatorics" | "about", pathString: string, lang: string) {
   const items = pathString.split("/").filter((it) => it != "");
   let page_routes_copy = ROUTES;
 

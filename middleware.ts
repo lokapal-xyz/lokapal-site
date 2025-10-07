@@ -27,8 +27,8 @@ export function middleware(request: NextRequest) {
     // Redirect if there is no locale
     const locale = getLocale(pathname);
     request.nextUrl.pathname = `/${locale}${pathname}`;
-    // e.g. incoming request is /fealty/get-started
-    // The new URL is now /en/fealty/get-started
+    // e.g. incoming request is /fmao/get-started
+    // The new URL is now /en/fmao/get-started
     return NextResponse.redirect(request.nextUrl);
 }
 

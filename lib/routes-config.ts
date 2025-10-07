@@ -7,8 +7,8 @@ export type EachRoute = {
   items?: EachRoute[];
 };
 
-// Fealty-specific routes
-export const FEALTY_ROUTES: EachRoute[] = [
+// From Many, as One-specific routes
+export const FMAO_ROUTES: EachRoute[] = [
   {
     title: "welcome",
     href: "/welcome",
@@ -20,8 +20,8 @@ export const FEALTY_ROUTES: EachRoute[] = [
     ],
   },
 {
-    title: "fealty-whitepaper",
-    href: "/fealty-whitepaper",
+    title: "fmao-whitepaper",
+    href: "/fmao-whitepaper",
     noLink: true,
     items: [
       {
@@ -29,10 +29,9 @@ export const FEALTY_ROUTES: EachRoute[] = [
         href: "/fw-part-1",
         noLink: true,
         items: [
-          { title: "fealty-a-crypto-novel", href: "/fealty-a-crypto-novel" },
+          { title: "fmao-a-web-serial", href: "/fmao-a-web-serial" },
           { title: "objectives", href: "/objectives" },
-          { title: "crypto-novel", href: "/crypto-novel" },
-          { title: "web3-chapter", href: "/web3-chapter" },
+          { title: "chapter-structure", href: "/chapter-structure" },
           { title: "story-format", href: "/story-format" },
           { title: "plexus", href: "/plexus" },
           { title: "roadmap", href: "/roadmap" },
@@ -53,7 +52,7 @@ export const FEALTY_ROUTES: EachRoute[] = [
         href: "/fw-part-3",
         noLink: true,
         items: [
-          { title: "fealty-web3-framework", href: "/fealty-web3-framework" },
+          { title: "fmao-web3-framework", href: "/fmao-web3-framework" },
         ],
       },
       {
@@ -64,405 +63,6 @@ export const FEALTY_ROUTES: EachRoute[] = [
           { title: "references-license-and-contact", href: "/references-license-and-contact" },
         ],
       },
-    ],
-  },
-];
-
-// HowToDAO-specific routes
-export const HOWTODAO_ROUTES: EachRoute[] = [
-  {
-    title: "welcome",
-    href: "/welcome",
-    noLink: true,
-    items: [
-      { title: "introduction", href: "/introduction" },
-      {
-        title: "dao-essentials",
-        href: "/dao-essentials",
-        noLink: true,
-        items: [
-          { title: "introduction", href: "/introduction" },
-          { title: "intro-to-dao-design", href: "/intro-to-dao-design" },
-          { title: "intro-to-dao-administration", href: "/intro-to-dao-administration" },
-          { title: "intro-to-dao-governance", href: "/intro-to-dao-governance" },
-          { title: "intro-to-dao-economy", href: "/intro-to-dao-economy" },
-          { title: "intro-to-dao-community", href: "/intro-to-dao-community" },
-          { title: "intro-to-dao-security", href: "/intro-to-dao-security" },
-          { title: "intro-to-dao-interactions", href: "/intro-to-dao-interactions" },
-          { title: "intro-to-dao-perspectives", href: "/intro-to-dao-perspectives" },
-        ],
-      },
-    ],
-  },
-  {
-    title: "dao-design",
-    href: "/dao-design",
-    noLink: true,
-    items: [
-      {
-        title: "defining-dao-objectives",
-        href: "/defining-dao-objectives",
-        noLink: true,
-        items: [
-          { title: "introduction", href: "/introduction" },
-          { title: "right-choice", href: "/right-choice" },
-          { title: "role-of-daos", href: "/role-of-daos" },
-          { title: "trade-offs", href: "/trade-offs" },
-        ],
-      },
-      {
-        title: "governance-architectures",
-        href: "/governance-architectures",
-        noLink: true,
-        items: [
-          { title: "introduction", href: "/introduction" },
-          { title: "modular-vs-monolithic", href: "/modular-vs-monolithic" },
-          { title: "role-of-core-contracts", href: "/role-of-core-contracts" },
-          { title: "external-plug-ins", href: "/external-plug-ins" },
-          { title: "simplicity-vs-complexity", href: "/simplicity-vs-complexity" },
-        ],
-      },
-      {
-        title: "dao-models",
-        href: "/dao-models",
-        noLink: true,
-        items: [
-          { title: "introduction", href: "/introduction" },
-          { title: "industry-standards", href: "/industry-standards" },
-          { title: "utility-libraries", href: "/utility-libraries" },
-          { title: "custom-built-dao", href: "/custom-built-dao" },
-          { title: "no-code-and-low-code", href: "/no-code-and-low-code" },
-        ],
-      },
-      {
-        title: "subdaos",
-        href: "/subdaos",
-        noLink: true,
-        items: [
-          { title: "introduction", href: "/introduction" },
-          { title: "subdaos-usage", href: "/subdaos-usage" },
-          { title: "coordination-mechanisms", href: "/coordination-mechanisms" },
-          { title: "use-cases", href: "/use-cases" },
-        ],
-      },
-    ],
-  },
-  {
-    title: "dao-administration",
-    href: "/dao-administration",
-    noLink: true,
-    items: [
-      {
-        title: "access-control-and-admin-roles",
-        href: "/access-control-and-admin-roles",
-        noLink: true,
-        items: [
-          { title: "introduction", href: "/introduction" },
-          { title: "administrative-permissions", href: "/administrative-permissions" },
-          { title: "multisig-governance", href: "/multisig-governance" },
-          { title: "hierarchical-vs-flat", href: "/hierarchical-vs-flat" },
-        ],
-      },
-      {
-        title: "account-and-key-management",
-        href: "/account-and-key-management",
-        noLink: true,
-        items: [
-          { title: "introduction", href: "/introduction" },
-          { title: "use-of-eoas", href: "/use-of-eoas" },
-          { title: "security-practices", href: "/security-practices" },
-          { title: "mitigating-risks", href: "/mitigating-risks" },
-        ],
-      },
-      {
-        title: "centralization-risks-and-transparency",
-        href: "/centralization-risks-and-transparency",
-        noLink: true,
-        items: [
-          { title: "introduction", href: "/introduction" },
-          { title: "centralization-risks", href: "/centralization-risks" },
-          { title: "transparency", href: "/transparency" },
-          { title: "progressive-decentralization", href: "/progressive-decentralization" },
-        ],
-      },
-      {
-        title: "legal-and-compliance-considerations",
-        href: "/legal-and-compliance-considerations",
-        noLink: true,
-        items: [
-          { title: "introduction", href: "/introduction" },
-          { title: "legal-landscape", href: "/legal-landscape" },
-          { title: "regulatory-compliance", href: "/regulatory-compliance" },
-          { title: "legal-expectations", href: "/legal-expectations" },
-        ],
-      },
-    ],
-  },
-  {
-    title: "dao-governance",
-    href: "/dao-governance",
-    noLink: true,
-    items: [
-      {
-        title: "voting-system",
-        href: "/voting-system",
-        noLink: true,
-        items: [
-          { title: "introduction", href: "/introduction" },
-          { title: "voting-mechanisms", href: "/voting-mechanisms" },
-          { title: "on-chain-vs-off-chain", href: "/on-chain-vs-off-chain" },
-          { title: "participation-incentives", href: "/participation-incentives" },
-        ],
-      },
-      {
-        title: "proposal-lifecycle-and-execution",
-        href: "/proposal-lifecycle-and-execution",
-        noLink: true,
-        items: [
-          { title: "introduction", href: "/introduction" },
-          { title: "proposals", href: "/proposals" },
-          { title: "quorums", href: "/quorums" },
-          { title: "governance-decisions", href: "/governance-decisions" },
-        ],
-      },
-      {
-        title: "delegation-and-representation",
-        href: "/delegation-and-representation",
-        noLink: true,
-        items: [
-          { title: "introduction", href: "/introduction" },
-          { title: "delegated-voting", href: "/delegated-voting" },
-          { title: "representative-governance", href: "/representative-governance" },
-          { title: "risks-and-benefits", href: "/risks-and-benefits" },
-        ],
-      },
-      {
-        title: "veto-powers-and-emergency-measures",
-        href: "/veto-powers-and-emergency-measures",
-        noLink: true,
-        items: [
-          { title: "introduction", href: "/introduction" },
-          { title: "emergency-response", href: "/emergency-response" },
-          { title: "veto-powers", href: "/veto-powers" },
-          { title: "exit-options", href: "/exit-options" },
-        ],
-      },
-    ],
-  },
-  {
-    title: "dao-economy",
-    href: "/dao-economy",
-    noLink: true,
-    items: [
-      {
-        title: "dao-treasury",
-        href: "/dao-treasury",
-        noLink: true,
-        items: [
-          { title: "introduction", href: "/introduction" },
-          { title: "treasury-management", href: "/treasury-management" },
-          { title: "multi-signature", href: "/multi-signature" },
-          { title: "diversification-strategies", href: "/diversification-strategies" },
-        ],
-      },
-      {
-        title: "tokenomics-and-utility",
-        href: "/tokenomics-and-utility",
-        noLink: true,
-        items: [
-          { title: "introduction", href: "/introduction" },
-          { title: "token-design", href: "/token-design" },
-          { title: "token-utility", href: "/token-utility" },
-          { title: "token-distribution", href: "/token-distribution" },
-        ],
-      },
-      {
-        title: "revenue-streams-and-value-distribution",
-        href: "/revenue-streams-and-value-distribution",
-        noLink: true,
-        items: [
-          { title: "introduction", href: "/introduction" },
-          { title: "sustainable-funding", href: "/sustainable-funding" },
-          { title: "real-world-assets", href: "/real-world-assets" },
-          { title: "compensation-models", href: "/compensation-models" },
-        ],
-      },
-    ],
-  },
-  {
-    title: "dao-community",
-    href: "/dao-community",
-    noLink: true,
-    items: [
-      {
-        title: "member-engagement-and-incentives",
-        href: "/member-engagement-and-incentives",
-        noLink: true,
-        items: [
-          { title: "introduction", href: "/introduction" },
-          { title: "communication-channels", href: "/communication-channels" },
-          { title: "community-activation", href: "/community-activation" },
-          { title: "member-retention", href: "/member-retention" },
-          { title: "culture-and-values", href: "/culture-and-values" },
-        ],
-      },
-      {
-        title: "reputation-and-trust",
-        href: "/reputation-and-trust",
-        noLink: true,
-        items: [
-          { title: "introduction", href: "/introduction" },
-          { title: "social-reputation", href: "/social-reputation" },
-          { title: "on-chain-reputation", href: "/on-chain-reputation" },
-          { title: "trust-building", href: "/trust-building" },
-        ],
-      },
-      {
-        title: "governance-disputes",
-        href: "/governance-disputes",
-        noLink: true,
-        items: [
-          { title: "introduction", href: "/introduction" },
-          { title: "open-forum", href: "/open-forum" },
-          { title: "covert-coordination", href: "/covert-coordination" },
-          { title: "governance-deadlocks", href: "/governance-deadlocks" },
-          { title: "conflict-resolution", href: "/conflict-resolution" },
-        ],
-      },
-    ],
-  },
-  {
-    title: "dao-security",
-    href: "/dao-security",
-    noLink: true,
-    items: [
-      {
-        title: "security-best-practices",
-        href: "/security-best-practices",
-        noLink: true,
-        items: [
-          { title: "introduction", href: "/introduction" },
-          { title: "secure-development", href: "/secure-development" },
-          { title: "best-practices", href: "/best-practices" },
-          { title: "applied-security", href: "/applied-security" },
-          { title: "insider-threats", href: "/insider-threats" },
-          { title: "real-life", href: "/real-life" },
-        ],
-      },
-      {
-        title: "proactive-security",
-        href: "/proactive-security",
-        noLink: true,
-        items: [
-          { title: "introduction", href: "/introduction" },
-          { title: "vulnerabilities", href: "/vulnerabilities" },
-          { title: "governance-risks", href: "/governance-risks" },
-          { title: "monitoring", href: "/monitoring" },
-          { title: "off-chain-security", href: "/off-chain-security" },
-        ],
-      },
-      {
-        title: "reactive-security",
-        href: "/reactive-security",
-        noLink: true,
-        items: [
-          { title: "introduction", href: "/introduction" },
-          { title: "response-plans", href: "/response-plans" },
-          { title: "live-exploits", href: "/live-exploits" },
-          { title: "recovery-mechanisms", href: "/recovery-mechanisms" },
-          { title: "post-mortem", href: "/post-mortem" },
-        ],
-      },
-    ],
-  },
-  {
-    title: "dao-interactions",
-    href: "/dao-interactions",
-    noLink: true,
-    items: [
-      {
-        title: "on-chain-interactions",
-        href: "/on-chain-interactions",
-        noLink: true,
-        items: [
-          { title: "introduction", href: "/introduction" },
-          { title: "non-dao-contracts", href: "/non-dao-contracts" },
-          { title: "governance-automation", href: "/governance-automation" },
-          { title: "multi-dao", href: "/multi-dao" },
-        ],
-      },
-      {
-        title: "off-chain-interactions",
-        href: "/off-chain-interactions",
-        noLink: true,
-        items: [
-          { title: "introduction", href: "/introduction" },
-          { title: "public-relations", href: "/public-relations" },
-          { title: "off-chain-signaling", href: "/off-chain-signaling" },
-          { title: "daos-and-traditional", href: "/daos-and-traditional" },
-        ],
-      },
-      {
-        title: "upgrades-and-interoperability",
-        href: "/upgrades-and-interoperability",
-        noLink: true,
-        items: [
-          { title: "introduction", href: "/introduction" },
-          { title: "upgrades", href: "/upgrades" },
-          { title: "decentralized-control", href: "/decentralized-control" },
-          { title: "cross-chain", href: "/cross-chain" },
-        ],
-      },
-    ],
-  },
-  {
-    title: "dao-perspectives",
-    href: "/dao-perspectives",
-    noLink: true,
-    items: [
-      {
-        title: "history-and-evolution",
-        href: "/history-and-evolution",
-        noLink: true,
-        items: [
-          { title: "introduction", href: "/introduction" },
-          { title: "origins", href: "/origins" },
-          { title: "evolution", href: "/evolution" },
-          { title: "lessons", href: "/lessons" },
-        ],
-      },
-      {
-        title: "research-and-analytics",
-        href: "/research-and-analytics",
-        noLink: true,
-        items: [
-          { title: "introduction", href: "/introduction" },
-          { title: "research", href: "/research" },
-          { title: "books", href: "/books" },
-          { title: "dao-analysis", href: "/dao-analysis" },
-          { title: "indicators", href: "/indicators" },
-        ],
-      },
-      {
-        title: "emerging-trends-and-future-directions",
-        href: "/emerging-trends-and-future-directions",
-        noLink: true,
-        items: [
-          { title: "introduction", href: "/introduction" },
-          { title: "implementations", href: "/implementations" },
-          { title: "frameworks", href: "/frameworks" },
-          { title: "integration", href: "/integration" },
-        ],
-      },
-    ],
-  },
-  {
-    title: "thank-you",
-    href: "/thank-you",
-    noLink: true,
-    items: [
-      { title: "epilogue", href: "/epilogue" },
-      { title: "glossary", href: "/glossary" },
     ],
   },
 ];
@@ -554,16 +154,14 @@ export const CONCILIATORICS_ROUTES: EachRoute[] = [
 ];
 
 // Function to get routes for a specific section
-export function getRoutesForSection(section: "fealty" | "howtodao" | "conciliatorics" | "about"): EachRoute[] {
+export function getRoutesForSection(section: "fmao" | "conciliatorics" | "about"): EachRoute[] {
   switch (section) {
-    case "fealty":
-      return FEALTY_ROUTES;
-    case "howtodao":
-      return HOWTODAO_ROUTES;
+    case "fmao":
+      return FMAO_ROUTES;
     case "conciliatorics":
       return CONCILIATORICS_ROUTES;
     default:
-      return FEALTY_ROUTES; // fallback
+      return FMAO_ROUTES; // fallback
   }
 }
 
@@ -582,21 +180,20 @@ export function getRecurrsiveAllLinks(node: EachRoute): Page[] {
 }
 
 // Function to get all page routes for a specific section
-export function getPageRoutesForSection(section: "fealty" | "howtodao" | "conciliatorics"): Page[] {
+export function getPageRoutesForSection(section: "fmao" | "conciliatorics"): Page[] {
   const sectionRoutes = getRoutesForSection(section);
   return sectionRoutes.map((it) => getRecurrsiveAllLinks(it)).flat();
 }
 
 // For components that need to work with all sections (like navbar)
-export function getAllFirstRoutes(): { section: "fealty" | "howtodao" | "conciliatorics", firstRoute: Page }[] {
+export function getAllFirstRoutes(): { section: "fmao" | "conciliatorics", firstRoute: Page }[] {
   return [
-    { section: "fealty", firstRoute: getPageRoutesForSection("fealty")[0] },
-    { section: "howtodao", firstRoute: getPageRoutesForSection("howtodao")[0] },
+    { section: "fmao", firstRoute: getPageRoutesForSection("fmao")[0] },
     { section: "conciliatorics", firstRoute: getPageRoutesForSection("conciliatorics")[0] },
   ];
 }
 
 // DEPRECATED: These are kept for backward compatibility but should be avoided
 // Components should use getRoutesForSection() and getPageRoutesForSection() instead
-export const ROUTES: EachRoute[] = FEALTY_ROUTES;
-export const page_routes = getPageRoutesForSection("fealty");
+export const ROUTES: EachRoute[] = FMAO_ROUTES;
+export const page_routes = getPageRoutesForSection("fmao");

@@ -4,6 +4,7 @@ import { getDictionary, LangProps } from "@/lib/dictionaries";
 import { getAboutContent } from "@/lib/markdown";
 import { Metadata } from 'next';
 import { notFound } from "next/navigation";
+import Image from "next/image";
 
 export async function generateMetadata({ params }: LangProps): Promise<Metadata> {
   const { lang } = await params;
@@ -53,6 +54,14 @@ export default async function AboutPage({ params }: LangProps) {
           <p className="-mt-4 text-muted-foreground text-[16.5px] animate-in slide-in-from-bottom-4 fade-in duration-700">
             {res.frontmatter.description}
           </p>
+          <Image
+            src="/images/banner-blue.png"
+            alt=""
+            width={1580}
+            height={140}
+            priority
+            className="animate-in fade-in duration-700 delay-400"
+          />
           <div className="animate-in slide-in-from-bottom-4 fade-in duration-700 delay-400">{res.content}</div>
         </Typography>
       </div>

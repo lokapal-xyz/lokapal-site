@@ -1,4 +1,4 @@
-import { siGithub, siX, siLogmein, siSubstack, siTelegram, siMedium, siProducthunt, siInstagram, siEns } from 'simple-icons';
+import { siGithub, siX, siReddit, siSubstack, siTelegram, siMedium, siProducthunt, siInstagram, siEns } from 'simple-icons';
 
 interface SimpleIconProps {
   size?: number;
@@ -35,7 +35,7 @@ export function XIcon({ size = 24, className = "" }: SimpleIconProps) {
   );
 }
 
-export function LinkedInIcon({ size = 24, className = "" }: SimpleIconProps) {
+export function RedditIcon({ size = 24, className = "" }: SimpleIconProps) {
   return (
     <svg
       role="img"
@@ -45,7 +45,7 @@ export function LinkedInIcon({ size = 24, className = "" }: SimpleIconProps) {
       className={className}
       fill="currentColor"
     >
-      <path d={siLogmein.path} />
+      <path d={siReddit.path} />
     </svg>
   );
 }

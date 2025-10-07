@@ -1,0 +1,67 @@
+---
+title: "Escribiendo En lo múltiple, como uno — Parte 2: El Archivo del Plexo"
+description: "En este artículo, abordamos el diseño y creación de nuestra primera implementación Lit3."
+date: 25-09-2025
+authors:
+  - avatar: "/images/LokapalMain.png"
+    handle: lokapalxyz
+    username: lokapal.eth
+    handleUrl: "https://x.com/lokapalxyz"
+cover: "/images/making-fmao.jpg"
+---
+
+## Introducción
+
+¡Bienvenidos nuevamente! Continuamos nuestro diario del proceso creativo — esta vez con la introducción de nuestra primera implementación web3 activa.
+
+**Nota:** Desde la Parte 1, el proyecto comenzó a adoptar una etiqueta que se usará en esta serie de ahora en adelante: **Lit3** (Literatura en Web3). Lit3 abarca cualquier proyecto literario que aproveche la tecnología blockchain, desde un solo poema vinculado a un token, hasta una infraestructura DAO completa que gobierne el resultado de una saga extendida. Esperamos que el uso de esta etiqueta ayude a construir una comunidad alrededor de las historias web3, tanto para lectores como para escritores. Si quieres saber más, por favor lee nuestro ensayo [*El alba de la Lit3*](https://www.lokapal.xyz/es/thoughtchain/the-dawn-of-lit3).
+
+---
+
+## Estado del Proyecto
+
+Terminamos nuestro artículo anterior detallando los objetivos a corto plazo para el proyecto *En lo múltiple, como uno*: construir una audiencia a través de una serie de micro-historias llamada *Desde el Plexo*. Esta hoja de ruta no se alteró, pero poco después de sentar las bases de esta serie, encontramos un problema fundamental. En lo múltiple, como uno es claramente un proyecto web3, en virtud del diseño de su infraestructura DAO. Y Desde el Plexo es el precursor de En lo múltiple, como uno. Pero, ¿realmente pertenece Desde el Plexo al espíritu de la Lit3? ¿Es suficiente su conexión con En lo múltiple, como uno, o deberíamos considerar agregar un componente web3 dedicado a ella?
+
+Al principio, no queríamos cambiar nuestro enfoque principal. Pero la sombra de que Desde el Plexo fuera solo otra serie de internet era lo suficientemente preocupante como para al menos reconsiderar su enfoque. Poco después, encontramos cómo mejorar las micro-historias sin frenar nuestro momentum. Las narrativas breves muestran solo una pequeña instantánea del mundo que crean — cada palabra cuenta, y no se puede permitir un desarrollo adicional. Entonces, ¿qué tal si podemos dar algo más de contexto a esos mundos, pero solo si el lector explícitamente lo quiere? Así nace **El Archivo del Plexo**.
+
+---
+
+## El Archivo del Plexo
+
+Nuestra necesidad de un componente web3 apropiado dio origen a la primera estructura definida en el altamente enigmático reino del Plexo: *El Archivo del Plexo*. Este *lugar* (si se le puede llamar así) almacena cada esquirla en la existencia, y solo es accesible para un misterioso ser llamado *El Archivista*. Esta entidad es el curador del Archivo, y monitorea tanto el reino mortal como el divino. Creemos que este es un claro ejemplo del lema *cada desafío es una oportunidad* — es muy probable que no hubiéramos desarrollado el concepto del Archivo del Plexo o del Archivista de no ser por necesidad. Y ahora el lore es más rico como consecuencia directa de un problema inesperado.
+
+> ¡Alentamos a todos a transformar los desafíos en combustible creativo!
+
+El Archivo del Plexo amplía cada fragmento de *Desde el Plexo* con 5 registros meta-narrativos almacenados en un contrato inteligente:
+- Etiqueta de Esquirla: La etiqueta utilizada por el Archivista para almacenar la esquirla. Esta etiqueta es la misma que el título off-chain de la esquirla.
+- Fuente del Eco: La ubicación exacta en la que tuvo lugar la micro-historia.
+- Tiempo Terrestre: El horario UTC cuando se interceptó la transmisión de la esquirla.
+- Tiempo de Lanka: El equivalente en Lanka del horario UTC. Utilizamos un formato de horario hecho a medida con términos en sánscrito y valores hexadecimales para representar la mezcla entre la cosmología hindú y la estética cyberpunk de nuestro lore. Puedes leer la sección de Tiempo de Lanka en el Libro Blanco de En lo múltiple, como uno para más detalles.
+- Registro del Archivista: El comentario del Archivista sobre los eventos de la esquirla, proporcionando un componente meta-narrativo único a la historia, solo almacenado en la blockchain.
+
+---
+
+## Padrón Lit3
+
+El Archivo del Plexo sirve como expansión del lore, pero aún más importante, es el contenedor narrativo para la implementación web3 de Desde el Plexo — ya que estos registros meta-narrativos se almacenan en un contrato inteligente desplegado en Base Mainnet. Este marco satisface ambos aspectos de un proyecto Lit3:
+- **Significado Artístico**: los registros se almacenan fuera del texto principal de la historia, tal como el Archivo del Plexo está fuera del alcance de los reinos mortal y divino.
+- **Motivo Estructural**: los registros proporcionan una mejora narrativa clara, no replicable sin la implementación de la tecnología blockchain.
+
+Etiquetaremos este marco web3 específico como un **Padrón Lit3**. El propósito principal de este tipo de padrón es permitir a los lectores expandir su participación con la historia Lit3. Si un padrón se implementa como un fin en si mismo, se romperá la naturaleza recíproca necesaria entre el componente off-chain y on-chain. Este marco puede permitir una gran experimentación por parte de los creadores, pero si los lectores no se involucran con ellos, pierde su propósito final. Para ampliar la conversación sobre las implementaciones Lit3, puedes leer nuestro artículo titulado [*Notas sobre marcos Lit3*](https://www.lokapal.xyz/es/thoughtchain/lit3-frameworks).
+
+---
+
+## Reflexiones Finales
+
+En los próximos artículos, compartiremos el proceso de desarrollo de nuestra implementación del padrón Lit3 de *Desde el Plexo*. Estas publicaciones técnicas no pretenden ser hojas de ruta concluyentes o guías a prueba de errores, sino una descripción general de las herramientas y protocolos que tuvimos que aprender e implementar para alcanzar nuestro objetivo: ampliar nuestras micro-historias con las capacidades únicas de la blockchain, y lograr que sean fácilmente accesibles para los lectores con solo hacer clic en un botón.
+
+Como hemos detallado, Desde el Plexo y En lo múltiple, como uno están encontrando muchos desafíos, pero estamos tratando de verlos como oportunidades en lugar de obstáculos insuperables. Nuestros errores en el camino pueden servir como lecciones para ser aprendidas por otros proyectos y creadores, así que los estamos abrazando y avanzando.
+
+<Image
+  src="/images/banner-purple.png"
+  alt=""
+  width={1580}
+  height={140}
+/>
+
+**Gracias por leer — nos vemos en Lanka Prime.**

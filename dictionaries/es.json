@@ -1,14 +1,13 @@
 {
     "metadata": {
         "title": "Lokapal",
-        "description": "Lokapal es una plataforma de contenido para el diseño, la comprensión y el impacto de la web3."
+        "description": "Lokapal es una plataforma para la ficción serializada, ensayos y filosofía."
     },
     "home": {
-        "linktree": "Un proyecto de lokapal.eth",
-        "main_header": "Explorando historias e ideas en la Web3",
-        "sub_header": "Una plataforma de contenidos web3 — que incluye criptonovelas, ensayos, guías educativas e indagaciones filosóficas.",
-        "fealty": "Lealtad - Para Lectores",
-        "howtodao": "Guía DAO - Para Estudiantes",
+        "linktree": "Linktree de Lokapal",
+        "main_header": "Ficción serializada, ensayos y filosofía",
+        "sub_header": "Una plataforma para ficción serializada que explora el poder, la gobernanza y la agencia humana, junto con ensayos sobre narración, filosofía y sistemas descentralizados.",
+        "fmao": "En lo múltiple, como uno - Para Lectores",
         "thoughtchain": "Thoughtchain - Para Exploradores",
         "conciliatorics": "Concliatórica - Para Teóricos",
         "name": "Lokapal"
@@ -16,14 +15,13 @@
     "footer": {
         "built_by": "Desarrollado por",
         "source_code_available": "El código fuente está disponible en",
-        "deploy": "Lokapal Linktree",
+        "deploy": "Linktree de Lokapal",
         "styleGuide": "Guía de Estilo",
         "styleGuideUrl": "/guides/guia-de-estilo-de-lokapal.pdf"
     },
     "navbar": {
         "links": {
-            "fealty": "Literatura",
-            "howtodao": "Educación",
+            "fmao": "Literatura",
             "thoughtchain": "Ensayos",
             "conciliatorics": "Filosofía",
             "about": "Sobre Nosotros"
@@ -39,12 +37,7 @@
             "system": "Sistema"
         }
     },
-    "fealty": {
-        "on_this_page": "En esta página",
-        "next": "Siguiente",
-        "previous": "Anterior"
-    },
-    "howtodao": {
+    "fmao": {
         "on_this_page": "En esta página",
         "next": "Siguiente",
         "previous": "Anterior"
@@ -252,27 +245,24 @@
         "fw-part-2": "🔹Parte 2: Biblia de la historia",
         "fw-part-3": "🔹Parte 3: Marco de web3",
         "fw-appendix": "🔹Apéndice",
-        "fealty-a-crypto-novel": "1.1 Lealtad, una criptonovela",
+        "fmao-a-web-serial": "1.1 En lo múltiple, como uno. Un serial web",
         "objectives": "1.2 Objetivos",
-        "crypto-novel": "1.3 Criptonovela",
-        "web3-chapter": "1.4 Capítulo web3",
-        "story-format": "1.5 Formato de la historia",
-        "roadmap": "1.7 Hoja de ruta",
+        "chapter-structure": "1.3 Estructura de capítulos",
+        "story-format": "1.4 Formato de la historia",
+        "plexus": "1.5 Pre-lanzamiento",
+        "roadmap": "1.6 Hoja de ruta",
         "lore-summary": "2.1 Resumen del lore",
         "character-profiles": "2.2 Perfiles de personajes",
         "locations": "2.3 Localizaciones",
-        "fealty-web3-framework": "Marco Web3 de Lealtad",
+        "fmao-web3-framework": "Detalles del Marco Web3",
         "references-license-and-contact": "Referencias, Licencia y Contacto",
-        "fealty-whitepaper": "💠 Libro blanco de Lealtad",
-        "prologue": "Prólogo de Lealtad",
-        "plexus": "1.6 Pre-lanzamiento",
+        "fmao-whitepaper": "💠 Libro blanco de En lo múltiple, como uno",
+        "prologue": "Prólogo de En lo múltiple, como uno",
         "from-the-plexus": "Desde el Plexo"
-
-        
     },
     "blog": {
         "title": "Thoughtchain",
-        "sub_title": "Bienvenidos al espacio de ensayos de Lokapal. Esta sección incluye artículos de investigación, tópicos web3 relevantes, herramientas educativas, expansiones narrativas, exploraciones filosóficas y actualizaciones de Lokapal.",
+        "sub_title": "Bienvenidos al espacio de ensayos de Lokapal. Esta sección incluye artículos de investigación, hojas de ruta, herramientas educativas, expansiones narrativas, exploraciones filosóficas y actualizaciones de Lokapal.",
         "published_on": "Publicado el",
         "back_to_blog": "Volver al Inicio",
         "posted_by": "Publicado por"

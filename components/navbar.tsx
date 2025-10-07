@@ -1,7 +1,7 @@
 "use client";
 
 import { ModeToggle } from "@/components/theme-toggle";
-import { GithubIcon, XIcon, LinkedInIcon, SubstackIcon, TelegramIcon, MediumIcon, PhIcon, InstagramIcon, EnsIcon } from "./icons";
+import { GithubIcon, XIcon, RedditIcon, SubstackIcon, TelegramIcon, MediumIcon, PhIcon, InstagramIcon, EnsIcon } from "./icons";
 import Link from "next/link";
 import { buttonVariants } from "./ui/button";
 import { SheetLeftbar } from "./leftbar";
@@ -15,13 +15,8 @@ import Image from "next/image";
 // Update your navbar config
 export const NAVLINKS = [
   {
-    title: "fealty",
-    href: `/fealty${getPageRoutesForSection("fealty")[0].href}`,
-    absolute: true,
-  },
-  {
-    title: "howtodao", 
-    href: `/howtodao${getPageRoutesForSection("howtodao")[0].href}`,
+    title: "fmao",
+    href: `/fmao${getPageRoutesForSection("fmao")[0].href}`,
     absolute: true,
   },
   {
@@ -134,6 +129,15 @@ export function Navbar({
                 <PhIcon className="h-[1.1rem] w-[1.1rem]" />
               </Link>
               <Link
+                href="https://www.reddit.com/user/lord_richard86/"
+                className={buttonVariants({
+                  variant: "ghost",
+                  size: "icon",
+                })}
+              >
+                <RedditIcon className="h-[1.1rem] w-[1.1rem]" />
+              </Link>
+              <Link
                 href="https://app.ens.domains/lokapal.eth"
                 className={buttonVariants({
                   variant: "ghost",
@@ -141,15 +145,6 @@ export function Navbar({
                 })}
               >
                 <EnsIcon className="h-[1.1rem] w-[1.1rem]" />
-              </Link>
-              <Link
-                href="https://www.linkedin.com/in/ricardopintos"
-                className={buttonVariants({
-                  variant: "ghost",
-                  size: "icon",
-                })}
-              >
-                <LinkedInIcon className="h-[1.1rem] w-[1.1rem]" />
               </Link>
               <Link
                 href="https://github.com/lokapal-xyz"

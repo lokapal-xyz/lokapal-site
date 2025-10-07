@@ -1,26 +1,20 @@
 # Lokapal
 
-**Lokapal is a content platform for web3 design, understanding, and impact.**
+**Lokapal publishes serialized fiction exploring power, governance, and human agency—alongside essays on storytelling, philosophy, and decentralized systems.**
 
-We believe that decentralization is not just a mechanism — it's a systemic necessity. Lokapal approaches web3 as a transformative paradigm, one that requires not only smart tools, but comprehensive thinking.
+We approach decentralization not as a technology trend, but as a fundamental principle for understanding how authority distributes, how systems coordinate, and how narratives can reflect these dynamics. Lokapal's work spans political fantasy fiction, philosophical inquiry, and exploration of blockchain as narrative medium.
 
 ---
 
 ## Lokapal Projects
 
-### Fealty  
-**A crypto novel exploring the potential, struggles, and meaning of governance.**  
-Fealty is Lokapal's primary creative project — a serialized Web3-native publication that blends narrative, research, and cultural reflection. It aims to capture not only the technical dimensions of governance, but also their human, ethical, and symbolic significance. Through its chapters, Fealty explores how decentralization intersects with identity, community, and the future of collective action.
-
-
-### HowToDAO
-**A structured educational resource for DAO participation.**  
-HowToDAO is dedicated to documenting, categorizing, and structuring knowledge about decentralized governance. It serves as a practical guide to functionality, decision-making, security and organizational best practices.
-
+### From Many, as One  
+**A web serial exploring the potential, struggles, and meaning of governance.**  
+From Many, as One is Lokapal's primary creative project — a serialized publication that blends narrative, research, and cultural reflection. It aims to capture not only the technical dimensions of governance, but also their human, ethical, and symbolic significance. Through its chapters, *From Many, as One* explores how decentralization intersects with identity, community, and ideology.
 
 ### Thoughtchain
-**Research on the frontiers of web3 systems and design.**  
-Thoughtchain is the essays platform of Lokapal, including research articles, web3 highlights, educational tools, lore expansions, philosophical explorations, and Lokapal updates.
+**Research on the frontiers of decentralized systems and design.**  
+Thoughtchain is the essays platform of Lokapal, including research articles, roadmaps, educational tools, lore expansions, philosophical explorations, and Lokapal updates.
 
 
 ### Conciliatorics  
@@ -31,7 +25,7 @@ Conciliatorics is the foundational philosophical work behind Lokapal, the result
 
 ## Partnerships and Support
 
-Lokapal is committed to building in the open and collaborating with projects and communities that share our vision of web3 growth.  
+Lokapal is committed to building in the open and collaborating with projects and communities that share our vision.  
 
 At this stage, we are an independent initiative — fully self-funded and focused on creating meaningful, high-trust content.  
 
@@ -41,7 +35,7 @@ In the future, this section will feature our partnerships, collaborations, and g
 
 ## Contact Us
 
-Whether you are exploring ideas, building a project, or simply curious about web3, feel free to reach out. Lokapal welcomes collaboration, questions, and conversations of all kinds.
+Whether you are exploring ideas, building a project, or simply curious about our projects, feel free to reach out. Lokapal welcomes collaboration, questions, and conversations of all kinds.
 
 Let's see where our paths might align.
 

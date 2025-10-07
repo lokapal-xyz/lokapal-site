@@ -1,0 +1,99 @@
+---
+title: Web3 Framework Details
+description: 'Part 3: Web3 Framework'
+---
+
+The web serial framework rests on a dual-governance model:  
+- **Community Signaling** through the BHAKTI token  
+- **Formal Authority** through the RAKSHA token  
+
+This separation mirrors the balance between mortal fmao and divine guardianship.
+
+## 3.1 Smart Contracts
+
+### Ledger: Plexus Archive Contract
+- **Network**: Base  
+- **Framework**: Custom-made contract by lokapal.eth    
+- **Function**: Store meta-narrative logs for each *From the Plexus* shard  
+- **Integration**: GraphQL, Subgraph, The Graph, Apollo Client, React 
+
+### Governance: OpenZeppelin Governor
+- **Network**: Base  
+- **Framework**: OpenZeppelin Governor contract  
+- **Function**: Executes binding proposals and voting on-chain  
+- **Integration**: ERC721Votes (RAKSHA) determines voting power  
+
+### BHAKTI: ERC20Votes
+- **Name**: Lokapal Bhakti Token (BHAKTI)  
+- **Supply**: Fixed at 100 million, minted at deployment  
+- **Custody**: Entire supply transferred to the Trimurti Safe  
+- **Function**: Delegated voting on Snapshot for off-chain signaling  
+- **Mechanics**: Fully transferable, allowing influence to shift among guardians  
+
+### RAKSHA: ERC721Votes
+- **Name**: Lokapal Raksha Token (RAKSHA)  
+- **Supply**: 8 NFTs, one for each guardian  
+- **Transferability**: Soulbound to guardian addresses  
+- **Voting Power**: Each NFT grants 1 formal vote on Tally  
+- **Purpose**: Represents guardian authority in on-chain governance  
+
+---
+
+## 3.2 Wallets and Accounts
+
+### EOAs: Character Roles
+- **Guardians**: 8 dedicated addresses (Indra, Agni, Yama, Nirrti, Varuna, Vayu, Kubera, Ishana)  
+- **Trimurti**: 3 dedicated addresses (Brahma, Vishnu, Shiva)  
+- **Funding**: All active on Base with ETH for transactions  
+- **Use**: Transaction execution and participation in governance  
+
+### Safe: Trimurti Oversight
+- **Configuration**: 3/3 multisig (Trimurti as signers)  
+- **Threshold**: 2-of-3 required for execution  
+- **Treasury**: Holds the entire BHAKTI supply at launch  
+- **Extensions**: Zodiac modules for enhanced governance controls  
+- **Authority**: Supervisory and emergency intervention role  
+
+---
+
+## 3.3 Governance Platforms
+
+### Snapshot: Devotional Signaling
+- **Integration**: Linked to BHAKTI contract  
+- **Voting Power**: Proportional to BHAKTI holdings  
+- **Access**: Open participation for all holders  
+- **Purpose**: Non-binding proposals, narrative-aligned signaling  
+
+### Tally: Guardian Authority
+- **Integration**: Linked to RAKSHA contract  
+- **Voting Rights**: Restricted to guardian addresses  
+- **Function**: On-chain proposal submission and execution  
+- **Purpose**: Binding, formal governance  
+
+### Forum (Fictional): Debate Chamber
+- **Platform**: Hosted at `lokapal.xyz` as an integral part of the *From Many, as One* story
+- **Control**: Curated by `lokapal.eth`  
+- **Purpose**: Guardian roleplay, proposal discussion, lore development  
+- **Future**: Gradual expansion to community input  
+
+---
+
+## 3.4 Community Platforms
+
+### Social Channels
+- **Plaforms**: X (Twitter), Discord, Base App, Reddit  
+- **Content**: From Many, as One news, story excerpts, debates, Q&A
+- **Activities**: Informal polls, engaging participation with the lore, governance integration
+
+### Documentation & Analytics
+- **Whitepaper**: Core reference material  
+- **Dashboard**: Governance data, voting history, character records  
+- **Subgraph**: The Graph integration for loyalty transfer indexing  
+- **Analytics**: Historical tracking of guardian influence  
+
+### NFT Strategy
+- **Timeline**: Post-foundation phase  
+- **Purpose**: Ecosystem support, community rewards, lore commemoration  
+- **Types**: Guardian collectibles, key locations, pivotal story events  
+- **Approach**: Utility-driven, narrative-first, avoiding pure speculation  
+

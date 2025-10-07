@@ -40,24 +40,14 @@ export default async function Home({ params }: LangProps) {
       {/* Responsive button grid - added justify-center for desktop */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:flex lg:flex-row lg:justify-center items-center gap-4 w-full max-w-4xl px-4 animate-in slide-in-from-bottom-4 fade-in duration-700 delay-400">
         <LocalizedLink
-          href={`/fealty${getPageRoutesForSection("fealty")[0].href}`}
+          href={`/fmao${getPageRoutesForSection("fmao")[0].href}`}
           className={buttonVariants({
-            variant: "fealty",
+            variant: "fmao",
             className: "px-6 w-full lg:w-auto transition-all duration-300 hover:shadow-lg hover:-translate-y-1",
             size: "lg"
           })}
         >
-          {dict.home.fealty}
-        </LocalizedLink>
-        <LocalizedLink
-          href={`/howtodao${getPageRoutesForSection("howtodao")[0].href}`}
-          className={buttonVariants({
-            variant: "howtodao",
-            className: "px-6 w-full lg:w-auto transition-all duration-300 hover:shadow-lg hover:-translate-y-1",
-            size: "lg",
-          })}
-        >
-          {dict.home.howtodao}
+          {dict.home.fmao}
         </LocalizedLink>
         <LocalizedLink
           href={`/thoughtchain`}
