@@ -29,7 +29,7 @@ This article details the technical process and the narrative implications of usi
 
 ## Purpose: Solving the Digital Integrity Problem
 
-In the age of Web2, a digital text has no inherent integrity. The original file can be copied, altered, and re-uploaded endlessly without detection. The reader must always trust the platform (Amazon, a publisher's website) to provide the authentic text.
+In the age of Web2, a digital text has no inherent integrity. The original file can be copied, altered, and re-uploaded endlessly without detection. The reader must always trust the platform (Amazon, a publisher's website, etc.) to provide the authentic text.
 
 The Canonical Hash flips this dynamic. It empowers the reader to verify the text's authenticity, eliminating the need for trust in a centralized party.
 
@@ -51,9 +51,9 @@ The Canonical Hash is generated using a **cryptographic hash function**, specifi
 
 A hash function acts like a deterministic, one-way blender with three key properties:
 
-  * **Fixed Output:** No matter the size of the input—whether a haiku or a 500-page manuscript—the output is always a fixed-length string of 32 bytes (`bytes32`).
-  * **Irreversible:** You cannot reverse the hash to retrieve the original text. It is a one-way street, which is essential for security.
-  * **Avalanche Effect:** The slightest change to the input (e.g., adding a single comma or a space) results in a completely unrecognizable, different hash output.
+* **Fixed Output:** No matter the size of the input—whether a haiku or a 500-page manuscript—the output is always a fixed-length string of 32 bytes (`bytes32`).
+* **Irreversible:** You cannot reverse the hash to retrieve the original text. It is a one-way street, which is essential for security.
+* **Avalanche Effect:** The slightest change to the input (e.g., adding a single comma or a space) results in a completely unrecognizable, different hash output.
 
 ### 2. The Ledger Integration
 
@@ -80,17 +80,17 @@ Integrating the Canonical Hash is the **game-changer** for Lit3 because it moves
 
 ### 1. Perpetual Integrity and Archival
 
-  * **Decentralized Preservation:** The text itself may be stored off-chain, but the **proof of its authenticity** lives forever on the blockchain. Even if the off-chain link breaks, as long as a single copy of the original text exists anywhere, its authenticity can always be verified against the on-chain hash. This is the **ultimate archival solution** for literature.
+* **Decentralized Preservation:** The text itself may be stored off-chain, but the **proof of its authenticity** lives forever on the blockchain. Even if the off-chain link breaks, as long as a single copy of the original text exists anywhere, its authenticity can always be verified against the on-chain hash. This is the **ultimate archival solution** for literature.
 
 ### 2. Eliminating Canon Contention
 
-  * **No More Debate:** The question of what constitutes the "original" or "canonical" version is removed from the realm of literary debate and placed into verifiable fact. If two versions of a text are circulating, a reader can simply hash both of them.
-      * If a version's hash **matches** the `canonicalHash` on the Ledger, it is the genuine article.
-      * If it **doesn't match**, it is an altered copy, a fan edit, or a non-canonical draft.
+* **No More Debate:** The question of what constitutes the "original" or "canonical" version is removed from the realm of literary debate and placed into verifiable fact. If two versions of a text are circulating, a reader can simply hash both of them.
+    * If a version's hash **matches** the `canonicalHash` on the Ledger, it is the genuine article.
+    * If it **doesn't match**, it is an altered copy, a fan edit, or a non-canonical draft.
 
 ### 3. Enabling Verifiable Ownership
 
-  * **NFT Utility:** An NFT representing a Lit3 work gains intrinsic value beyond its visual or collectible nature. The token holder doesn't just own a digital file; they own the rights to a **cryptographically-certified canonical edition**. The on-chain hash is the verifiable proof that the edition is the genuine, unaltered piece of the Story Canon.
+* **NFT Utility:** An NFT representing a Lit3 work gains intrinsic value beyond its visual or collectible nature. The token holder doesn't just own a digital file; they own the rights to a **cryptographically-certified canonical edition**. The on-chain hash is the verifiable proof that the edition is the genuine, unaltered piece of the Story Canon.
 
 
 ---

@@ -1,6 +1,6 @@
 ---
-title: "Hash Canónico de Lit3"
-description: "Estableciendo Registros sin Requisitos de Confianza para el Canon Narrativo."
+title: "Hash canónico de Lit3"
+description: "Estableciendo registros sin requisitos de confianza para el canon narrativo."
 date: 01-10-2025
 authors:
   - avatar: "/images/LokapalMain.png"
@@ -10,58 +10,58 @@ authors:
 cover: "/images/hash.jpg"
 ---
 
-*Estableciendo Registros sin Requisitos de Confianza para el Canon Narrativo.*
+*Estableciendo registros sin requisitos de confianza para el canon narrativo.*
 
-## La Huella Digital Inmutable de la Ficción
+## La huella digital inmutable de la ficción
 
 **Nota:** Este artículo amplía los conceptos desarrollados en:
 - [*El alba de la Lit3*](https://www.lokapal.xyz/es/thoughtchain/the-dawn-of-lit3),
 - [*Notas sobre marcos Lit3*](https://www.lokapal.xyz/es/thoughtchain/lit3-frameworks), y
-- [*Blockchain como Canon Narrativo*](https://www.lokapal.xyz/es/thoughtchain/blockchain-canon).
+- [*Blockchain como canon narrativo*](https://www.lokapal.xyz/es/thoughtchain/blockchain-canon).
 
-El **Canon Narrativo** para Lit3 no es solo un acuerdo cultural compartido; es una **garantía criptográfica**.
+Dentro de la Lit3, el **canon narrativo** no es solo un acuerdo cultural compartido; es una **garantía criptográfica**.
 
-El Marco de Registro (Ledger Framework), como se introdujo anteriormente, establece el registro oficial de un artefacto literario. La clave de su autoridad es un solo dato pequeño: el **Hash Canónico**. Este hash es la huella digital de una narrativa, proporcionando un anclaje inmutable para cada obra Lit3, desde un solo poema hasta el capítulo de una novela completa.
+El marco de registro (Ledger Framework), como se introdujo anteriormente, establece el registro oficial de un artefacto literario. La clave de su autoridad es solamente un pequeño fragmento de datos: el **hash canónico**. Este hash es la huella digital de una narrativa, proporcionando un anclaje inmutable para cada obra Lit3, desde un solo poema hasta el capítulo de una novela completa.
 
-Este artículo detalla el proceso técnico y las implicaciones narrativas de usar el Hash Canónico para lograr la **integridad literaria perpetua** en el blockchain.
+Este artículo detalla el proceso técnico y las implicaciones narrativas de usar el hash canónico para lograr la **integridad literaria perpetua** en la blockchain.
 
 ---
 
-## Propósito: Resolviendo el Problema de la Integridad Digital
+## Propósito: Resolviendo el problema de la integridad digital
 
-En la era de Web2, un texto digital no tiene integridad inherente. El archivo original puede ser copiado, alterado y vuelto a subir infinitamente sin detección. El lector siempre debe confiar en la plataforma (Amazon, el sitio web de un editor) para proporcionar el texto auténtico.
+En la era de la Web2, un texto digital no tiene integridad inherente. El archivo original puede ser copiado, alterado y vuelto a subir infinitamente sin detección. El lector siempre debe confiar en la plataforma (Amazon, el sitio web de un editor, etc.) para proporcionar el texto auténtico.
 
-El Hash Canónico invierte esta dinámica. Empodera al lector para verificar la autenticidad del texto, eliminando la necesidad de confiar en una parte centralizada.
+El hash canónico invierte esta dinámica. Empodera al lector para verificar la autenticidad del texto, eliminando la necesidad de confiar en un proveedor centralizado.
 
-| | Método Tradicional | Método Hash Canónico de Lit3 |
+| | Método Tradicional | Método Hash Canónico Lit3 |
 | :--- | :--- | :--- |
-| **Fuente de Integridad** | Confianza en el editor/plataforma. | **Prueba criptográfica** almacenada en cadena. |
-| **Verificación** | Verificar la marca/URL de la fuente. | **Calcular el hash** y comparar con el Registro. |
-| **Vulnerabilidad** | Brecha del servidor, corrupción de archivos o edición maliciosa. | **Registro inmutable** que no puede ser alterado. |
+| **Fuente de Integridad** | Confianza en el editor/plataforma. | **Prueba criptográfica** almacenada on-chain. |
+| **Verificación** | Verificar la marca/URL de la fuente. | **Calcular el hash** y comparar con el registro. |
+| **Vulnerabilidad** | Hackeo del servidor, corrupción de archivos o edición maliciosa. | **Registro inmutable** que no puede ser alterado. |
 
-El Hash Canónico es la respuesta definitiva a la pregunta: **"¿Es este texto el que el creador canonizó?"**
+El hash canónico es la respuesta definitiva a la pregunta: **"¿Es este texto el que fue canonizado por el creador?"**
 
 ---
 
-## Implementación Técnica: La Función Unidireccional
+## Implementación técnica: La función unidireccional
 
-El Hash Canónico se genera usando una **función hash criptográfica**, específicamente **keccak-256**, que es el estándar nativo y eficiente en gas en la Máquina Virtual de Ethereum (EVM).
+El hash canónico se genera usando una **función hash criptográfica**, específicamente **keccak-256**, que es el estándar nativo y eficiente en gas usada por la Máquina Virtual de Ethereum (EVM).
 
-### 1. El Proceso de Hashing
+### 1. El proceso de hashing
 
 Una función hash actúa como una licuadora determinista y unidireccional con tres propiedades clave:
 
-  * **Salida Fija:** No importa el tamaño de la entrada—ya sea un haiku o un manuscrito de 500 páginas—la salida es siempre una cadena de longitud fija de 32 bytes (`bytes32`).
-  * **Irreversible:** No puedes revertir el hash para recuperar el texto original. Es una calle de un solo sentido, lo cual es esencial para la seguridad.
-  * **Efecto Avalancha:** El más mínimo cambio en la entrada (por ejemplo, añadir una sola coma o un espacio) resulta en una salida hash completamente irreconocible y diferente.
+* **Salida fija:** No importa el tamaño de la entrada — ya sea un haiku o un manuscrito de 500 páginas — la salida es siempre una cadena de longitud fija de 32 bytes (`bytes32`).
+* **Irreversible:** No puedes revertir el hash para recuperar el texto original. Es una calle de un solo sentido, lo cual es esencial para la seguridad.
+* **Efecto avalancha:** El más mínimo cambio en la entrada (por ejemplo, añadir una sola coma o un espacio) resulta en una salida hash completamente irreconocible y diferente.
 
-### 2. La Integración con el Registro
+### 2. La integración con el registro
 
 Para asegurar el texto canónico, el proceso es:
 
-1.  **Preparación (Fuera de Cadena):** El autor de Lit3 o la plataforma toma el archivo de texto final. Ejecutan el algoritmo **keccak-256** sobre todo el contenido para generar el hash de 32 bytes.
+1.  **Preparación (off-chain):** El autor Lit3 o la plataforma de publicación toma el archivo de texto final. Se ejecuta el algoritmo **keccak-256** sobre todo el contenido para generar el hash de 32 bytes.
 
-2.  **Archivo (En Cadena):** Este hash resultante se registra permanentemente en la estructura `Shard` en el contrato inteligente del Registro Lit3:
+2.  **Archivo (on-chain):** Este hash resultante se registra permanentemente en el almacenamiento del contrato inteligente del registro Lit3:
 
 ```solidity
 struct Shard {
@@ -74,25 +74,24 @@ struct Shard {
 
 ---
 
-## Implicaciones: Construyendo Confianza Narrativa
+## Implicaciones: Construyendo confianza narrativa
 
-La integración del Hash Canónico es el **cambio de paradigma** para Lit3 porque mueve la autoridad de la historia de una institución falible a una prueba matemática incorruptible.
+La integración del Hash Canónico es el **cambio de paradigma** para la Lit3 porque mueve la autoridad de la historia de una institución falible a una prueba matemática incorruptible.
 
-### 1. Integridad Perpetua y Archivo
+### 1. Integridad perpetua y archivo
 
-  * **Preservación Descentralizada:** El texto en sí puede almacenarse fuera de cadena, pero la **prueba de su autenticidad** vive para siempre en el blockchain. Incluso si el enlace fuera de cadena se rompe, mientras exista una sola copia del texto original en cualquier lugar, su autenticidad siempre puede verificarse contra el hash en cadena. Esta es la **solución de archivo definitiva** para la literatura.
+* **Preservación descentralizada:** El texto en sí puede almacenarse off-chain, pero la **prueba de su autenticidad** vive para siempre en la blockchain. Incluso si el enlace off-chain se rompe, mientras exista una sola copia del texto original en cualquier lugar, su autenticidad siempre puede verificarse contra el hash on-chain. Esta es la **solución de archivo definitiva** para la literatura.
 
-### 2. Eliminando la Disputa del Canon
+### 2. Eliminando la disputa del canon
 
-  * **No Más Debate:** La cuestión de qué constituye la versión "original" o "canónica" se elimina del ámbito del debate literario y se coloca en el hecho verificable. Si dos versiones de un texto están circulando, un lector simplemente puede hashear ambas.
-      * Si el hash de una versión **coincide** con el `canonicalHash` en el Registro, es el artículo genuino.
-      * Si **no coincide**, es una copia alterada, una edición de fanáticos o un borrador no canónico.
+* **No más debates:** La cuestión de qué constituye la versión "original" o "canónica" se elimina del ámbito del debate literario y se convierte en un hecho verificable. Si dos versiones de un texto están circulando, un lector simplemente puede hashear ambas.
+    * Si el hash de una versión **coincide** con el `canonicalHash` en el registro, es el artículo genuino.
+    * Si **no coincide**, es una copia alterada, una edición de fans o un borrador no canónico.
 
-### 3. Habilitando la Propiedad Verificable
+### 3. Habilitando la propiedad verificable
 
-  * **Utilidad del NFT:** Un NFT que representa una obra Lit3 gana valor intrínseco más allá de su naturaleza visual o coleccionable. El tenedor del token no solo posee un archivo digital; posee los derechos a una **edición canónica certificada criptográficamente**. El hash en cadena es la prueba verificable de que la edición es la pieza genuina e inalterada del Canon Narrativo.
-
+* **Utilidad del NFT:** Un NFT que representa una obra Lit3 gana valor intrínseco más allá de su naturaleza visual o coleccionable. El tenedor del token no solo posee un archivo digital; posee los derechos a una **edición canónica certificada criptográficamente**. El hash on-chain es la prueba verificable de que la edición es la pieza genuina e inalterada del canon narrativo.
 
 ---
 
-*El Hash Canónico es la tecnología fundacional que hace realidad la permanencia literaria de Lit3, asegurando que las narrativas que amamos se preserven precisamente como se pretendía, para siempre.*
+*El hash canónico es la tecnología fundacional que hace realidad la permanencia literaria en la Lit3, asegurando que las narrativas que amamos se preserven precisamente como se pretendía, para siempre.*
