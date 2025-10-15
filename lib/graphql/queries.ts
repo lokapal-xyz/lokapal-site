@@ -1,56 +1,69 @@
 import { gql } from '@apollo/client';
 
-// Type definitions for your shard data (matching your schema)
-export interface Shard {
+// Type definitions for entry data (matching Lit3Ledger schema)
+export interface Entry {
   id: string;
-  shardIndex: string;
-  shardTag: string;
-  echoSource: string;
-  earthTime: string;
-  lankaTime: string;
-  archivistLog: string;
+  entryIndex: string;
+  title: string;
+  source: string;
+  timestamp1: string;
+  timestamp2: string;
+  curatorNote: string;
+  versionIndex: string;
+  nftAddress: string;
+  nftId: string;
+  contentHash: string;
+  deprecated: boolean;
   blockNumber: string;
   blockTimestamp: string;
   transactionHash: string;
 }
 
-export interface ShardsQueryResult {
-  shards: Shard[];
+export interface EntriesQueryResult {
+  entries: Entry[];
 }
 
-export interface ShardsQueryVariables {
+export interface EntriesQueryVariables {
   first?: number;
   skip?: number;
   orderBy?: string;
   orderDirection?: 'asc' | 'desc';
   where?: {
-    shardIndex_gte?: string;
+    entryIndex_gte?: string;
     blockNumber_gte?: string;
     blockTimestamp_gte?: string;
+    deprecated?: boolean;
   };
 }
 
-// Query to get all shards
-export const GET_SHARDS = gql`
-  query GetShards(
+// Query to get all entries with all fields
+export const GET_ENTRIES = gql`
+  query GetEntries(
     $first: Int = 100
     $skip: Int = 0
-    $orderBy: Shard_orderBy = blockTimestamp
+    $orderBy: Entry_orderBy = blockTimestamp
     $orderDirection: OrderDirection = desc
+    $where: Entry_filter
   ) {
-    shards(
+    entries(
       first: $first
       skip: $skip
       orderBy: $orderBy
       orderDirection: $orderDirection
+      where: $where
     ) {
       id
-      shardIndex
-      shardTag
-      echoSource
-      earthTime
-      lankaTime
-      archivistLog
+      entryIndex
+      title
+      source
+      timestamp1
+      timestamp2
+      curatorNote
+      versionIndex
+      nftAddress
+      nftId
+      contentHash
+      deprecated
       blockNumber
       blockTimestamp
       transactionHash
@@ -58,17 +71,28 @@ export const GET_SHARDS = gql`
   }
 `;
 
-// Query to get a specific shard by index
-export const GET_SHARD_BY_INDEX = gql`
-  query GetShardByIndex($shardIndex: String!) {
-    shards(where: { shardIndex: $shardIndex }) {
+// Query for story chapters (minimal - excludes dashboard-only fields)
+export const GET_CHAPTER_ENTRIES = gql`
+  query GetChapterEntries(
+    $first: Int = 100
+    $skip: Int = 0
+    $orderBy: Entry_orderBy = blockTimestamp
+    $orderDirection: OrderDirection = desc
+  ) {
+    entries(
+      first: $first
+      skip: $skip
+      orderBy: $orderBy
+      orderDirection: $orderDirection
+      where: { deprecated: false }
+    ) {
       id
-      shardIndex
-      shardTag
-      echoSource
-      earthTime
-      lankaTime
-      archivistLog
+      entryIndex
+      title
+      source
+      timestamp1
+      timestamp2
+      curatorNote
       blockNumber
       blockTimestamp
       transactionHash
@@ -76,21 +100,65 @@ export const GET_SHARD_BY_INDEX = gql`
   }
 `;
 
-// Query to get recent shards
-export const GET_RECENT_SHARDS = gql`
-  query GetRecentShards($since: String!) {
-    shards(
-      where: { blockTimestamp_gte: $since }
+// Query to get a specific entry by index (all fields for dashboard)
+export const GET_ENTRY_BY_INDEX = gql`
+  query GetEntryByIndex($entryIndex: String!) {
+    entries(where: { entryIndex: $entryIndex }) {
+      id
+      entryIndex
+      title
+      source
+      timestamp1
+      timestamp2
+      curatorNote
+      versionIndex
+      nftAddress
+      nftId
+      contentHash
+      deprecated
+      blockNumber
+      blockTimestamp
+      transactionHash
+    }
+  }
+`;
+
+// Query to get a specific entry by index (minimal - for story chapters)
+export const GET_CHAPTER_BY_INDEX = gql`
+  query GetChapterByIndex($entryIndex: String!) {
+    entries(where: { entryIndex: $entryIndex }) {
+      id
+      entryIndex
+      title
+      source
+      timestamp1
+      timestamp2
+      curatorNote
+      blockNumber
+      blockTimestamp
+      transactionHash
+    }
+  }
+`;
+
+// Query to get recent entries (minimal - for story)
+export const GET_RECENT_CHAPTERS = gql`
+  query GetRecentChapters($since: String!) {
+    entries(
+      where: { 
+        blockTimestamp_gte: $since
+        deprecated: false
+      }
       orderBy: blockTimestamp
       orderDirection: desc
     ) {
       id
-      shardIndex
-      shardTag
-      echoSource
-      earthTime
-      lankaTime
-      archivistLog
+      entryIndex
+      title
+      source
+      timestamp1
+      timestamp2
+      curatorNote
       blockNumber
       blockTimestamp
       transactionHash
@@ -98,33 +166,93 @@ export const GET_RECENT_SHARDS = gql`
   }
 `;
 
-// Query to get archive info
-export const GET_ARCHIVE_INFO = gql`
-  query GetArchiveInfo {
-    archives {
+// Query to get all versions of an entry (for dashboard versioning view)
+export const GET_ENTRY_VERSIONS = gql`
+  query GetEntryVersions($title: String!) {
+    entries(
+      where: { title: $title }
+      orderBy: versionIndex
+      orderDirection: asc
+    ) {
       id
-      totalShards
-      currentArchivist
+      entryIndex
+      title
+      versionIndex
+      deprecated
+      blockNumber
+      blockTimestamp
+      transactionHash
+    }
+  }
+`;
+
+// Query to get entries with NFT data (for dashboard NFT integration view)
+export const GET_ENTRIES_WITH_NFT = gql`
+  query GetEntriesWithNFT {
+    entries(
+      where: { nftAddress_not: "0x0000000000000000000000000000000000000000" }
+      orderBy: blockTimestamp
+      orderDirection: desc
+    ) {
+      id
+      entryIndex
+      title
+      nftAddress
+      nftId
+      versionIndex
+      blockTimestamp
+      transactionHash
+    }
+  }
+`;
+
+// Query to get entries with content hashes (for dashboard verification view)
+export const GET_ENTRIES_WITH_HASH = gql`
+  query GetEntriesWithHash {
+    entries(
+      where: { contentHash_not: "0x0000000000000000000000000000000000000000000000000000000000000000" }
+      orderBy: blockTimestamp
+      orderDirection: desc
+    ) {
+      id
+      entryIndex
+      title
+      contentHash
+      versionIndex
+      blockTimestamp
+      transactionHash
+    }
+  }
+`;
+
+// Query for ledger information (archive statistics)
+export const GET_LEDGER_INFO = gql`
+  query GetLedgerInfo {
+    ledgers {
+      id
+      totalEntries
+      currentCurator
       lastUpdated
     }
   }
 `;
 
-// Subscription for real-time shard updates
-export const SHARD_SUBSCRIPTION = gql`
-  subscription OnNewShard {
-    shards(
+// Subscription for real-time chapter updates
+export const ENTRY_SUBSCRIPTION = gql`
+  subscription OnNewEntry {
+    entries(
       orderBy: blockTimestamp
       orderDirection: desc
       first: 1
+      where: { deprecated: false }
     ) {
       id
-      shardIndex
-      shardTag
-      echoSource
-      earthTime
-      lankaTime
-      archivistLog
+      entryIndex
+      title
+      source
+      timestamp1
+      timestamp2
+      curatorNote
       blockNumber
       blockTimestamp
       transactionHash

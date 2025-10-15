@@ -1,20 +1,25 @@
 import { useQuery, useSubscription, useLazyQuery } from '@apollo/client/react';
 import { 
-  GET_SHARDS, 
-  GET_SHARD_BY_INDEX, 
-  GET_RECENT_SHARDS,
-  GET_ARCHIVE_INFO,
-  SHARD_SUBSCRIPTION,
-  ShardsQueryResult,
-  ShardsQueryVariables,
-  Shard
+  GET_ENTRIES,
+  GET_CHAPTER_ENTRIES,
+  GET_ENTRY_BY_INDEX,
+  GET_CHAPTER_BY_INDEX,
+  GET_RECENT_CHAPTERS,
+  GET_ENTRY_VERSIONS,
+  GET_ENTRIES_WITH_NFT,
+  GET_ENTRIES_WITH_HASH,
+  GET_LEDGER_INFO,
+  ENTRY_SUBSCRIPTION,
+  EntriesQueryResult,
+  EntriesQueryVariables,
+  Entry
 } from '@/lib/graphql/queries';
 import React from 'react';
 
-// Hook to get all shards with pagination
-export function useShards(variables?: { first?: number; skip?: number; orderBy?: string; orderDirection?: 'asc' | 'desc' }) {
-  return useQuery<ShardsQueryResult, ShardsQueryVariables>(
-    GET_SHARDS,
+// Hook to get all entries (full data)
+export function useEntries(variables?: { first?: number; skip?: number; orderBy?: string; orderDirection?: 'asc' | 'desc' }) {
+  return useQuery<EntriesQueryResult, EntriesQueryVariables>(
+    GET_ENTRIES,
     {
       variables: {
         first: 50,
@@ -23,67 +28,123 @@ export function useShards(variables?: { first?: number; skip?: number; orderBy?:
         orderDirection: 'desc',
         ...variables,
       },
-      // Poll every 30 seconds for new data
       pollInterval: 30000,
-      // Show cached data while refetching
       notifyOnNetworkStatusChange: true,
     }
   );
 }
 
-// Hook to get a specific shard by index
-export function useShardByIndex(shardIndex: string) {
-  return useQuery<{ shards: Shard[] }, { shardIndex: string }>(
-    GET_SHARD_BY_INDEX,
+// Hook to get chapter entries only (story display - minimal fields)
+export function useChapterEntries(variables?: { first?: number; skip?: number }) {
+  return useQuery<EntriesQueryResult, EntriesQueryVariables>(
+    GET_CHAPTER_ENTRIES,
     {
-      variables: { shardIndex },
-      skip: !shardIndex, // Don't execute if shardIndex is empty
+      variables: {
+        first: 50,
+        skip: 0,
+        ...variables,
+      },
+      pollInterval: 30000,
+      notifyOnNetworkStatusChange: true,
     }
   );
 }
 
-// Lazy query hook for manual shard fetching
-export function useLazyShards() {
-  return useLazyQuery<ShardsQueryResult, ShardsQueryVariables>(
-    GET_SHARDS
+// Hook to get a specific entry by index (full data for dashboard)
+export function useEntryByIndex(entryIndex: string) {
+  return useQuery<{ entries: Entry[] }, { entryIndex: string }>(
+    GET_ENTRY_BY_INDEX,
+    {
+      variables: { entryIndex },
+      skip: !entryIndex,
+    }
   );
 }
 
-// Hook for recent shards (useful for notifications)
-export function useRecentShards(since: string) {
-  return useQuery<{ shards: Shard[] }, { since: string }>(
-    GET_RECENT_SHARDS,
+// Hook to get a specific chapter by index (minimal data for story display)
+export function useChapterByIndex(entryIndex: string) {
+  return useQuery<{ entries: Entry[] }, { entryIndex: string }>(
+    GET_CHAPTER_BY_INDEX,
+    {
+      variables: { entryIndex },
+      skip: !entryIndex,
+    }
+  );
+}
+
+// Lazy query hook for manual entry fetching
+export function useLazyEntries() {
+  return useLazyQuery<EntriesQueryResult, EntriesQueryVariables>(
+    GET_ENTRIES
+  );
+}
+
+// Hook for recent chapters (useful for notifications)
+export function useRecentChapters(since: string) {
+  return useQuery<{ entries: Entry[] }, { since: string }>(
+    GET_RECENT_CHAPTERS,
     {
       variables: { since },
       skip: !since,
-      pollInterval: 10000, // Poll more frequently for recent data
+      pollInterval: 10000,
     }
   );
 }
 
-// Hook for archive information
-export function useArchiveInfo() {
-  return useQuery<{ archives: Array<{ id: string; totalShards: string; currentArchivist: string; lastUpdated: string }> }>(
-    GET_ARCHIVE_INFO,
+// Hook to get all versions of an entry (for dashboard)
+export function useEntryVersions(title: string) {
+  return useQuery<{ entries: Entry[] }, { title: string }>(
+    GET_ENTRY_VERSIONS,
     {
-      pollInterval: 60000, // Poll every minute
+      variables: { title },
+      skip: !title,
     }
   );
 }
 
-// Subscription hook for real-time updates (if supported)
-export function useShardSubscription() {
-  return useSubscription<{ shards: Shard[] }>(
-    SHARD_SUBSCRIPTION
+// Hook to get entries with NFT data (for dashboard)
+export function useEntriesWithNFT() {
+  return useQuery<{ entries: Entry[] }>(
+    GET_ENTRIES_WITH_NFT,
+    {
+      pollInterval: 60000,
+    }
   );
 }
 
-// Custom hook for pagination
-export function usePaginatedShards(pageSize: number = 20) {
+// Hook to get entries with content hashes (for dashboard)
+export function useEntriesWithHash() {
+  return useQuery<{ entries: Entry[] }>(
+    GET_ENTRIES_WITH_HASH,
+    {
+      pollInterval: 60000,
+    }
+  );
+}
+
+// Hook for ledger information
+export function useLedgerInfo() {
+  return useQuery<{ ledgers: Array<{ id: string; totalEntries: string; currentCurator: string; lastUpdated: string }> }>(
+    GET_LEDGER_INFO,
+    {
+      pollInterval: 60000,
+    }
+  );
+}
+
+// Subscription hook for real-time chapter updates
+export function useEntrySubscription() {
+  return useSubscription<{ entries: Entry[] }>(
+    ENTRY_SUBSCRIPTION
+  );
+}
+
+// Custom hook for pagination (story chapters)
+export function usePaginatedChapters(pageSize: number = 20) {
   const [currentPage, setCurrentPage] = React.useState(0);
   
-  const { data, loading, error, fetchMore } = useQuery<ShardsQueryResult, ShardsQueryVariables>(
-    GET_SHARDS,
+  const { data, loading, error, fetchMore } = useQuery<EntriesQueryResult, EntriesQueryVariables>(
+    GET_CHAPTER_ENTRIES,
     {
       variables: {
         first: pageSize,
@@ -104,9 +165,9 @@ export function usePaginatedShards(pageSize: number = 20) {
         
         return {
           ...prev,
-          shards: [
-            ...prev.shards,
-            ...fetchMoreResult.shards,
+          entries: [
+            ...prev.entries,
+            ...fetchMoreResult.entries,
           ],
         };
       },
@@ -124,6 +185,6 @@ export function usePaginatedShards(pageSize: number = 20) {
     loadMore,
     goToPage,
     currentPage,
-    hasMore: data?.shards.length === pageSize,
+    hasMore: data?.entries.length === pageSize,
   };
 }

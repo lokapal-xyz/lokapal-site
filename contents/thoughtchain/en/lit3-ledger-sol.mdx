@@ -1,0 +1,487 @@
+---
+title: "Notes on Lit3 — Part 6: Lit3Ledger.sol"
+description: "The Smart Contract Architecture for Decentralized Literary Archival."
+date: 14-10-2025
+authors:
+  - avatar: "/images/LokapalMain.png"
+    handle: lokapalxyz
+    username: lokapal.eth
+    handleUrl: "https://x.com/lokapalxyz"
+cover: "/images/lit3-ledger-sol.jpg"
+---
+
+*The Smart Contract Architecture for Decentralized Literary Archival*
+
+**Note:** This article expands on the concepts developed in:
+- [*The Dawn of Lit3*](https://www.lokapal.xyz/en/thoughtchain/the-dawn-of-lit3),
+- [*Lit3 Frameworks*](https://www.lokapal.xyz/en/thoughtchain/lit3-frameworks),
+- [*Blockchain as Story Canon*](https://www.lokapal.xyz/en/thoughtchain/blockchain-canon),
+- [*Lit3 Canonical Hash*](https://www.lokapal.xyz/en/thoughtchain/blockchain-canon), and
+- [*Hashed Normalization Protocol*](https://www.lokapal.xyz/en/thoughtchain/hashed-normalization).
+
+## Introduction
+
+This article provides a technical deep-dive into **Lit3Ledger.sol**, the Ethereum smart contract that operationalizes the **Ledger Framework** discussed in previous Lit3 essays. Understanding this contract is essential for creators, developers, and community builders who wish to implement verifiable, versioned literary archives on the blockchain.
+
+---
+
+## Design Philosophy: Curator-Controlled Versioned Archival
+
+Lit3Ledger.sol is built on three core principles:
+
+**1. Curator Authority:** Literary curation requires human judgment. The contract enforces role-based access control, restricting entry creation, updates, and transfers to a designated curator address. This prevents spam and ensures narrative coherence while preserving decentralization of the data layer itself.
+
+**2. Versioning Without Destruction:** The contract implements append-only storage with deprecated entry tracking. When a curator creates an updated entry, the original entry is marked deprecated, and a new entry with an incremented version index is archived. This preserves complete audit history while allowing readers to easily query the current canonical version.
+
+**3. Optional Extensibility:** The contract supports optional fields for cryptographic content hashing and NFT integration, allowing creators to adopt advanced features incrementally without forcing complexity on simpler use cases.
+
+---
+
+## Core Data Structure: The Entry
+
+Every archived item is stored as an `Entry` struct:
+
+```solidity
+struct Entry {
+    string title;
+    string source;
+    string timestamp1;
+    string timestamp2;
+    string curatorNote;
+    bool deprecated;
+    uint256 versionIndex;
+    address nftAddress;
+    uint256 nftId;
+    bytes32 contentHash;
+}
+```
+
+### Field Reference
+
+| Field | Type | Purpose |
+| :--- | :--- | :--- |
+| `title` | string | The entry's canonical name or chapter title. |
+| `source` | string | The narrative or real-world archival location. |
+| `timestamp1` | string | Primary timestamp (e.g., creation date, reception time). Stored as string for flexibility. |
+| `timestamp2` | string | Secondary timestamp (e.g., transmission time, verification date). |
+| `curatorNote` | string | Curator observations, editorial comments, or context. |
+| `deprecated` | bool | Flag indicating whether this entry has been superseded by a newer version. |
+| `versionIndex` | uint256 | Sequential version number starting at 1, incremented with each update. |
+| `nftAddress` | address | Address of an associated NFT contract (zero address if none). |
+| `nftId` | uint256 | Token ID of the linked NFT (0 if none). |
+| `contentHash` | bytes32 | SHA-256 hash of canonical text content (zero hash if not provided). |
+
+The `contentHash` field is optional and aligns with the **HNP-1 (Hashed Normalization Protocol)** standard described in the Lit3 essay series. This enables cryptographic verification of text authenticity as described in *Lit3 Canonical Hash* and *Notes on Lit3 — Part 5: Hashed Normalization Protocol*.
+
+---
+
+## State Variables and Access Control
+
+```solidity
+Entry[] public entries;
+address public curator;
+
+modifier onlyCurator() {
+    if (msg.sender != curator) {
+        revert Lit3Ledger__NotCurator();
+    }
+    _;
+}
+```
+
+The contract maintains:
+
+- **`entries`:** A dynamic array storing all archived entries (including deprecated ones).
+- **`curator`:** The address authorized to create, update, and transfer curator privileges.
+
+The `onlyCurator` modifier restricts sensitive functions to the curator, preventing unauthorized modifications while maintaining curator transferability for governance transitions.
+
+---
+
+## Core Functions: Archival and Versioning
+
+### 1. Archiving a New Entry
+
+```solidity
+function archiveEntry(
+    string memory _title,
+    string memory _source,
+    string memory _timestamp1,
+    string memory _timestamp2,
+    string memory _curatorNote,
+    address _nftAddress,
+    uint256 _nftId,
+    bytes32 _contentHash
+) public onlyCurator
+```
+
+**Purpose:** Archives a new, canonical entry with version index 1.
+
+**Key Behavior:**
+- A new `Entry` is appended to the `entries` array.
+- `deprecated` is set to `false` by default.
+- `versionIndex` is initialized to 1.
+- An `EntryArchived` event is emitted for off-chain indexing.
+
+**Usage Example:**
+A curator archives the first chapter of a novel:
+
+```
+archiveEntry(
+    "Chapter One",
+    "Author's Archive",
+    "2025-10-11",
+    "2025-10-11T09:00:00Z",
+    "Initial publication",
+    0x0000000000000000000000000000000000000000,  // No NFT
+    0,
+    0x7f3c1d8e... // SHA-256 hash of canonical text
+)
+```
+
+Result: Entry stored at index 0, version 1.
+
+### 2. Archiving an Updated Entry
+
+```solidity
+function archiveUpdatedEntry(
+    string memory _title,
+    string memory _source,
+    string memory _timestamp1,
+    string memory _timestamp2,
+    string memory _curatorNote,
+    address _nftAddress,
+    uint256 _nftId,
+    bytes32 _contentHash,
+    uint256 _deprecateIndex
+) public onlyCurator
+```
+
+**Purpose:** Creates a new entry while marking a previous entry as deprecated, enabling versioning.
+
+**Key Behavior:**
+- Validates that `_deprecateIndex` exists and is not already deprecated (prevents double-deprecation).
+- Reads the old entry's `versionIndex` and increments it.
+- Marks the old entry `deprecated = true`.
+- Appends a new entry with the incremented version.
+- Emits both an `EntryDeprecated` and `EntryArchived` event.
+
+**Usage Example:**
+After discovering a typo, the curator updates Chapter One:
+
+```
+archiveUpdatedEntry(
+    "Chapter One",
+    "Author's Archive",
+    "2025-10-11",
+    "2025-10-12",
+    "Corrected typo: 'recieved' → 'received'",
+    0x0000000000000000000000000000000000000000,
+    0,
+    0x8a4b2f9d..., // New hash with correction
+    0  // Deprecate the entry at index 0
+)
+```
+
+Result: Entry at index 0 marked deprecated; new entry stored at index 1 with version 2.
+
+**Design Rationale:** By appending rather than overwriting, the contract preserves a complete audit trail. All versions remain queryable, and the version lineage is transparent.
+
+---
+
+## Query Functions: Reading the Archive
+
+### 1. Retrieve a Single Entry
+
+```solidity
+function getEntry(uint256 index) public view returns (Entry memory)
+```
+
+Returns the full `Entry` struct at the specified index. Reverts if the index doesn't exist.
+
+### 2. Batch Retrieval with Pagination
+
+```solidity
+function getEntriesBatch(uint256 startIndex, uint256 count) 
+    public view returns (Entry[] memory)
+```
+
+Returns up to `count` entries starting from `startIndex`. This function is essential for frontend applications and off-chain indexing systems, avoiding the gas cost of fetching the entire archive in a single transaction.
+
+### 3. Latest Entries
+
+```solidity
+function getLatestEntries(uint256 count) public view returns (Entry[] memory)
+```
+
+Returns the `count` most recently archived entries (in reverse chronological order). Useful for discovering the newest canonical content.
+
+### 4. Total Entry Count
+
+```solidity
+function getTotalEntries() public view returns (uint256)
+```
+
+Returns the length of the `entries` array. Combined with batch retrieval, this enables pagination across the entire archive.
+
+---
+
+## Curator Management
+
+### Two-Step Curator Transfer Implementation
+
+The two-step curator transfer pattern prevents accidental loss of curator privileges by requiring explicit acceptance from the new curator. This ensures the receiving address is both valid and controlled by the intended party.
+
+### State Variable
+
+```solidity
+address public pendingCurator;
+```
+
+Stores the address awaiting acceptance of curator authority.
+
+### Events
+
+```solidity
+event CuratorTransferInitiated(
+    address indexed currentCurator,
+    address indexed pendingCurator
+);
+
+event CuratorTransferred(
+    address indexed previousCurator,
+    address indexed newCurator
+);
+
+event CuratorTransferCancelled(address indexed curator);
+```
+
+### Functions
+
+#### 1. Initiate Transfer
+
+```solidity
+function initiateCuratorTransfer(address newCurator) public onlyCurator {
+    if (newCurator == address(0)) {
+        revert Lit3Ledger__NotZeroAddress();
+    }
+    pendingCurator = newCurator;
+    emit CuratorTransferInitiated(curator, newCurator);
+}
+```
+
+**Step 1:** The current curator proposes a new curator. This does not immediately transfer authority—it only records the pending transfer.
+
+#### 2. Accept Transfer
+
+```solidity
+function acceptCuratorTransfer() public {
+    if (msg.sender != pendingCurator) {
+        revert Lit3Ledger__NotPendingCurator();
+    }
+    address previousCurator = curator;
+    curator = msg.sender;
+    pendingCurator = address(0);
+    emit CuratorTransferred(previousCurator, curator);
+}
+```
+
+**Step 2:** The proposed curator must explicitly accept by calling this function from their address. Only after acceptance does the transfer complete.
+
+#### 3. Cancel Transfer (Optional)
+
+```solidity
+function cancelCuratorTransfer() public onlyCurator {
+    pendingCurator = address(0);
+    emit CuratorTransferCancelled(curator);
+}
+```
+
+The current curator can cancel a pending transfer if a mistake was made or circumstances change.
+
+### Error
+
+```solidity
+error Lit3Ledger__NotPendingCurator();
+```
+
+Reverted when a non-pending-curator attempts to accept the transfer.
+
+### Workflow Example
+
+1. **Day 1:** Current curator calls `initiateCuratorTransfer(0xNewAddress)`. Event emitted; system waits.
+2. **Day 2:** Owner of `0xNewAddress` confirms they're ready and calls `acceptCuratorTransfer()`. Transfer completes.
+3. **Result:** If `0xNewAddress` never called accept, curator authority remains unchanged.
+
+---
+
+## Events: Off-Chain Indexing and Observability
+
+Lit3Ledger.sol emits three event types for off-chain systems:
+
+### EntryArchived
+Fired whenever a new entry is added (whether initial or updated).
+
+```solidity
+event EntryArchived(
+    uint256 indexed entryIndex,
+    string title,
+    string source,
+    string timestamp1,
+    string timestamp2,
+    string curatorNote,
+    uint256 versionIndex,
+    address nftAddress,
+    uint256 nftId,
+    bytes32 contentHash
+);
+```
+
+### EntryDeprecated
+Fired when an entry is marked deprecated during an update.
+
+```solidity
+event EntryDeprecated(
+    uint256 indexed deprecatedIndex,
+    uint256 indexed replacementIndex,
+    string title,
+    uint256 newVersionIndex
+);
+```
+
+This event links the deprecated entry to its replacement, enabling off-chain systems to reconstruct version chains instantly.
+
+### CuratorTransferred
+Fired when curator authority changes.
+
+```solidity
+event CuratorTransferred(
+    address indexed previousCurator,
+    address indexed newCurator
+);
+```
+
+**Integration with The Graph:** These events are designed to be indexed by services like **The Graph**, enabling GraphQL queries of the archive without scanning the blockchain directly. Off-chain systems can filter entries by title, query all versions of a work, or track curator changes.
+
+---
+
+## Practical Workflow: From Archive to Verification
+
+### Scenario: Publishing a Lit3 Novel with Ongoing Updates
+
+**Day 1: Initial Archive**
+
+```
+archiveEntry("Chapter One", "Author's Archive", "2025-10-11", "2025-10-11", 
+  "First publication", 0x0, 0, 0x1a2b3c...)
+```
+- Result: Entry at index 0, version 1.
+- Event emitted for indexing.
+
+**Day 5: Discovered Error**
+
+The curator notices a typo in Chapter One and updates it:
+
+```
+archiveUpdatedEntry("Chapter One", "Author's Archive", "2025-10-11", "2025-10-12",
+  "Corrected typo: 'recieved' → 'received'", 0x0, 0, 0x2b3c4d..., 0)
+```
+- Result: Entry at index 0 marked deprecated; new entry at index 1, version 2.
+- Events emitted; off-chain indexers flag index 0 as superseded.
+
+**Day 30: NFT Collectible Edition**
+
+The curator decides to mint the corrected chapter as an NFT:
+
+```
+archiveUpdatedEntry("Chapter One (Collector's Edition)", "Author's Archive", 
+  "2025-10-11", "2025-10-30", "Collector's edition with bonus notes",
+  0x1234567890abcdef..., 1, 0x3c4d5e..., 1)
+```
+- Result: Entry at index 1 marked deprecated; new entry at index 2, version 3, linked to NFT contract.
+
+**Reader's Perspective:**
+
+A reader wants to verify they have the canonical Chapter One:
+
+1. **Query current version:** Via GraphQL or direct contract call, retrieve entries where `title == "Chapter One"` and `deprecated == false`.
+   - Returns: Entry at index 2, version 3.
+
+2. **Check for NFT:** If interested, the reader sees this version is linked to an NFT contract and token ID 1.
+
+3. **Verify authenticity:** The reader hashes their local copy using HNP-1 normalization and compares it to the `contentHash` on-chain.
+   - Match: The text is authentic.
+   - No match: The reader has an altered version.
+
+4. **Explore history:** By querying entries where `title == "Chapter One"` without the deprecated filter, the reader sees all three versions (indices 0, 1, 2) and can track the editorial evolution.
+
+---
+
+## Error Handling and Safety
+
+The contract defines six custom errors for precise failure diagnostics:
+
+| Error | Condition |
+| :--- | :--- |
+| `Lit3Ledger__NotCurator()` | `msg.sender` is not the curator. |
+| `Lit3Ledger__NotZeroAddress()` | A required non-zero address is zero. |
+| `Lit3Ledger__EntryDoesNotExist()` | Queried index is out of bounds. |
+| `Lit3Ledger__StartIndexOutOfBounds()` | Batch query start index exceeds archive length. |
+| `Lit3Ledger__EntryAlreadyDeprecated()` | Attempted to deprecate an already-deprecated entry. |
+| `Lit3Ledger__NotPendingCurator()` | Attempted to capture curator's role. |
+
+Custom errors reduce bytecode size and provide clear feedback to developers and interfaces.
+
+---
+
+## Extensibility and Future Enhancements
+
+The current Lit3Ledger.sol is intentionally minimal, focusing on core archival and versioning. Future extensions could include:
+
+**1. Multi-Author Support:** Extend access control beyond a single curator to a curator whitelist or DAO governance.
+
+**2. Metadata Schema Expansion:** Add structured fields (genre, language, themes) to support richer queries.
+
+**3. Content Verification Contracts:** Link to external contracts that provide cryptographic proofs of authorship or community attestation.
+
+**4. Cross-Chain Bridging:** Extend the archive to multiple blockchains while maintaining canonical coherence.
+
+**5. Pausable Operations:** Add emergency pause functionality for contract upgrades or incident response.
+
+These enhancements can be implemented through composition (external contracts) or contract upgrades (via proxy patterns) without breaking the current interface.
+
+---
+
+## Deployment Considerations
+
+### Gas Efficiency
+
+- **Storage:** Each entry adds approximately 2000-2500 gas per write (depending on string lengths).
+- **Queries:** View functions are zero-cost (read-only).
+- **Batch Operations:** Use `getEntriesBatch()` to retrieve multiple entries in a single call, reducing frontend RPC overhead.
+
+### Network Selection
+
+Lit3Ledger is designed for EVM-compatible networks. Recommended deployments:
+
+- **Ethereum L2:** Optimal for Lit3 projects, with low fees and strong developer ecosystem.
+- **Ethereum Mainnet:** For high-visibility literary projects requiring maximum security and permanence.
+- **Testnets (Sepolia, L2 Sepolia):** For development and community testing.
+
+### Verification and Transparency
+
+Always verify the contract on a block explorer (e.g., Etherscan). Public source code verification ensures that readers can independently confirm the contract's behavior matches the published code.
+
+---
+
+## Final Thoughts
+
+Lit3Ledger.sol is a purpose-built tool for translating the conceptual Ledger Framework into on-chain reality. By combining curator authority with transparent versioning, optional content hashing, and event-driven architecture, it provides the infrastructure for decentralized literary archival.
+
+The contract itself is simple, but its implications are profound: it transforms the Story Canon from a cultural agreement into a cryptographic guarantee, enabling writers and readers to build lasting, verifiable narratives on the blockchain.
+
+For developers implementing Lit3 projects, Lit3Ledger.sol serves as a foundation. The open-source code and thoughtful design enable customization while preserving the core principles of curator control, version transparency, and community accessibility that define the Ledger Framework.
+
+---
+
+*The contract is live. The archive awaits. The permanent story can now be written.*

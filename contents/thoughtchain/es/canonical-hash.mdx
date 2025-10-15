@@ -1,5 +1,5 @@
 ---
-title: "Hash canónico de Lit3"
+title: "Notas sobre Lit3 — Parte 4: Hash canónico de Lit3"
 description: "Estableciendo registros sin requisitos de confianza para el canon narrativo."
 date: 01-10-2025
 authors:
@@ -12,12 +12,12 @@ cover: "/images/hash.jpg"
 
 *Estableciendo registros sin requisitos de confianza para el canon narrativo.*
 
-## La huella digital inmutable de la ficción
-
 **Nota:** Este artículo amplía los conceptos desarrollados en:
 - [*El alba de la Lit3*](https://www.lokapal.xyz/es/thoughtchain/the-dawn-of-lit3),
-- [*Notas sobre marcos Lit3*](https://www.lokapal.xyz/es/thoughtchain/lit3-frameworks), y
+- [*Marcos Lit3*](https://www.lokapal.xyz/es/thoughtchain/lit3-frameworks), y
 - [*Blockchain como canon narrativo*](https://www.lokapal.xyz/es/thoughtchain/blockchain-canon).
+
+## La huella digital inmutable de la ficción
 
 Dentro de la Lit3, el **canon narrativo** no es solo un acuerdo cultural compartido; es una **garantía criptográfica**.
 
@@ -45,7 +45,7 @@ El hash canónico es la respuesta definitiva a la pregunta: **"¿Es este texto e
 
 ## Implementación técnica: La función unidireccional
 
-El hash canónico se genera usando una **función hash criptográfica**, específicamente **keccak-256**, que es el estándar nativo y eficiente en gas usada por la Máquina Virtual de Ethereum (EVM).
+El hash canónico se genera usando una **función hash criptográfica**, específicamente **SHA-256**, que es el estándar nativo y eficiente en gas usada por la Máquina Virtual de Ethereum (EVM).
 
 ### 1. El proceso de hashing
 
@@ -59,7 +59,7 @@ Una función hash actúa como una licuadora determinista y unidireccional con tr
 
 Para asegurar el texto canónico, el proceso es:
 
-1.  **Preparación (off-chain):** El autor Lit3 o la plataforma de publicación toma el archivo de texto final. Se ejecuta el algoritmo **keccak-256** sobre todo el contenido para generar el hash de 32 bytes.
+1.  **Preparación (off-chain):** El autor Lit3 o la plataforma de publicación toma el archivo de texto final. Se ejecuta el algoritmo **SHA-256** sobre todo el contenido para generar el hash de 32 bytes.
 
 2.  **Archivo (on-chain):** Este hash resultante se registra permanentemente en el almacenamiento del contrato inteligente del registro Lit3:
 

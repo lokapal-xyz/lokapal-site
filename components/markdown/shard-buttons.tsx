@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { useShardByIndex } from '@/hooks/useShardEvents';
+import { useChapterByIndex } from '@/hooks/useShardEvents';
 import { ShardDialog } from './shard-dialog';
 import { useDictionary } from "@/components/contexts/dictionary-provider";
 
@@ -12,15 +12,15 @@ interface ShardButtonsProps {
 
 export function ShardButtons({ shardIndex, chainId = 84532 }: ShardButtonsProps) {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const { data } = useShardByIndex(shardIndex.toString());
+  const { data } = useChapterByIndex(shardIndex.toString());
   const dict = useDictionary();
-  const shard = data?.shards?.[0];
+  const shard = data?.entries?.[0];
 
   // BaseScan URLs for different networks
   const getBaseScanUrl = (txHash: string, chainId: number) => {
     const baseUrls = {
-      8453: 'https://basescan.org', // Base Mainnet
-      84532: 'https://basescan.org', // Base Sepolia Testnet
+      8453: 'https://basescan.org',
+      84532: 'https://sepolia.basescan.org',
     };
     
     const baseUrl = baseUrls[chainId as keyof typeof baseUrls] || baseUrls[84532];

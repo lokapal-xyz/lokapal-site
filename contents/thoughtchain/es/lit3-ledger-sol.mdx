@@ -1,0 +1,490 @@
+---
+title: "Notas sobre Lit3 — Parte 6: Lit3Ledger.sol"
+description: "La Arquitectura del Contrato Inteligente para el Archivo Literario Descentralizado."
+date: 01-10-2025
+authors:
+  - avatar: "/images/LokapalMain.png"
+    handle: lokapalxyz
+    username: lokapal.eth
+    handleUrl: "https://x.com/lokapalxyz"
+cover: "/images/lit3-ledger-sol.jpg"
+---
+
+*La Arquitectura del Contrato Inteligente para el Archivo Literario Descentralizado*
+
+**Nota:** Este artículo expande los conceptos desarrollados en:
+- [*El alba de la Lit3*](https://www.lokapal.xyz/es/thoughtchain/the-dawn-of-lit3),
+- [*Marcos Lit3*](https://www.lokapal.xyz/es/thoughtchain/lit3-frameworks),
+- [*Blockchain como canon narrativo*](https://www.lokapal.xyz/es/thoughtchain/blockchain-canon),
+- [*Hash canónico de Lit3*](https://www.lokapal.xyz/es/thoughtchain/canonical-hash), y
+- [*Protocolo de Normalización con Hash*](https://www.lokapal.xyz/es/thoughtchain/hashed-normalization).
+
+## Introducción
+
+Este artículo proporciona un análisis técnico profundo sobre **Lit3Ledger.sol**, el contrato inteligente de Ethereum que materializa el **Marco de Registro** discutido en ensayos Lit3 anteriores. Comprender este contrato es esencial para creadores, desarrolladores y constructores de comunidades que deseen implementar archivos literarios verificables y versionados en la blockchain.
+
+---
+
+## Filosofía de diseño: Archivo versionado controlado por curador
+
+Lit3Ledger.sol se construye sobre tres principios fundamentales:
+
+**1. Autoridad del curador:** La curación literaria requiere criterio humano. El contrato implementa control de acceso basado en roles, restringiendo la creación de entradas, actualizaciones y transferencias a una dirección de curador designada. Esto previene spam y asegura coherencia narrativa mientras preserva la descentralización en la capa de datos.
+
+**2. Versionado sin destrucción:** El contrato implementa almacenamiento anexable con seguimiento de entradas deprecadas. Cuando un curador crea una entrada actualizada, la entrada original se marca como deprecada, y una nueva entrada con un índice de versión incrementado se archiva. Esto preserva el historial de auditoría completo mientras permite a los lectores consultar fácilmente la versión canónica actual.
+
+**3. Extensibilidad opcional:** El contrato admite campos opcionales para hash criptográfico del contenido original e integración NFT, permitiendo que los creadores adopten características avanzadas incrementalmente sin forzar complejidad en casos de uso más simples.
+
+---
+
+## Estructura de datos principal: La entrada
+
+Todo elemento archivado se almacena como una estructura `Entry`:
+
+```solidity
+struct Entry {
+    string title;
+    string source;
+    string timestamp1;
+    string timestamp2;
+    string curatorNote;
+    bool deprecated;
+    uint256 versionIndex;
+    address nftAddress;
+    uint256 nftId;
+    bytes32 contentHash;
+}
+```
+
+### Referencia de campos
+
+| Campo | Tipo | Propósito |
+| :--- | :--- | :--- |
+| `title` | string | El nombre canónico de la entrada o título del capítulo. |
+| `source` | string | El punto de origen real o ficticio del artefacto literario. |
+| `timestamp1` | string | Marca de tiempo principal (p. ej., fecha de creación, hora de recepción). Se almacena como string para flexibilidad. |
+| `timestamp2` | string | Marca de tiempo secundaria (p. ej., hora de transmisión, fecha de verificación). |
+| `curatorNote` | string | Observaciones del curador, comentarios editoriales o contexto. |
+| `deprecated` | bool | Bandera indicando si esta entrada ha sido superada por una versión más nueva. |
+| `versionIndex` | uint256 | Número de versión secuencial comenzando en 1, incrementado con cada actualización. |
+| `nftAddress` | address | Dirección de un contrato NFT asociado (dirección cero si no se proporciona). |
+| `nftId` | uint256 | ID de token del NFT vinculado (0 si no se proporciona). |
+| `contentHash` | bytes32 | Hash SHA-256 del contenido de texto canónico (hash cero si no se proporciona). |
+
+El campo `contentHash` es opcional y se alinea con el estándar **HNP-1 (Protocolo de Normalización de Hash)** descrito en la serie de ensayos de Lit3. Esto habilita la verificación criptográfica de autenticidad de texto como se describe en *Hash canónico de Lit3* y *Notas sobre Lit3 — Parte 5: Protocolo de Normalización con Hash*.
+
+---
+
+## Variables de estado y control de acceso
+
+```solidity
+Entry[] public entries;
+address public curator;
+
+modifier onlyCurator() {
+    if (msg.sender != curator) {
+        revert Lit3Ledger__NotCurator();
+    }
+    _;
+}
+```
+
+El contrato mantiene:
+
+- **`entries`:** Un array dinámico que almacena todas las entradas archivadas (incluyendo las deprecadas).
+- **`curator`:** La dirección autorizada para crear, actualizar y transferir privilegios de curador.
+
+El modificador `onlyCurator` restringe funciones sensibles al curador, previniendo modificaciones no autorizadas mientras mantiene la transferibilidad del curador para transiciones de gobernanza.
+
+---
+
+## Funciones principales: Archivo y versionado
+
+### 1. Archivar una nueva entrada
+
+```solidity
+function archiveEntry(
+    string memory _title,
+    string memory _source,
+    string memory _timestamp1,
+    string memory _timestamp2,
+    string memory _curatorNote,
+    address _nftAddress,
+    uint256 _nftId,
+    bytes32 _contentHash
+) public onlyCurator
+```
+
+**Propósito:** Archiva una nueva entrada canónica con índice de versión 1.
+
+**Comportamiento clave:**
+- Una nueva `Entry` se añade al array `entries`.
+- `deprecated` se establece en `false` por defecto.
+- `versionIndex` se inicializa a 1.
+- Se emite un evento `EntryArchived` para indexación off-chain.
+
+**Ejemplo de uso:**
+Un curador archiva el primer capítulo de una novela:
+
+```
+archiveEntry(
+    "Capítulo Uno",
+    "Archivo del Autor",
+    "2025-10-11",
+    "2025-10-11T09:00:00Z",
+    "Publicación inicial",
+    0x0000000000000000000000000000000000000000,  // Sin NFT
+    0,
+    0x7f3c1d8e... // Hash SHA-256 del texto canónico
+)
+```
+
+Resultado: Entrada almacenada en el índice 0, versión 1.
+
+### 2. Archivar una entrada actualizada
+
+```solidity
+function archiveUpdatedEntry(
+    string memory _title,
+    string memory _source,
+    string memory _timestamp1,
+    string memory _timestamp2,
+    string memory _curatorNote,
+    address _nftAddress,
+    uint256 _nftId,
+    bytes32 _contentHash,
+    uint256 _deprecateIndex
+) public onlyCurator
+```
+
+**Propósito:** Crea una nueva entrada mientras marca una entrada anterior como deprecada, habilitando el versionado.
+
+**Comportamiento clave:**
+- Valida que `_deprecateIndex` exista y no esté ya deprecada (previene deprecación doble).
+- Lee el `versionIndex` de la entrada antigua y lo incrementa.
+- Marca la entrada antigua como `deprecated = true`.
+- Añade una nueva entrada con la versión incrementada.
+- Emite tanto un evento `EntryDeprecated` como `EntryArchived`.
+
+**Ejemplo de uso:**
+Después de descubrir una falta de ortografía, el curador actualiza el Capítulo Uno:
+
+```
+archiveUpdatedEntry(
+    "Capítulo Uno",
+    "Archivo del Autor",
+    "2025-10-11",
+    "2025-10-12",
+    "Corrección de errata: 'recivido' → 'recibido'",
+    0x0000000000000000000000000000000000000000,
+    0,
+    0x8a4b2f9d..., // Nuevo hash con la corrección
+    0  // Depreca la entrada en el índice 0
+)
+```
+
+Resultado: Entrada en el índice 0 marcada como deprecada; nueva entrada almacenada en el índice 1 con versión 2.
+
+**Justificación del diseño:** Al añadir en lugar de sobrescribir, el contrato preserva un sendero de auditoría completo. Todas las versiones permanecen consultables, y el linaje de versiones es transparente.
+
+---
+
+## Funciones de consulta: Lectura del archivo
+
+### 1. Recuperar una entrada individual
+
+```solidity
+function getEntry(uint256 index) public view returns (Entry memory)
+```
+
+Devuelve la estructura `Entry` completa en el índice especificado. Se revierte si el índice no existe.
+
+### 2. Recuperación por lotes con paginación
+
+```solidity
+function getEntriesBatch(uint256 startIndex, uint256 count) 
+    public view returns (Entry[] memory)
+```
+
+Devuelve hasta `count` entradas comenzando desde `startIndex`. Esta función es esencial para aplicaciones frontend y sistemas de indexación off-chain, evitando el costo de gas de obtener el archivo completo en una sola transacción.
+
+### 3. Entradas más recientes
+
+```solidity
+function getLatestEntries(uint256 count) public view returns (Entry[] memory)
+```
+
+Devuelve las `count` entradas más recientemente archivadas (en orden cronológico inverso). Útil para descubrir contenido canónico nuevo.
+
+### 4. Recuento total de entradas
+
+```solidity
+function getTotalEntries() public view returns (uint256)
+```
+
+Devuelve la longitud del array `entries`. Combinado con recuperación por lotes, esto habilita paginación en todo el archivo.
+
+---
+
+## Gestión del curador
+
+### Implementación de transferencia de curador de dos pasos
+
+El patrón de transferencia de curador en dos pasos previene la pérdida accidental de privilegios de curador requiriendo aceptación explícita del nuevo curador. Esto asegura que la dirección receptora sea válida y controlada por la parte prevista.
+
+### Variable de estado
+
+```solidity
+address public pendingCurator;
+```
+
+Almacena la dirección en espera de aceptación de autoridad de curador.
+
+### Eventos
+
+```solidity
+event CuratorTransferInitiated(
+    address indexed currentCurator,
+    address indexed pendingCurator
+);
+
+event CuratorTransferred(
+    address indexed previousCurator,
+    address indexed newCurator
+);
+
+event CuratorTransferCancelled(address indexed curator);
+```
+
+### Funciones
+
+#### 1. Iniciar transferencia
+
+```solidity
+function initiateCuratorTransfer(address newCurator) public onlyCurator {
+    if (newCurator == address(0)) {
+        revert Lit3Ledger__NotZeroAddress();
+    }
+    pendingCurator = newCurator;
+    emit CuratorTransferInitiated(curator, newCurator);
+}
+```
+
+**Paso 1:** El curador actual propone un nuevo curador. Esto no transfiere autoridad inmediatamente — solo registra la transferencia pendiente.
+
+#### 2. Aceptar transferencia
+
+```solidity
+function acceptCuratorTransfer() public {
+    if (msg.sender != pendingCurator) {
+        revert Lit3Ledger__NotPendingCurator();
+    }
+    address previousCurator = curator;
+    curator = msg.sender;
+    pendingCurator = address(0);
+    emit CuratorTransferred(previousCurator, curator);
+}
+```
+
+**Paso 2:** El curador propuesto debe aceptar explícitamente llamando esta función desde su dirección. Solo después de la aceptación se completa la transferencia.
+
+#### 3. Cancelar transferencia (Opcional)
+
+```solidity
+function cancelCuratorTransfer() public onlyCurator {
+    pendingCurator = address(0);
+    emit CuratorTransferCancelled(curator);
+}
+```
+
+El curador actual puede cancelar una transferencia pendiente si se cometió un error o las circunstancias cambian.
+
+### Error
+
+```solidity
+error Lit3Ledger__NotPendingCurator();
+```
+
+Se revierte cuando un no-curador-pendiente intenta aceptar la transferencia.
+
+### Ejemplo de flujo de trabajo
+
+1. **Día 1:** El curador actual llama `initiateCuratorTransfer(0xNewAddress)`. Evento emitido; el sistema espera.
+2. **Día 2:** El propietario de `0xNewAddress` confirma que está listo y llama `acceptCuratorTransfer()`. Transferencia completada.
+3. **Resultado:** Si `0xNewAddress` nunca llamó aceptar, la autoridad de curador permanece sin cambios.
+
+---
+
+## Eventos: Indexación off-chain y observabilidad
+
+Lit3Ledger.sol emite tres tipos de eventos para sistemas off-chain:
+
+### EntryArchived
+
+Se activa siempre que se añade una nueva entrada (ya sea inicial o actualizada).
+
+```solidity
+event EntryArchived(
+    uint256 indexed entryIndex,
+    string title,
+    string source,
+    string timestamp1,
+    string timestamp2,
+    string curatorNote,
+    uint256 versionIndex,
+    address nftAddress,
+    uint256 nftId,
+    bytes32 contentHash
+);
+```
+
+### EntryDeprecated
+
+Se activa cuando una entrada se marca como deprecada durante una actualización.
+
+```solidity
+event EntryDeprecated(
+    uint256 indexed deprecatedIndex,
+    uint256 indexed replacementIndex,
+    string title,
+    uint256 newVersionIndex
+);
+```
+
+Este evento vincula la entrada deprecada a su reemplazo, habilitando que sistemas off-chain reconstruyan cadenas de versiones instantáneamente.
+
+### CuratorTransferred
+
+Se activa cuando la autoridad del curador cambia.
+
+```solidity
+event CuratorTransferred(
+    address indexed previousCurator,
+    address indexed newCurator
+);
+```
+
+**Integración con The Graph:** Estos eventos están diseñados para ser indexados por servicios como **The Graph**, habilitando consultas GraphQL del archivo sin escanear la cadena de bloques directamente. Los sistemas off-chain pueden filtrar entradas por título, consultar todas las versiones de una obra, o rastrear cambios de curador.
+
+---
+
+## Flujo de trabajo práctico: Del archivo a la verificación
+
+### Escenario: Publicar una novela Lit3 con actualizaciones continuas
+
+**Día 1: Archivo inicial**
+
+```
+archiveEntry("Capítulo Uno", "Archivo del Autor", "2025-10-11", "2025-10-11", 
+  "Primera publicación", 0x0, 0, 0x1a2b3c...)
+```
+- Resultado: Entrada en el índice 0, versión 1.
+- Evento emitido para indexación.
+
+**Día 5: Falta descubierta**
+
+El curador descubre una falta de ortografía en el Capítulo Uno y la actualiza:
+
+```
+archiveUpdatedEntry("Capítulo Uno", "Archivo del Autor", "2025-10-11", "2025-10-12",
+  "Corrección de falta: 'recivido' → 'recibido'", 0x0, 0, 0x2b3c4d..., 0)
+```
+- Resultado: Entrada en el índice 0 marcada como deprecada; nueva entrada en el índice 1, versión 2.
+- Eventos emitidos; los indexadores off-chain marcan el índice 0 como reemplazado.
+
+**Día 30: Edición NFT coleccionable**
+
+El curador decide acuñar el capítulo corregido como un NFT:
+
+```
+archiveUpdatedEntry("Capítulo Uno (Edición Coleccionista)", "Archivo del Autor", 
+  "2025-10-11", "2025-10-30", "Edición coleccionista con notas adicionales",
+  0x1234567890abcdef..., 1, 0x3c4d5e..., 1)
+```
+- Resultado: Entrada en el índice 1 marcada como deprecada; nueva entrada en el índice 2, versión 3, vinculada al contrato NFT.
+
+**Perspectiva del lector:**
+
+Un lector quiere verificar que tiene el Capítulo Uno canónico:
+
+1. **Consultar versión actual:** Vía GraphQL o llamada directa al contrato, recuperar entradas donde `title == "Capítulo Uno"` y `deprecated == false`.
+   - Devuelve: Entrada en el índice 2, versión 3.
+
+2. **Verificar NFT:** Si está interesado, el lector ve que esta versión está vinculada a un contrato NFT e ID de token 1.
+
+3. **Verificar autenticidad:** El lector hashea su copia local usando normalización HNP-1 y la compara con el `contentHash` en la cadena.
+   - Coincidencia: El texto es auténtico.
+   - Sin coincidencia: El lector tiene una versión alterada.
+
+4. **Explorar historial:** Al consultar entradas donde `title == "Capítulo Uno"` sin el filtro de deprecadas, el lector ve las tres versiones (índices 0, 1, 2) y puede rastrear la evolución editorial.
+
+---
+
+## Manejo de errores y seguridad
+
+El contrato define seis errores personalizados para diagnósticos de fallos precisos:
+
+| Error | Condición |
+| :--- | :--- |
+| `Lit3Ledger__NotCurator()` | `msg.sender` no es el curador. |
+| `Lit3Ledger__NotZeroAddress()` | Una dirección no cero requerida es cero. |
+| `Lit3Ledger__EntryDoesNotExist()` | El índice consultado está fuera de los límites. |
+| `Lit3Ledger__StartIndexOutOfBounds()` | El índice de inicio de consulta por lotes excede la longitud del archivo. |
+| `Lit3Ledger__EntryAlreadyDeprecated()` | Intento de deprecar una entrada ya deprecada. |
+| `Lit3Ledger__NotPendingCurator()` | Intento de capturar el rol de curador. |
+
+Los errores personalizados reducen el tamaño del bytecode y proporcionan retroalimentación clara a desarrolladores e interfaces.
+
+---
+
+## Extensibilidad y mejoras futuras
+
+El Lit3Ledger.sol actual es intencionalmente mínimo, enfocándose en archivado y versionado principales. Las extensiones futuras podrían incluir:
+
+**1. Soporte multi-autor:** Extender el control de acceso más allá de un único curador a una lista blanca de curadores o gobernanza DAO.
+
+**2. Expansión de schema de metadatos:** Añadir campos estructurados (género, idioma, temas) para soportar consultas más ricas.
+
+**3. Contratos de verificación de contenido:** Vincular a contratos externos que proporcionen pruebas criptográficas de autoría o atestación comunitaria.
+
+**4. Puentes entre cadenas:** Extender el archivo a múltiples blockchains mientras se mantiene coherencia canónica.
+
+**5. Operaciones pausables:** Añadir funcionalidad de pausa de emergencia para actualizaciones de contrato o respuesta a incidentes.
+
+Estas mejoras pueden implementarse mediante composición (contratos externos) o actualizaciones de contrato (vía patrones proxy) sin romper la interfaz actual.
+
+---
+
+## Consideraciones de despliegue
+
+### Eficiencia de gas
+
+- **Almacenamiento:** Cada entrada añade aproximadamente 2000-2500 gas por escritura (dependiendo de las longitudes de strings).
+- **Consultas:** Las funciones de vista son costo cero (solo lectura).
+- **Operaciones por lotes:** Usar `getEntriesBatch()` para recuperar múltiples entradas en una sola llamada, reduciendo la sobrecarga RPC del frontend.
+
+### Selección de red
+
+Lit3Ledger está diseñado para redes compatibles con EVM. Despliegues recomendados:
+
+- **Ethereum L2:** Óptimo para proyectos Lit3, con tarifas bajas y fuerte ecosistema de desarrolladores.
+- **Ethereum Mainnet:** Para proyectos literarios de alta visibilidad requiriendo máxima seguridad y permanencia.
+- **Testnets (Sepolia, L2 Sepolia):** Para desarrollo y pruebas comunitarias.
+
+### Verificación y transparencia
+
+Siempre verifica el contrato en un explorador de bloques (p. ej., Etherscan). La verificación pública del código fuente asegura que los lectores puedan confirmar independientemente que el comportamiento del contrato coincida con el código publicado.
+
+---
+
+## Reflexiones finales
+
+Lit3Ledger.sol es una herramienta de propósito específico para traducir el Marco de Registro desde un concepto a una realidad on-chain. Al combinar autoridad del curador con versionado transparente, hash de contenido opcional, y arquitectura impulsada por eventos, proporciona la infraestructura para el archivado literario descentralizado.
+
+El contrato en sí es simple, pero sus implicaciones son profundas: transforma el Canon Narrativo de un acuerdo cultural a una garantía criptográfica, habilitando que escritores y lectores construyan narrativas duraderas y verificables en la blockchain.
+
+Para desarrolladores implementando proyectos Lit3, Lit3Ledger.sol sirve como una base. El código abierto y el diseño reflexivo habilitan personalización mientras se preservan los principios fundamentales de control del curador, transparencia de versiones, y accesibilidad comunitaria que definen el Marco de Registro.
+
+---
+
+*El contrato está en vivo. El archivo espera. La narrativa permanente puede ahora ser escrita.*

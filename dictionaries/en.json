@@ -254,8 +254,12 @@
         "fmao-web3-framework": "Web3 Framework Details",
         "references-license-and-contact": "References, License and Contact",
         "fmao-whitepaper": "💠 From Many, as One Whitepaper",
-        "prologue": "From Many, as One Prologue",
-        "from-the-plexus": "From the Plexus"
+        "fmao": "💠 From Many, as One",
+        "book-0": "🔹Book 0",
+        "book-1": "🔹Book 1",
+        "shard-undefined": "Shard {undefined}",
+        "shard-0": "Shard 0",
+        "shard-1": "Shard 1"
     },
     "blog": {
         "title": "Thoughtchain",

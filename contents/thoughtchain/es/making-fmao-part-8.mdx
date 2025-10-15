@@ -1,0 +1,321 @@
+---
+title: "Escribiendo En lo múltiple, como uno — Parte 8: Actualizando nuestro prototipo"
+description: "En este artículo, abordamos la transición desde el prototipo Plexus Archive hacia una versión mejorada del Registro Lit3."
+date: 03-10-2025
+authors:
+  - avatar: "/images/LokapalMain.png"
+    handle: lokapalxyz
+    username: lokapal.eth
+    handleUrl: "https://x.com/lokapalxyz"
+cover: "/images/making-fmao.jpg"
+---
+
+## El Problema: Procedencia narrativa en la era digital
+
+Las obras literarias existen en un ecosistema fragmentado. Un escritor puede publicar en Medium, archivar en GitHub, almacenar localmente y compartir en redes sociales. Establecer un registro canónico de "qué se escribió y cuándo" se vuelve difícil. Los enfoques tradicionales se basan en plataformas centralizadas que pueden cambiar, desaparecer o revisar la historia.
+
+**Blockchain** ofrece una solución: registros inmutables y con marca de tiempo mantenidos por una red descentralizada. Sin embargo, la mayoría de las implementaciones de blockchain tratan los datos como monolíticos: una vez escritos, no se pueden actualizar, corregir o versionar.
+
+Para la curación literaria, esto es insuficiente. Los escritores hacen correcciones. Los editores revisan pasajes. Surgen nuevas ediciones. Un sistema necesita:
+
+1. Permitir actualizaciones sin destruir el registro original
+2. Rastrear qué versión es la actual
+3. Mantener un historial completo para fines de auditoría
+4. Opcionalmente verificar la autenticidad del contenido
+5. Integrarse con las economías digitales emergentes (NFTs)
+
+La nueva versión de nuestro **Lit3 Ledger** aborda estos requisitos manteniendo la simplicidad para usuarios no técnicos.
+
+---
+
+## La implementación original (PlexusArchive)
+
+El prototipo inicial, **PlexusArchive**, proporcionaba funcionalidad básica:
+
+```solidity
+struct Shard {
+    string shardTag;
+    string echoSource;
+    string earthTime;
+    string lankaTime;
+    string archivistLog;
+}
+```
+
+Esto funcionó para archivos que solo necesitan anexar, pero carecía de herramientas de curación sofisticadas. Una vez archivada, una entrada no podía ser actualizada: los errores requerían crear entradas duplicadas o redistribuir contratos.
+
+### Restricciones de diseño del original
+
+- **Enfoque en inmutabilidad**: Las entradas se congelaban al crearse
+- **Metadatos limitados**: Sin versionado, sin verificación de contenido, sin integraciones externas
+- **Terminología centrada en la narrativa**: Nombres de campos como "echo source" (fuente de eco) y "archivistLog" (registro del archivista) eran evocadores pero muy específicos, limitando su búsqueda externa.
+
+---
+
+## Introduciendo el Lit3Ledger
+
+Nuestra última versión del Lit3Ledger extiende el original con cuatro adiciones críticas:
+
+### 1. Versionado con deprecación automática
+
+```solidity
+struct Entry {
+    // ... campos previos ...
+    bool deprecated;
+    uint256 versionIndex;
+}
+```
+
+Cuando un curador crea una entrada actualizada usando `archiveUpdatedEntry()`:
+
+- La entrada antigua se marca como `deprecated = true` (deprecada)
+- La nueva entrada recibe `versionIndex = old_version + 1`
+- Todas las versiones previas permanecen en la cadena para su auditoría
+- Los sistemas off-chain pueden consultar fácilmente la versión actual: `where { deprecated: false }`
+
+Esto permite correcciones sin destruir el historial. Si un curador nota una errata o un error, archiva una entrada actualizada y el sistema rastrea automáticamente el linaje.
+
+### 2. Verificación de contenido a través de hash criptográfico
+
+```solidity
+bytes32 contentHash;  // Hash SHA-256 del texto canónico
+```
+
+Los usuarios pueden opcionalmente aplicar un hash a su contenido localmente utilizando reglas de normalización estrictas:
+
+- Normalización Unicode NFC (caracteres compuestos)
+- Finales de línea estandarizados (LF)
+- Sangría consistente (4 espacios)
+- Eliminación de espacios en blanco finales
+- Colapso de líneas en blanco excesivas
+
+Esto asegura que el mismo texto canónico siempre produzca el mismo hash. Los lectores pueden verificar independientemente que el texto archivado coincida con el hash on-chain, estableciendo una prueba criptográfica de autenticidad.
+
+### 3. Puntos de integración NFT
+
+```solidity
+address nftAddress;   // Contrato NFT opcional
+uint256 nftId;        // ID de token opcional
+```
+
+En lugar de forzar la integración NFT, `Lit3Ledger.sol` la hace opcional. Un curador puede vincular entradas a coleccionables digitales, permitiendo:
+
+- Acceso por niveles basado en la propiedad del token
+- Capítulos coleccionables
+- Composición entre protocolos (entradas + mercados NFT)
+
+La dirección cero (`0x0`) señala "sin NFT" — una convención clara y estándar.
+
+### 4. Terminología neutral y accesible
+
+El original usaba nombres de campos centrados en la narrativa:
+
+- `shardTag` → `title` (título)
+- `echoSource` → `source` (fuente)
+- `earthTime` → `timestamp1` (marca de tiempo 1)
+- `lankaTime` → `timestamp2` (marca de tiempo 2)
+- `archivistLog` → `curatorNote` (nota del curador)
+
+Esta transición sirve para dos propósitos:
+
+- **Descubribilidad**: Términos genéricos como "title" y "source" aparecen en búsquedas; no es el caso con "echoSource"
+- **Accesibilidad**: Los desarrolladores no familiarizados con El Plexo (el proyecto literario que inspiró el original) pueden comprender inmediatamente el esquema
+
+-----
+
+## Metodología: Implementación y pruebas
+
+### Diseño del contrato inteligente
+
+Lit3Ledger.sol implementa control de acceso basado en roles (solo curador) y arquitectura impulsada por eventos:
+
+```solidity
+function archiveEntry(...) public onlyCurator {
+    entries.push(Entry(...));
+    emit EntryArchived(...);
+}
+
+function archiveUpdatedEntry(..., uint256 deprecateIndex) public onlyCurator {
+    entries[deprecateIndex].deprecated = true;
+    entries.push(Entry(...));
+    emit EntryDeprecated(...);
+}
+```
+
+Los eventos permiten la indexación off-chain. El servicio de subgrafos de The Graph monitorea estos eventos y mantiene un *endpoint* GraphQL consultable, permitiendo a las aplicaciones frontend obtener datos sin escanear la blockchain directamente.
+
+### Despliegue y verificación
+
+Los scripts de despliegue automatizan:
+
+- Compilación de contratos a través de Foundry
+- Despliegue en Base (testnet Sepolia y mainnet)
+- Verificación automática del código fuente en BaseScan
+- Actualizaciones de configuración del entorno
+
+### Pipeline de normalización de texto
+
+El proceso de *hashing* aplica una normalización estricta a través de Node.js:
+
+```javascript
+// 1. Eliminar BOM (Byte Order Mark)
+// 2. Normalizar Unicode a NFC
+// 3. Convertir finales de línea a LF
+// 4. Eliminar espacios en blanco finales por línea
+// 5. Estandarizar tabulaciones a 4 espacios
+// 6. Eliminar líneas en blanco iniciales/finales
+// 7. Colapsar múltiples líneas en blanco
+// 8. Asegurar una única nueva línea final
+```
+
+Este proceso determinista asegura la reproducibilidad. Dos curadores con el mismo texto fuente generarán *hashes* idénticos, probando la equivalencia del contenido.
+
+### Testeo y garantía de calidad
+
+El contrato incluye testeos exhaustivos:
+
+- Despliegue e inicialización
+- Archivado de entradas con distintos ingresos
+- Cadenas de versionado (v1 → v2 → v3)
+- Prevención de doble deprecación
+- Operaciones por lotes y paginación
+- Verificación de emisión de eventos
+- Pruebas *fuzzing* para casos extremos
+
+Las pruebas se ejecutan a través de Foundry y logran una alta cobertura, asegurando la fiabilidad en el despliegue en *mainnet*.
+
+-----
+
+## Funcionalidad resultante
+
+### Para escritores y curadores
+
+1.  **Archivar nuevas entradas narrativas** con metadatos opcionales
+2.  **Actualizar entradas** mientras se preserva el historial de versiones
+3.  **Verificar la autenticidad del contenido** comparando el hash local con el hash on-chain
+4.  **Integrarse con plataformas NFT** para capítulos coleccionables
+5.  **Consultar el historial completo** a través de GraphQL para análisis y verificación
+
+### Para lectores e investigadores
+
+1.  **Acceder a versiones canónicas** (entradas no deprecadas)
+2.  **Examinar el historial de versiones** para comprender los cambios editoriales
+3.  **Verificar la autenticidad** de las afirmaciones del texto
+4.  **Descubrir integraciones NFT** si están presentes
+5.  **Auditar metadatos** (marcas de tiempo, fuentes, notas del curador)
+
+### Para desarrolladores
+
+1.  **API GraphQL estándar** para la consulta de datos
+2.  **Terminología neutral** que permite una fácil integración con otros sistemas
+3.  **Implementación de código abierto** que permite la personalización
+4.  **Contratos testeables** con ejemplos exhaustivos
+5.  **Soporte multi-red** (*testnet* y *mainnet*)
+
+-----
+
+## Ejemplo práctico: Un flujo de trabajo de publicación
+
+### Día 1: Archivo inicial
+
+```bash
+./archive-entry.sh base-sepolia "Chapter One" "Author's Archive" "2025-10-11" "2025-10-12" "First publication" none 0 chapter-one.md
+```
+
+Resultado: Entrada en el índice 0, versión 1, hash de contenido almacenado on-chain
+
+### Día 5: Error descubierto
+
+El curador nota una errata. En lugar de aceptar el error o crear un duplicado:
+
+```bash
+./archive-updated-entry.sh base-sepolia 0 "Chapter One" "Author's Archive" "2025-10-11" "2025-10-12" "Corrected typo: 'recieved' → 'received'" none 0 chapter-one-fixed.md
+```
+
+Resultado: Entrada original marcada como deprecada; nueva entrada en el índice 1, versión 2
+
+### Día 30: Venta de NFT
+
+El curador decide acuñar este capítulo como un coleccionable NFT:
+
+```bash
+./archive-updated-entry.sh base-sepolia 1 "Chapter One (Collector's Edition)" "Author's Archive" "2025-10-11" "2025-10-12" "Collector's edition with bonus notes" 0x1234...abcd 1 chapter-one-collectors.md
+```
+
+Resultado: Entrada en el índice 2, versión 3, vinculada al contrato NFT
+
+### Vista de los lectores
+
+A través de la API GraphQL:
+
+- Consultar la última versión: `entries(where: { title: "Chapter One", deprecated: false })` → Devuelve índice 2, versión 3
+- Ver historial: `entries(where: { title: "Chapter One" })` → Muestra índices 0, 1, 2 con progresión de versiones
+- Verificar autenticidad: Comparar hash de archivo local con `contentHash` en la cadena
+
+-----
+
+## Decisiones de diseño y compensaciones
+
+### Modelo de versionado
+
+En lugar de rebasado inmutable o reemplazo de contenido, Lit3Ledger utiliza el versionado anexable. Cada actualización crea una nueva entrada.
+
+**Ventajas:**
+
+- Rastro de auditoría completo
+- Lógica de contrato simple
+- Ordenación clara de las versiones
+
+**Desventajas:**
+
+- Más almacenamiento por actualización
+- Complejidad de consulta al buscar la "versión actual"
+
+Esta compensación favorece la **transparencia** y la **simplicidad**.
+
+### Campos opcionales
+
+La integración NFT y el *hashing* de contenido son totalmente opcionales. Las direcciones cero y los *hashes* cero indican esa entrada como "no aplicable".
+
+**Razones:**
+
+- Simplicidad para los usuarios que no necesitan estas funcionalidades
+- Reduce los costos de *gas* cuando las mismas no se utilizan
+- Permite la adopción gradual de funciones con el tiempo
+
+### Terminología neutral
+
+El cambio de términos específicos del dominio a términos genéricos refleja una maduración de prototipo a plataforma. El contexto narrativo de *El Plexo* se conserva en la documentación y el historial del proyecto, pero el contrato en sí debe servir a cualquier archivo literario.
+
+-----
+
+## Extensibilidad futura
+
+El diseño de Lit3Ledger.sol anticipa futuras mejoras:
+
+1.  **Soporte multi-idioma** a través de un esquema actualizado
+2.  **Verificación comunitaria** mediante contratos de atestación externos
+3.  **Seguimiento de regalías** a través de la integración NFT
+4.  **Puente entre cadenas** a otras redes *blockchain*
+5.  **Metadatos estructurados** (género, autor, temas) a través de esquemas extendidos
+
+El contrato central permanece estable mientras habilita estas extensiones a través de la composición en lugar de la modificación.
+
+-----
+
+## Reflexiones finales
+
+Lit3Ledger.sol representa una evolución en el archivo literario basado en la *blockchain*. Al introducir el versionado, la verificación de contenido y la integración NFT opcional, manteniendo la simplicidad y la accesibilidad, aborda las necesidades reales de escritores, curadores e investigadores.
+
+La transición de PlexusArchive.sol a Lit3Ledger.sol demuestra un principio fundamental: a medida que las herramientas maduran de prototipo a plataforma, deben adoptar una terminología y casos de uso más amplios, al tiempo que preservan la visión creativa que motivó su creación.
+
+El resultado es un marco que mantiene la integridad literaria, permite el comercio creativo y proporciona procedencia verificable, todo ello sin dejar de ser accesible para desarrolladores no familiarizados con la tecnología *blockchain*.
+
+<Image
+  src="/images/banner-purple.png"
+  alt=""
+  width={1580}
+  height={140}
+/>
+
+**Gracias por leer — nos vemos en Lanka Prime.**

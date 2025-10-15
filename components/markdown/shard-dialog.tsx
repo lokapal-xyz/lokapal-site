@@ -1,6 +1,6 @@
 'use client';
 
-import { useShardByIndex } from '@/hooks/useShardEvents';
+import { useChapterByIndex } from '@/hooks/useShardEvents';
 import { Dictionary } from "@/lib/dictionaries";
 
 interface ShardDialogProps {
@@ -11,11 +11,11 @@ interface ShardDialogProps {
 }
 
 export function ShardDialog({ shardIndex, isOpen, onClose, dict }: ShardDialogProps) {
-  const { data, loading, error } = useShardByIndex(shardIndex.toString());
+  const { data, loading, error } = useChapterByIndex(shardIndex.toString());
 
   if (!isOpen) return null;
 
-  const shard = data?.shards?.[0];
+  const shard = data?.entries?.[0];
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
@@ -64,7 +64,7 @@ export function ShardDialog({ shardIndex, isOpen, onClose, dict }: ShardDialogPr
                     {dict.shard.shard_tag}
                   </label>
                   <p className="text-gray-900 dark:text-white bg-gray-50 dark:bg-gray-800 p-3 rounded-lg">
-                    {shard.shardTag}
+                    {shard.title}
                   </p>
                 </div>
                 
@@ -73,7 +73,7 @@ export function ShardDialog({ shardIndex, isOpen, onClose, dict }: ShardDialogPr
                     {dict.shard.echo_source}
                   </label>
                   <p className="text-gray-900 dark:text-white bg-gray-50 dark:bg-gray-800 p-3 rounded-lg">
-                    {shard.echoSource}
+                    {shard.source}
                   </p>
                 </div>
                 
@@ -82,7 +82,7 @@ export function ShardDialog({ shardIndex, isOpen, onClose, dict }: ShardDialogPr
                     {dict.shard.earth_time}
                   </label>
                   <p className="text-gray-900 dark:text-white bg-gray-50 dark:bg-gray-800 p-3 rounded-lg">
-                    {shard.earthTime}
+                    {shard.timestamp1}
                   </p>
                 </div>
                 
@@ -91,7 +91,7 @@ export function ShardDialog({ shardIndex, isOpen, onClose, dict }: ShardDialogPr
                     {dict.shard.lanka_time}
                   </label>
                   <p className="text-gray-900 dark:text-white bg-gray-50 dark:bg-gray-800 p-3 rounded-lg">
-                    {shard.lankaTime}
+                    {shard.timestamp2}
                   </p>
                 </div>
               </div>
@@ -101,7 +101,7 @@ export function ShardDialog({ shardIndex, isOpen, onClose, dict }: ShardDialogPr
                   {dict.shard.archivist_log}
                 </label>
                 <p className="text-gray-900 dark:text-white bg-gray-50 dark:bg-gray-800 p-4 rounded-lg leading-relaxed">
-                  {shard.archivistLog}
+                  {shard.curatorNote}
                 </p>
               </div>
               

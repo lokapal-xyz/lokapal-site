@@ -15,11 +15,33 @@ export const FMAO_ROUTES: EachRoute[] = [
     noLink: true,
     items: [
       { title: "introduction", href: "/introduction" },
-      { title: "from-the-plexus", href: "/from-the-plexus" },
-      { title: "prologue", href: "/prologue" },
     ],
   },
-{
+  {
+    title: "fmao",
+    href: "/fmao",
+    noLink: true,
+    items: [
+      {
+        title: "book-0",
+        href: "/book-0",
+        noLink: true,
+        items: [
+          { title: "shard-0", href: "/shard-0" },
+          { title: "shard-1", href: "/shard-1" },
+        ],
+      },
+      {
+        title: "book-1",
+        href: "/book-1",
+        noLink: true,
+        items: [
+          { title: "shard-undefined", href: "/shard-undefined" },
+        ],
+      },
+    ],
+  },
+  {
     title: "fmao-whitepaper",
     href: "/fmao-whitepaper",
     noLink: true,

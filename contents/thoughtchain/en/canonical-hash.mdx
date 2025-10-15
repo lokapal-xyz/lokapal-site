@@ -1,5 +1,5 @@
 ---
-title: "Lit3 Canonical Hash"
+title: "Notes on Lit3 — Part 4: Lit3 Canonical Hash"
 description: "Establishing Trustless Records for Narrative Canon."
 date: 01-10-2025
 authors:
@@ -12,12 +12,12 @@ cover: "/images/hash.jpg"
 
 *Establishing Trustless Records for Narrative Canon.*
 
-## The Immutable Fingerprint of Fiction
-
 **Note:** This article expands on the concepts developed in:
 - [*The Dawn of Lit3*](https://www.lokapal.xyz/en/thoughtchain/the-dawn-of-lit3),
-- [*Notes on Lit3 Frameworks*](https://www.lokapal.xyz/en/thoughtchain/lit3-frameworks), and
+- [*Lit3 Frameworks*](https://www.lokapal.xyz/en/thoughtchain/lit3-frameworks), and
 - [*Blockchain as Story Canon*](https://www.lokapal.xyz/en/thoughtchain/blockchain-canon).
+
+## The Immutable Fingerprint of Fiction
 
 The **Story Canon** for Lit3 is not just a shared cultural agreement; it is a **cryptographic guarantee**.
 
@@ -45,7 +45,7 @@ The Canonical Hash is the definitive answer to the question: **"Is this text the
 
 ## Technical Implementation: The One-Way Function
 
-The Canonical Hash is generated using a **cryptographic hash function**, specifically **keccak-256**, which is the native, gas-efficient standard on the Ethereum Virtual Machine (EVM).
+The Canonical Hash is generated using a **cryptographic hash function**, specifically **SHA-256**, which is the native, gas-efficient standard on the Ethereum Virtual Machine (EVM).
 
 ### 1. The Hashing Process
 
@@ -59,7 +59,7 @@ A hash function acts like a deterministic, one-way blender with three key proper
 
 To secure the canonical text, the process is:
 
-1.  **Preparation (Off-Chain):** The Lit3 author or platform takes the final text file. They run the **keccak-256** algorithm over the entire contents to generate the 32-byte hash.
+1.  **Preparation (Off-Chain):** The Lit3 author or platform takes the final text file. They run the **SHA-256** algorithm over the entire contents to generate the 32-byte hash.
 
 2.  **Archival (On-Chain):** This resulting hash is recorded permanently in the `Shard` struct on the Lit3 Ledger smart contract:
 

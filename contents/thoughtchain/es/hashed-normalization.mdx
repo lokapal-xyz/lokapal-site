@@ -1,0 +1,90 @@
+---
+title: "Notas sobre Lit3 — Parte 5: Protocolo de Normalización con Hash"
+description: "El Estándar que Forja la Huella Digital Inmutable de la Ficción."
+date: 01-10-2025
+authors:
+  - avatar: "/images/LokapalMain.png"
+    handle: lokapalxyz
+    username: lokapal.eth
+    handleUrl: "https://x.com/lokapalxyz"
+cover: "/images/hash.jpg"
+---
+
+*El Estándar que Forja la Huella Digital Inmutable de la Ficción*
+
+**Nota:** Este artículo expande los conceptos desarrollados en:
+- [*El alba de la Lit3*](https://www.lokapal.xyz/es/thoughtchain/the-dawn-of-lit3),
+- [*Marcos Lit3*](https://www.lokapal.xyz/es/thoughtchain/lit3-frameworks),
+- [*Blockchain como canon narrativo*](https://www.lokapal.xyz/es/thoughtchain/blockchain-canon), y
+- [*Hash canónico de Lit3*](https://www.lokapal.xyz/es/thoughtchain/canonical-hash).
+
+## El colapso de la integridad
+
+La promesa fundamental de la Lit3 es la **integridad literaria perpetua**: la certeza de que el elemento narrativo registrado en la blockchain es la pieza auténtica, inalterada del **Canon Narrativo**. Esta integridad se garantiza por una primitiva criptográfica simple: el **Hash Canónico**.
+
+Sin embargo, traducir un archivo de texto legible por humanos a un hash criptográfico inmutable presenta un desafío técnico fundamental. Un archivo de texto, como un capítulo o un poema, puede representarse en múltiples formas técnicamente distintas mientras sigue siendo **semánticamente idéntico** para un lector humano.
+
+Considera un poema simple copiado de una computadora a otra:
+
+* Cambiar un único salto de línea de un estilo Windows `CRLF` a un estilo Unix `LF` altera los bytes del archivo.
+* Un espacio extraño al final de una línea es invisible pero cambia los datos.
+* Un sistema puede almacenar un carácter acentuado como un único valor Unicode, mientras que otro lo almacena como dos caracteres combinados (Formas de Normalización).
+
+Cualquiera de estos cambios no sustanciales y triviales causará que el hash SHA-256 cambie completamente. Sin un proceso estandarizado, un lector sería incapaz de verificar su archivo contra el Hash Canónico, volviendo inútil el Marco del Ledger.
+
+El **Protocolo de Normalización con Hash (HNP)** es la solución.
+
+---
+
+## El papel de la canonicalización en criptografía
+
+HNP no es un concepto novedoso; es la aplicación literaria específica del principio universal de **canonicalización**, que es esencial siempre que se utiliza el hash para garantizar la integridad de datos.
+
+### 1. Canonicalización XML (C14N)
+
+El paralelo más directo es la **Canonicalización XML (C14N)**. C14N es un paso de preprocesamiento obligatorio para crear y verificar **Firmas Digitales XML**.
+
+* **Propósito:** Dos documentos XML pueden ser lógicamente idénticos pero físicamente diferentes (por ejemplo, orden de atributos, inclusión de comentarios, colocación de declaraciones de espacio de nombres). C14N aplica un conjunto estricto de reglas para convertir todos los XML lógicamente equivalentes en una única secuencia de bytes canónica.
+* **Resultado:** Esta secuencia canónica puede hashearse confiablemente, garantizando que un documento XML firmado pueda ser transmitido, ligeramente modificado (de formas no sustanciales por un intermediario), y aún pasar la verificación de firma en el extremo receptor. C14N permite la **integridad de datos para transmisión digital**.
+
+### 2. Prueba de Existencia (PoE)
+
+El modelo de **Prueba de Existencia (PoE)** es el concepto general que sustenta el Marco del Ledger.
+
+* **Propósito:** Un creador toma un archivo digital arbitrario (documento, imagen, etc.), calcula su hash, y registra ese hash en una blockchain pública, estableciendo un registro con marca de tiempo e inalterado de la existencia del archivo en ese momento.
+* **Limitación:** La mayoría de implementaciones PoE simples se basan en que el usuario transforme el archivo en un hash sin procesar, lo que es susceptible a problemas como espacios en blanco y saltos de línea, los cuales HNP si aborda.
+
+---
+
+## HNP-1: La especificación del Protocolo de Normalización con Hash
+
+El **Protocolo de Normalización con Hash (HNP)** es un estándar de código abierto versionado. La primera versión implementada, **HNP-1**, está diseñada para contenido de texto plano, en estilo de capítulo, escrito en markdown o formatos similares legibles por humanos.
+
+Al adoptar un protocolo versionado, la comunidad Lit3 puede asegurar que si se desarrolla un método más robusto o rico en características (por ejemplo, HNP-2), la naturaleza canónica de obras antiguas sigue siendo gobernada por las reglas publicadas de HNP-1.
+
+### Procedimientos de normalización HNP-1
+
+El estándar HNP-1 consiste en **9 reglas de normalización obligatorias** aplicadas secuencialmente al contenido de texto sin procesar antes de calcular el hash SHA-256 final en el décimo paso. Estas reglas tienen como objetivo eliminar variaciones causadas por diferentes sistemas operativos, editores de texto, o inconsistencias de codificación.
+
+| Paso | Regla | Descripción |
+| :--- | :--- | :--- |
+| **1.** | **Eliminación de BOM** | Eliminar la Marca de Orden de Bytes (`U+FEFF`) si está presente. |
+| **2.** | **Normalización Unicode** | Convertir todos los caracteres Unicode a la forma **NFC (Forma de Normalización C / Compuesta)**. |
+| **3.** | **Conversión de Saltos de Línea** | Convertir todos los saltos de línea (`\r\n` o `\r`) al salto de línea de estilo Unix único (`\n`). |
+| **4.** | **Eliminación de Espacios en Blanco al Final** | Eliminar todos los espacios en blanco sobrantes (espacios y tabulaciones) al final de cada línea. |
+| **5.** | **Expansión de Tabulaciones** | Reemplazar todos los caracteres de tabulación horizontal (`\t`) con **cuatro (4) caracteres de espacio** (`    `). |
+| **6.** | **Eliminación de Líneas en Blanco al Inicio** | Eliminar todas las líneas en blanco desde el **inicio** del archivo. |
+| **7.** | **Eliminación de Líneas en Blanco al Final** | Eliminar todas las líneas en blanco desde el **final** del archivo. |
+| **8.** | **Compresión de Líneas en Blanco** | Colapsar todas las secuencias de dos o más líneas en blanco consecutivas en una **única línea en blanco**. (Asegurando que nunca haya más de una línea en blanco separando contenido). |
+| **9.** | **Normalización del Final del Archivo** | Asegurar que la salida final termine con **exactamente un** carácter de salto de línea (`\n`). |
+| **10.**| **Hash Final** | Calcular el hash **SHA-256** de la secuencia de bytes normalizada resultante (tratada como UTF-8) y expresar el resultado como una cadena hexadecimal de 32 bytes con prefijo `0x` para almacenamiento on-chain. |
+
+---
+
+## Reflexiones finales
+
+El **HNP-1** es un puente esencial que conecta la naturaleza efímera de un archivo digital a la certeza inmutable de la blockchain. Permite que el **Marco de Registro** cree un **Hash Canónico** garantizado criptográficamente, que a su vez preserva la **integridad literaria perpetua** requerida para un verdadero **Canon Narrativo** de Lit3.
+
+Al definir públicamente el protocolo, movemos la cuestión de la autenticidad narrativa del ámbito de la confianza al ámbito de la **prueba matemática**. Cualquiera, en cualquier lugar, puede ahora tomar un archivo de texto, ejecutar el script HNP-1, y confirmar definitivamente su estado como canon genuino de Lit3.
+
+*La infraestructura se está fortaleciendo. El escenario está listo para una nueva era de literatura verificable y duradera.*

@@ -257,8 +257,12 @@
         "fmao-web3-framework": "Detalles del Marco Web3",
         "references-license-and-contact": "Referencias, Licencia y Contacto",
         "fmao-whitepaper": "💠 Libro blanco de En lo múltiple, como uno",
-        "prologue": "Prólogo de En lo múltiple, como uno",
-        "from-the-plexus": "Desde el Plexo"
+        "fmao": "💠 En lo múltiple, como uno",
+        "book-0": "🔹Libro 0",
+        "book-1": "🔹Libro 1",
+        "shard-undefined": "Esquirla {no-definido}",
+        "shard-0": "Esquirla 0",
+        "shard-1": "Esquirla 1"
     },
     "blog": {
         "title": "Thoughtchain",
