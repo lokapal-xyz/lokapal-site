@@ -28,11 +28,11 @@ Considera un poema simple copiado de una computadora a otra:
 
 * Cambiar un único salto de línea de un estilo Windows `CRLF` a un estilo Unix `LF` altera los bytes del archivo.
 * Un espacio extraño al final de una línea es invisible pero cambia los datos.
-* Un sistema puede almacenar un carácter acentuado como un único valor Unicode, mientras que otro lo almacena como dos caracteres combinados (Formas de Normalización).
+* Un sistema puede almacenar un carácter acentuado como un único valor Unicode, mientras que otro lo almacena como dos caracteres combinados.
 
-Cualquiera de estos cambios no sustanciales y triviales causará que el hash SHA-256 cambie completamente. Sin un proceso estandarizado, un lector sería incapaz de verificar su archivo contra el Hash Canónico, volviendo inútil el Marco del Ledger.
+Cualquiera de estos cambios no sustanciales y triviales causará que el hash SHA-256 cambie completamente. Sin un proceso estandarizado, un lector sería incapaz de verificar su archivo contra el Hash Canónico, volviendo inútil el almacenamiento del `contentHash`.
 
-El **Protocolo de Normalización con Hash (HNP)** es la solución.
+El **Protocolo de Normalización con Hash (HNP)** ofrece una solución.
 
 ---
 
@@ -49,7 +49,7 @@ El paralelo más directo es la **Canonicalización XML (C14N)**. C14N es un paso
 
 ### 2. Prueba de Existencia (PoE)
 
-El modelo de **Prueba de Existencia (PoE)** es el concepto general que sustenta el Marco del Ledger.
+El modelo de **Prueba de Existencia (PoE)** es otro marco que precede al HNP.
 
 * **Propósito:** Un creador toma un archivo digital arbitrario (documento, imagen, etc.), calcula su hash, y registra ese hash en una blockchain pública, estableciendo un registro con marca de tiempo e inalterado de la existencia del archivo en ese momento.
 * **Limitación:** La mayoría de implementaciones PoE simples se basan en que el usuario transforme el archivo en un hash sin procesar, lo que es susceptible a problemas como espacios en blanco y saltos de línea, los cuales HNP si aborda.

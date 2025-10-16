@@ -39,35 +39,35 @@ Establecer una relación directa y económicamente viable entre el creador y el 
 
 ---
 
-## Marco 2: El marco de padrón
+## Marco 2: El marco de registro
 
 Este marco está construido para abordar los desafíos únicos de integridad y verificabilidad en una narrativa descentralizada. Es la **columna vertebral estructural** necesaria para historias complejas y evolutivas.
 
 ### Propósito:
-El marco de padrón (o marco de *ledger*) usa infraestructura Web3 para crear un **historial transparente, inmutable y consultable** de contenido meta-narrativo para una historia Lit3. Este padrón crea una separación intencional entre el contenido de los componentes off-chain y on-chain, que puede usarse de muchas maneras creativas:
+El marco de registro (o marco de *ledger*) usa infraestructura Web3 para crear un **historial transparente, inmutable y consultable** de contenido meta-narrativo para una historia Lit3. Este registro crea una separación intencional entre el contenido de los componentes off-chain y on-chain, que puede usarse de muchas maneras creativas:
 - Para crear tensión narrativa — el contenido off-chain podría plantear preguntas que el texto on-chain resuelve.
 - Para cambiar perspectivas narrativas — por ejemplo, puedes tener un narrador on-chain desafiando las afirmaciones hechas en el texto off-chain.
-- Para agregar elementos no narrativos — con un padrón on-chain, puedes expandir el lore de maneras que serían forzadas, aburridas o disruptivas de tener junto al texto off-chain.
+- Para agregar elementos no narrativos — con un registro on-chain, puedes expandir el lore de maneras que serían forzadas, aburridas o disruptivas de tener junto al texto off-chain.
 - Para mejorar la historia sin interrumpir su flujo — los lectores pueden preferir evitar el componente on-chain en una primera lectura, pero cuando regresen para una segunda lectura, pueden apreciar estas adiciones narrativas.
 - Y muchas más opciones pendientes de explorar por la comunidad.
 
 ### Mecánicas:
 * Eventos narrativos importantes (publicación de capítulos, cambios de estado de personajes, marcas de tiempo) activan **eventos de contratos inteligentes**.
-* Estos datos (los registros meta-narrativos) se indexan en una capa de datos descentralizada, que llamamos un *padrón Lit3*.
-* El **acceso directo** al padrón puede proporcionarse a través de herramientas como GraphQL, que consulta la capa de datos y hace visibles públicamente las grabaciones crudas y verificables (de manera local o externamente).
+* Estos datos (los registros meta-narrativos) se indexan en una capa de datos descentralizada, que llamamos un *registro Lit3*.
+* El **acceso directo** al registro puede proporcionarse a través de herramientas como GraphQL, que consulta la capa de datos y hace visibles públicamente las grabaciones crudas y verificables (de manera local o externamente).
 * El **acceso indirecto** también puede usarse, en casos en que la plataforma no permita consultas GraphQL (por ejemplo, plataformas de publicación como Substack, Medium, Paragraph).
-* Para lectores web3 expertos, también está la opción de **acceso crudo** a la blockchain a través de transacciones manuales leyendo directamente desde el almacenamiento del contrato inteligente.
+* Para lectores web3 expertos, también está la opción de **acceso en crudo** a la blockchain a través de transacciones manuales leyendo directamente desde el almacenamiento del contrato inteligente.
 
 ### Una necesidad para la narrativa avanzada:
-El padrón es crucial para cualquier historia que esté **diseñada para evolucionar**. Prueba que la historia de tu mundo es perpetua e inalterable—una base sobre la cual puede construirse la participación comunitaria compleja.
+El registro es crucial para cualquier historia que esté **diseñada para evolucionar**. Prueba que la historia de tu mundo es perpetua e inalterable—una base sobre la cual puede construirse la participación comunitaria compleja.
 
-> **Ejemplo de Proyecto:** [*Desde el Plexo*](https://www.lokapal.xyz/es/fmao/welcome/from-the-plexus) usa su **Archivo del Plexo** como el padrón Lit3 para grabar los registros meta-narrativos de cada **esquirla**, probando la verificabilidad de su historia. Si quieres aprender más sobre el stack web3 GraphQL usado para el Archivo del Plexo, puedes leer nuestra serie de artículos *Escribiendo En lo múltiple, como uno*, en la cual publicaremos entradas describiendo todo el proceso de creación de un padrón Lit3.
+> **Ejemplo de Proyecto:** [*Desde el Plexo*](https://www.lokapal.xyz/es/fmao/fmao/book-0/shard-0) usa su **Archivo del Plexo** como el registro Lit3 para grabar los registros meta-narrativos de cada **esquirla**, probando la verificabilidad de su historia. Si quieres aprender más sobre el stack web3 GraphQL usado para el Archivo del Plexo, puedes leer nuestra serie de artículos *Escribiendo En lo múltiple, como uno*, en la cual publicaremos entradas describiendo todo el proceso de creación de un registro Lit3.
 
 ---
 
 ## Marco 3: El marco de gobernanza
 
-Este marco se enfoca en la **participación, influencia y propiedad comunitaria** de la dirección creativa. Esto empuja los límites de la autoría misma.
+Este marco se enfoca en la **participación, influencia y propiedad comunitaria** de la dirección creativa. Al implementar este diseño se empujan los límites de la autoría misma.
 
 ### Propósito:
 El marco de gobernanza usa tokens o whitelists (también llamadas allowlists) para otorgar a los lectores poder de voto (a través de una DAO o mecanismo similar) que influye directamente en puntos importantes de la trama, arcos de personajes o el desarrollo futuro del mundo. El nivel de apertura de participación debe calibrarse según el proyecto, y requiere pautas claras para mantener la coherencia narrativa a lo largo de la historia.
@@ -76,24 +76,24 @@ El marco de gobernanza usa tokens o whitelists (también llamadas allowlists) pa
 * Los lectores usan tokens para votar sobre opciones o parámetros predeterminados (por ejemplo, "¿En qué distrito ocurre la próxima esquirla?"). El proyecto también puede otorgar acceso especial a cuentas de lectores a través de allowlists.
 * El proyecto puede usar señalización off-chain (por ejemplo, Snapshot) para evitar costos de transacción para los lectores.
 * Si el proyecto usa gobernanza on-chain, los resultados de la votación son procesados por un contrato inteligente, que luego dicta el próximo evento en la historia.
-* La gobernanza Lit3 se beneficia al implementar también el marco de padrón. Los resultados de la votación y los cambios narrativos correspondientes pueden archivarse inmediatamente en el padrón para probar que la voluntad de la comunidad fue promulgada de manera verificable.
+* La gobernanza Lit3 se beneficia al implementar también el marco de registro. Los resultados de la votación y los cambios narrativos correspondientes pueden archivarse inmediatamente en el registro para probar que la voluntad de la comunidad fue promulgada de manera verificable.
 
 ### Objetivo:
 Convertir al lector de un consumidor pasivo en un co-creador activo, estableciendo una verdadera propiedad creativa descentralizada.
 
-> **Ejemplo de Proyecto:** [*En lo múltiple, como uno*](https://www.lokapal.xyz/es/fmao/welcome/introduction) está configurada para usar votación off-chain en Snapshot recibiendo el aporte de los lectores después de cada introducción de capítulo. Los resultados de esa votación influirán en la progresión de la historia, conduciendo a la votación on-chain reservada para los Guardianes, el cuerpo gobernante dentro de la historia de *En lo múltiple, como uno*.
+> **Ejemplo de Proyecto:** [*En lo múltiple, como uno*](https://www.lokapal.xyz/es/fmao/welcome/introduction) está configurada para usar votación off-chain en Snapshot recibiendo el aporte de los lectores después de los capítulos. Los resultados de esa votación influirán en la progresión de la historia, conduciendo a la votación on-chain reservada para los Guardianes, el cuerpo gobernante dentro de la historia de *En lo múltiple, como uno*.
 
 ---
 
 ## Reflexiones finales: la modularidad de la Lit3
 
-Estos tres marcos — **token, padrón y gobernanza** — no son etapas mutuamente exclusivas de una jerarquía, sino herramientas modulares que pueden combinarse para resultados creativos únicos.
+Estos tres marcos — **token, registro y gobernanza** — no son etapas mutuamente exclusivas de una jerarquía, sino herramientas modulares que pueden combinarse para resultados creativos únicos.
 
 * Un poeta puede usar solo el **marco de token** para distribuir poemas NFT diferenciables.
-* Un world-builder colaborativo puede combinar los **marcos de padrón y token** para dar a los coleccionistas propiedad verificable sobre el lore.
-* Un proyecto puede usar padrones para un elemento narrativo específico, y gobernanza para la historia central.
+* Un world-builder colaborativo puede combinar los **marcos de registro y token** para dar a los coleccionistas propiedad verificable sobre el lore.
+* Un proyecto puede usar registros para un elemento narrativo específico, y gobernanza para la historia central.
 
-Alentamos a equilibrar la exploración creativa de cualquier marco Lit3 con su objetivo final: invitar a los lectores a interactuar con nuestras historias y entusiasmarlos para explorar posibilidades novedosas — no hacerlos sentir obligados a moverse fuera de nuestro mundo narrativo o forzarlos a hacer tarea. Nuestras capacidades técnicas y creatividad como creadores deben orientarse hacia el cumplimiento de la forma artística, no al revés.
+Alentamos a equilibrar la exploración creativa de cualquier marco Lit3 con su objetivo final: invitar a los lectores a interactuar con nuestras historias y entusiasmarlos para explorar posibilidades novedosas — no hacerlos sentirse obligados a moverse fuera de nuestro mundo narrativo o forzarlos a hacer tarea. Nuestras capacidades técnicas y creatividad como creadores deben orientarse hacia el cumplimiento de la forma artística, no al revés.
 
 ---
 

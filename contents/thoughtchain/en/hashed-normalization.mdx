@@ -28,11 +28,11 @@ Consider a simple poem copied from one computer to another:
 
 * Changing a single line ending from a Windows-style `CRLF` to a Unix-style `LF` alters the file's bytes.
 * A stray space at the end of a line is invisible but changes the data.
-* One system may store an accented character as a single Unicode value, while another stores it as two combining characters (Normalization Forms).
+* One system may store an accented character as a single Unicode value, while another stores it as two combining characters.
 
-Any of these non-substantive, trivial changes will cause the SHA-256 hash to change completely. Without a standardized process, a reader would be unable to verify their file against the Canonical Hash, rendering the Ledger Framework useless.
+Any of these non-substantive, trivial changes will cause the SHA-256 hash to change completely. Without a standardized process, a reader would be unable to verify their file against the Canonical Hash, rendering the `contentHash` storage useless.
 
-The **Hashed Normalization Protocol (HNP)** is the solution.
+The **Hashed Normalization Protocol (HNP)** offers a solution.
 
 ---
 
@@ -49,7 +49,7 @@ The most direct parallel is **XML Canonicalization (C14N)**. C14N is a mandatory
 
 ### 2. Proof of Existence (PoE)
 
-The **Proof of Existence (PoE)** model uses the general concept underpinning the Ledger Framework.
+The **Proof of Existence (PoE)** model is another framework that precedes the HNP.
 
 * **Purpose:** A creator takes an arbitrary digital file (document, image, etc.), computes its hash, and registers that hash on a public blockchain, establishing a time-stamped, unalterable record of the file's existence at that moment.
 * **Limitation:** Most simple PoE implementations rely on the user hashing the raw file, which is susceptible to the whitespace and line-ending issues HNP addresses.

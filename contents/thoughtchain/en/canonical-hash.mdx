@@ -45,7 +45,7 @@ The Canonical Hash is the definitive answer to the question: **"Is this text the
 
 ## Technical Implementation: The One-Way Function
 
-The Canonical Hash is generated using a **cryptographic hash function**, specifically **SHA-256**, which is the native, gas-efficient standard on the Ethereum Virtual Machine (EVM).
+The Canonical Hash is generated using a **cryptographic hash function**, specifically **SHA-256**, which is implemented on the Ethereum Virtual Machine (EVM) as a precompiled contract.
 
 ### 1. The Hashing Process
 
@@ -64,13 +64,13 @@ To secure the canonical text, the process is:
 2.  **Archival (On-Chain):** This resulting hash is recorded permanently in the `Shard` struct on the Lit3 Ledger smart contract:
 
 ```solidity
-struct Shard {
+struct Entry {
     // ... (other metadata fields)
-    bytes32 canonicalHash; // The immutable fingerprint
+    bytes32 contentHash; // The immutable fingerprint
 }
 ```
 
-3.  **The Proof:** Once the transaction is confirmed on-chain, the `canonicalHash` is fixed forever. This 32-byte value is now the **mathematical representation of the canonical text.**
+3.  **The Proof:** Once the transaction is confirmed on-chain, the `contentHash` is fixed forever. This 32-byte value is now the **mathematical representation of the canonical text.**
 
 ---
 

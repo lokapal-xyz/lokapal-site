@@ -45,7 +45,7 @@ El hash canónico es la respuesta definitiva a la pregunta: **"¿Es este texto e
 
 ## Implementación técnica: La función unidireccional
 
-El hash canónico se genera usando una **función hash criptográfica**, específicamente **SHA-256**, que es el estándar nativo y eficiente en gas usada por la Máquina Virtual de Ethereum (EVM).
+El hash canónico se genera usando una **función hash criptográfica**, específicamente **SHA-256**, que se implementa en la Máquina Virtual Ethereum (EVM) como un contrato precompilado.
 
 ### 1. El proceso de hashing
 
@@ -64,13 +64,13 @@ Para asegurar el texto canónico, el proceso es:
 2.  **Archivo (on-chain):** Este hash resultante se registra permanentemente en el almacenamiento del contrato inteligente del registro Lit3:
 
 ```solidity
-struct Shard {
+struct Entry {
     // ... (otros campos de metadatos)
-    bytes32 canonicalHash; // La huella digital inmutable
+    bytes32 contentHash; // La huella digital inmutable
 }
 ```
 
-3.  **La Prueba:** Una vez que la transacción se confirma en cadena, el `canonicalHash` queda fijado para siempre. Este valor de 32 bytes es ahora la **representación matemática del texto canónico.**
+3.  **La Prueba:** Una vez que la transacción se confirma en cadena, el `contentHash` queda fijado para siempre. Este valor de 32 bytes es ahora la **representación matemática del texto canónico.**
 
 ---
 
