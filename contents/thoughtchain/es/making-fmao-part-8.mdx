@@ -14,7 +14,7 @@ cover: "/images/making-fmao.jpg"
 
 Las obras literarias existen en un ecosistema fragmentado. Un escritor puede publicar en Medium, archivar en GitHub, almacenar localmente y compartir en redes sociales. Establecer un registro canónico de "qué se escribió y cuándo" se vuelve difícil. Los enfoques tradicionales se basan en plataformas centralizadas que pueden cambiar, desaparecer o revisar la historia.
 
-**Blockchain** ofrece una solución: registros inmutables y con marca de tiempo mantenidos por una red descentralizada. Sin embargo, la mayoría de las implementaciones de blockchain tratan los datos como monolíticos: una vez escritos, no se pueden actualizar, corregir o versionar.
+**La Blockchain** ofrece una solución: registros inmutables y con marca de tiempo mantenidos por una red descentralizada. Sin embargo, la mayoría de las implementaciones de blockchain tratan los datos como monolíticos: una vez escritos, no se pueden actualizar, corregir o versionar.
 
 Para la curación literaria, esto es insuficiente. Los escritores hacen correcciones. Los editores revisan pasajes. Surgen nuevas ediciones. Un sistema necesita:
 
@@ -81,7 +81,7 @@ Esto permite correcciones sin destruir el historial. Si un curador nota una erra
 bytes32 contentHash;  // Hash SHA-256 del texto canónico
 ```
 
-Los usuarios pueden opcionalmente aplicar un hash a su contenido localmente utilizando reglas de normalización estrictas:
+Los usuarios pueden opcionalmente aplicar un hash a su contenido utilizando reglas de normalización estrictas:
 
 - Normalización Unicode NFC (caracteres compuestos)
 - Finales de línea estandarizados (LF)
@@ -182,7 +182,7 @@ El contrato incluye testeos exhaustivos:
 - Verificación de emisión de eventos
 - Pruebas *fuzzing* para casos extremos
 
-Las pruebas se ejecutan a través de Foundry y logran una alta cobertura, asegurando la fiabilidad en el despliegue en *mainnet*.
+Las pruebas se ejecutan a través de Foundry y logran una alta cobertura, promoviendo la fiabilidad en el despliegue en *mainnet*.
 
 -----
 
@@ -200,7 +200,7 @@ Las pruebas se ejecutan a través de Foundry y logran una alta cobertura, asegur
 
 1.  **Acceder a versiones canónicas** (entradas no deprecadas)
 2.  **Examinar el historial de versiones** para comprender los cambios editoriales
-3.  **Verificar la autenticidad** de las afirmaciones del texto
+3.  **Verificar la autenticidad** de los textos originales
 4.  **Descubrir integraciones NFT** si están presentes
 5.  **Auditar metadatos** (marcas de tiempo, fuentes, notas del curador)
 
@@ -305,11 +305,11 @@ El contrato central permanece estable mientras habilita estas extensiones a trav
 
 ## Reflexiones finales
 
-Lit3Ledger.sol representa una evolución en el archivo literario basado en la *blockchain*. Al introducir el versionado, la verificación de contenido y la integración NFT opcional, manteniendo la simplicidad y la accesibilidad, aborda las necesidades reales de escritores, curadores e investigadores.
+Lit3Ledger.sol representa una evolución en el archivo literario basado en la blockchain. Al introducir el versionado, la verificación de contenido y la integración NFT opcional, manteniendo la simplicidad y la accesibilidad, aborda las necesidades reales de escritores, curadores e investigadores.
 
 La transición de PlexusArchive.sol a Lit3Ledger.sol demuestra un principio fundamental: a medida que las herramientas maduran de prototipo a plataforma, deben adoptar una terminología y casos de uso más amplios, al tiempo que preservan la visión creativa que motivó su creación.
 
-El resultado es un marco que mantiene la integridad literaria, permite el comercio creativo y proporciona procedencia verificable, todo ello sin dejar de ser accesible para desarrolladores no familiarizados con la tecnología *blockchain*.
+El resultado es un marco que mantiene la integridad literaria, permite el comercio creativo y proporciona procedencia verificable, todo ello sin dejar de ser accesible para desarrolladores no familiarizados con la tecnología blockchain.
 
 <Image
   src="/images/banner-purple.png"

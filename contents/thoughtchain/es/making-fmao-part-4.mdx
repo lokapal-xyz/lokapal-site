@@ -37,7 +37,7 @@ emit ShardArchived(
 );
 ```
 
-Este evento se registra en los logs de transacciones del blockchain. Técnicamente, cualquiera puede acceder a él — pero "técnicamente accesible" y "realmente utilizable" son cosas muy diferentes.
+Este evento se registra en los logs de transacciones de la blockchain. Técnicamente, cualquiera puede acceder a él — pero "técnicamente accesible" y "realmente utilizable" son cosas muy diferentes.
 
 **Las consultas directas al blockchain requieren**:
 - Ejecutar o pagar por acceso a nodos RPC
@@ -56,7 +56,7 @@ The Graph Protocol resuelve esto monitoreando continuamente los eventos blockcha
 
 Para nuestra implementación, esto significó:
 
-**Definir qué datos importan**: No todo en el blockchain es relevante. Creamos un esquema que captura exactamente lo que los lectores podrían querer consultar — metadatos de esquirlas, marcas de tiempo, hashes de transacciones para verificación.
+**Definir qué datos importan**: No todo en la blockchain es relevante. Creamos un esquema que captura exactamente lo que los lectores podrían querer consultar — metadatos de esquirlas, marcas de tiempo, hashes de transacciones para verificación.
 
 **Crear el índice**: Escribimos manejadores de eventos que procesan cada evento `ShardArchived` y lo almacenan en la base de datos de The Graph con estructura y relaciones apropiadas.
 
@@ -74,13 +74,13 @@ Para nuestra implementación, esto significó:
 
 He aquí por qué esta arquitectura importa más allá de la simple conveniencia técnica:
 
-**Separación de responsabilidades**: El blockchain maneja la *verificación* (probando la autenticidad de los datos), mientras que The Graph maneja la *accesibilidad* (haciendo los datos legibles). Cada sistema hace lo que mejor sabe hacer.
+**Separación de responsabilidades**: La blockchain maneja la *verificación* (probando la autenticidad de los datos), mientras que The Graph maneja la *accesibilidad* (haciendo los datos legibles). Cada sistema hace lo que mejor sabe hacer.
 
 **Persistencia sin mantenimiento**: Una vez que nuestro subgrafo está desplegado, continúa indexando los eventos de nuestro contrato automáticamente. Si dejáramos de mantener nuestro sitio web por completo, los datos permanecerían consultables.
 
 **Apertura a la interpretación**: Otros desarrolladores podrían construir interfaces completamente diferentes para nuestro Archivo. Alguien podría crear una herramienta de visualización, una aplicación móvil, o incluso integrar nuestros fragmentos en su propio proyecto Lit3 — todos consultando la misma fuente de datos verificada.
 
-**Independencia del lector**: Los lectores no necesitan confiar en nuestro sitio web. Pueden verificar la autenticidad de cualquier fragmento revisando el blockchain directamente usando el hash de transacción que proporcionamos.
+**Independencia del lector**: Los lectores no necesitan confiar en nuestro sitio web. Pueden verificar la autenticidad de cualquier fragmento revisando la blockchain directamente usando el hash de transacción que proporcionamos.
 
 Esto es fundamentalmente diferente de la publicación tradicional donde el editor controla no solo el contenido sino también toda su infraestructura de distribución.
 

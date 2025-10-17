@@ -71,7 +71,7 @@ struct Entry {
 | `nftId` | uint256 | ID de token del NFT vinculado (0 si no se proporciona). |
 | `contentHash` | bytes32 | Hash SHA-256 del contenido de texto canónico (hash cero si no se proporciona). |
 
-El campo `contentHash` es opcional y se alinea con el estándar **HNP-1 (Protocolo de Normalización de Hash)** descrito en la serie de ensayos de Lit3. Esto habilita la verificación criptográfica de autenticidad de texto como se describe en *Hash canónico de Lit3* y *Notas sobre Lit3 — Parte 5: Protocolo de Normalización con Hash*.
+El campo `contentHash` es opcional y se alinea con el estándar **HNP-1 (Protocolo de Normalización de Hash)** descrito en la serie de ensayos de Lit3. 
 
 ---
 
@@ -197,7 +197,7 @@ Resultado: Entrada en el índice 0 marcada como deprecada; nueva entrada almacen
 function getEntry(uint256 index) public view returns (Entry memory)
 ```
 
-Devuelve la estructura `Entry` completa en el índice especificado. Se revierte si el índice no existe.
+Devuelve el struct `Entry` completa en el índice especificado. Se revierte si el índice no existe.
 
 ### 2. Recuperación por lotes con paginación
 
@@ -238,7 +238,7 @@ El patrón de transferencia de curador en dos pasos previene la pérdida acciden
 address public pendingCurator;
 ```
 
-Almacena la dirección en espera de aceptación de autoridad de curador.
+Almacena la dirección en espera de aceptación de la autoridad de curador.
 
 ### Eventos
 
@@ -286,7 +286,7 @@ function acceptCuratorTransfer() public {
 }
 ```
 
-**Paso 2:** El curador propuesto debe aceptar explícitamente llamando esta función desde su dirección. Solo después de la aceptación se completa la transferencia.
+**Paso 2:** El curador propuesto debe aceptar explícitamente llamando a esta función desde su billetera. Solo después de la aceptación se completa la transferencia.
 
 #### 3. Cancelar transferencia (Opcional)
 
@@ -305,13 +305,13 @@ El curador actual puede cancelar una transferencia pendiente si se cometió un e
 error Lit3Ledger__NotPendingCurator();
 ```
 
-Se revierte cuando un no-curador-pendiente intenta aceptar la transferencia.
+Se revierte cuando una cuenta no autorizada intenta aceptar la transferencia.
 
 ### Ejemplo de flujo de trabajo
 
 1. **Día 1:** El curador actual llama `initiateCuratorTransfer(0xNewAddress)`. Evento emitido; el sistema espera.
 2. **Día 2:** El propietario de `0xNewAddress` confirma que está listo y llama `acceptCuratorTransfer()`. Transferencia completada.
-3. **Resultado:** Si `0xNewAddress` nunca llamó aceptar, la autoridad de curador permanece sin cambios.
+3. **Resultado:** Si `0xNewAddress` nunca llamó a la función correspondiente, la autoridad de curador permanece sin cambios.
 
 ---
 
@@ -427,7 +427,7 @@ El contrato define seis errores personalizados para diagnósticos de fallos prec
 | Error | Condición |
 | :--- | :--- |
 | `Lit3Ledger__NotCurator()` | `msg.sender` no es el curador. |
-| `Lit3Ledger__NotZeroAddress()` | Una dirección no cero requerida es cero. |
+| `Lit3Ledger__NotZeroAddress()` | Una dirección es cero cuando debe ser válida. |
 | `Lit3Ledger__EntryDoesNotExist()` | El índice consultado está fuera de los límites. |
 | `Lit3Ledger__StartIndexOutOfBounds()` | El índice de inicio de consulta por lotes excede la longitud del archivo. |
 | `Lit3Ledger__EntryAlreadyDeprecated()` | Intento de deprecar una entrada ya deprecada. |
@@ -439,7 +439,7 @@ Los errores personalizados reducen el tamaño del bytecode y proporcionan retroa
 
 ## Extensibilidad y mejoras futuras
 
-El Lit3Ledger.sol actual es intencionalmente mínimo, enfocándose en archivado y versionado principales. Las extensiones futuras podrían incluir:
+El Lit3Ledger.sol actual es intencionalmente mínimo, enfocándose principalmente en archivado y versionado. Las extensiones futuras podrían incluir:
 
 **1. Soporte multi-autor:** Extender el control de acceso más allá de un único curador a una lista blanca de curadores o gobernanza DAO.
 
@@ -459,8 +459,8 @@ Estas mejoras pueden implementarse mediante composición (contratos externos) o 
 
 ### Eficiencia de gas
 
-- **Almacenamiento:** Cada entrada añade aproximadamente 2000-2500 gas por escritura (dependiendo de las longitudes de strings).
-- **Consultas:** Las funciones de vista son costo cero (solo lectura).
+- **Almacenamiento:** Cada entrada añade aproximadamente 2000-2500 gas por escritura (dependiendo de las longitudes de las strings).
+- **Consultas:** Las funciones de solo lectura son costo cero.
 - **Operaciones por lotes:** Usar `getEntriesBatch()` para recuperar múltiples entradas en una sola llamada, reduciendo la sobrecarga RPC del frontend.
 
 ### Selección de red
@@ -483,7 +483,7 @@ Lit3Ledger.sol es una herramienta de propósito específico para traducir el Mar
 
 El contrato en sí es simple, pero sus implicaciones son profundas: transforma el Canon Narrativo de un acuerdo cultural a una garantía criptográfica, habilitando que escritores y lectores construyan narrativas duraderas y verificables en la blockchain.
 
-Para desarrolladores implementando proyectos Lit3, Lit3Ledger.sol sirve como una base. El código abierto y el diseño reflexivo habilitan personalización mientras se preservan los principios fundamentales de control del curador, transparencia de versiones, y accesibilidad comunitaria que definen el Marco de Registro.
+Para desarrolladores implementando proyectos Lit3, Lit3Ledger.sol sirve como una base. El código abierto y el diseño reflexivo habilitan personalización mientras se preservan los principios fundamentales de control del curador, transparencia de versiones, y accesibilidad comunitaria que definen al Marco de Registro.
 
 ---
 

@@ -30,7 +30,7 @@ Este artículo explora cómo integramos datos on-chain en la experiencia de lect
 
 Nuestras micro-historias están escritas en MDX — un formato que combina prosa en Markdown con componentes de React. Esto nos da flexibilidad: el texto narrativo fluye naturalmente, pero podemos incrustar elementos interactivos donde sirvan a la historia.
 
-El desafío era hacer que los datos de la blockchain se sintieran como una extensión natural de este entorno.
+El desafío era hacer que los datos en la blockchain se sintieran como una extensión natural de este entorno.
 
 **Lo que no queríamos**:
 - Una página de "Archivo" separada y desconectada de las historias
@@ -98,7 +98,7 @@ Envolvimos esto en un hook personalizado, por lo que es reutilizable en todas la
 
 Aquí es donde la implementación técnica rinde frutos creativamente:
 
-**Narración dual**: La historia off-chain muestra eventos desde una perspectiva. El registro on-chain del Archivista proporciona meta-comentarios desde un observador omnisciente. Los lectores pueden experimentar la historia sin los comentarios, y luego regresar más tarde para ver qué notó el Archivista.
+**Narración dual**: La historia off-chain muestra eventos desde una perspectiva. El registro on-chain del Archivista proporciona meta-comentarios desde un observador omnisciente. Los lectores pueden experimentar la historia sin los comentarios, y luego regresar más tarde para ver qué observó el Archivista.
 
 **Construcción de mundo en capas**: El tiempo de Lanka usa valores hexadecimales y terminología en sánscrito — un detalle que sería distractor en el texto principal de la historia pero se convierte en un descubrimiento interesante para lectores comprometidos explorando los metadatos.
 
@@ -130,7 +130,7 @@ Este patrón es útil para cualquier proyecto Lit3 que opere en diferentes idiom
 
 El patrón que hemos establecido — contrato inteligente → The Graph → Apollo Client → componentes de React — es reutilizable para cualquier proyecto Lit3 que necesite mostrar datos de blockchain en experiencias de lectura.
 
-Pero la idea clave no es técnica: **los lectores no deberían tener que preocuparse por la implementación blockchain a menos que lo quisieran**.
+Pero lo principal no es lo técnico: **los lectores no deberían tener que preocuparse por la implementación blockchain a menos que lo quisieran**.
 
 Tus datos on-chain pueden habilitar características poderosas:
 - Votación comunitaria sobre la progresión de la historia

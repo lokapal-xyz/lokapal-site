@@ -22,7 +22,7 @@ Este artículo documenta el viaje técnico de implementar nuestro primer registr
 
 ## La pregunta de diseño
 
-Antes de escribir una sola línea de código, enfrentamos una pregunta fundamental: **¿Cómo hacemos que los datos blockchain se sientan como parte de la historia, no como un apéndice técnico?**
+Antes de escribir una sola línea de código, enfrentamos una pregunta fundamental: **¿Cómo hacemos que la infraestructura blockchain se sienta como parte de la historia, no como un apéndice técnico?**
 
 La respuesta requería pensar el Archivo del Plexo desde dos perspectivas simultáneamente:
 
@@ -104,7 +104,7 @@ Foundry (nuestro framework de contratos inteligentes) ejecuta scripts en un ento
 
 La solución fue separar las responsabilidades: el script de Solidity maneja las operaciones blockchain; los scripts bash manejan las operaciones de archivos. No es elegante, pero es pragmático. Esto muestra una lección importante: **trabajar con blockchain requiere aceptar sus restricciones en lugar de luchar contra ellas**.
 
-Esto es relevante para proyectos Lit3 porque es un patrón que encontrarás repetidamente: el blockchain hace ciertas cosas excepcionalmente bien (almacenamiento inmutable, verificación, propiedad) y otras cosas menos bien (I/O de archivos, computación compleja, estado mutable). Diseña tu sistema alrededor de las fortalezas del blockchain, y maneja todo lo demás fuera de la cadena.
+Esto es relevante para proyectos Lit3 porque es un patrón que encontrarás repetidamente: la blockchain hace ciertas cosas excepcionalmente bien (almacenamiento inmutable, verificación, propiedad) y otras cosas menos bien (I/O de archivos, computación compleja, estado mutable). Diseña tu sistema alrededor de las fortalezas de la blockchain, y maneja todo lo demás fuera de la cadena.
 
 ---
 

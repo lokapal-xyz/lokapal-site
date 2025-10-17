@@ -80,7 +80,7 @@ This allows corrections without destroying history. If a curator notices a typo 
 bytes32 contentHash;  // SHA-256 hash of canonical text
 ```
 
-Users can optionally hash their content locally using strict normalization rules:
+Users can optionally hash their content using strict normalization rules:
 
 - Unicode NFC normalization (composed characters)
 - Standardized line endings (LF)
@@ -176,7 +176,7 @@ The contract includes comprehensive tests:
 - Event emission verification
 - Fuzz testing for edge cases
 
-Tests are run via Foundry and achieve high coverage, ensuring reliability across mainnet deployment.
+Tests are run via Foundry and achieve high coverage, promoting reliability across mainnet deployment.
 
 ---
 
@@ -194,7 +194,7 @@ Tests are run via Foundry and achieve high coverage, ensuring reliability across
 
 1. **Access canonical versions** (non-deprecated entries)
 2. **Examine version history** to understand editorial changes
-3. **Verify authenticity** of text claims
+3. **Verify authenticity** of original texts
 4. **Discover NFT integrations** if present
 5. **Audit metadata** (timestamps, sources, curator notes)
 
