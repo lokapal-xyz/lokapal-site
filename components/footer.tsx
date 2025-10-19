@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { buttonVariants } from "./ui/button";
-import { WrenchIcon, BrushIcon, TreePineIcon } from "lucide-react";
+import { WrenchIcon, BrushIcon, TreePineIcon, MonitorIcon } from "lucide-react";
 import { Dictionary } from "@/lib/dictionaries";
 
 export function Footer({ dict }: { dict: Dictionary }) {
@@ -60,6 +60,15 @@ export function FooterButtons({ dict }: { dict: Dictionary }) {
       >
         <BrushIcon className="h-4 w-4 mr-2 text-rose-600 fill-current" />
         {dict.footer.styleGuide}
+      </Link>
+            <Link
+        href={dict.footer.lit3Url}
+        target="_blank" 
+        rel="noopener noreferrer"
+        className={buttonVariants({ variant: "outline", size: "sm" })}
+      >
+        <MonitorIcon className="h-4 w-4 mr-2 text-yellow-800 fill-current" />
+        {dict.footer.lit3}
       </Link>
     </>
   );

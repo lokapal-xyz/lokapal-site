@@ -16,6 +16,8 @@
         "built_by": "Desarrollado por",
         "source_code_available": "El código fuente está disponible en",
         "deploy": "Linktree de Lokapal",
+        "lit3": "Diapositivas Lit3",
+        "lit3Url": "/guides/lit3-en.pdf",
         "styleGuide": "Guía de Estilo",
         "styleGuideUrl": "/guides/guia-de-estilo-de-lokapal.pdf"
     },

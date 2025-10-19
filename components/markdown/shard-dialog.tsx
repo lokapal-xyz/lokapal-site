@@ -30,7 +30,7 @@ export function ShardDialog({ shardIndex, isOpen, onClose, dict }: ShardDialogPr
         {/* Header */}
         <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-700">
           <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
-            {dict.shard.shard_title}{shardIndex + 1}{dict.shard.plexus_archive}
+            {dict.shard.shard_title}{shardIndex}{dict.shard.plexus_archive}
           </h2>
           <button
             onClick={onClose}

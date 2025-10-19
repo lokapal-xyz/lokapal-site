@@ -16,6 +16,8 @@
         "built_by": "Built by",
         "source_code_available": "The source code is available on",
         "deploy": "Lokapal Linktree",
+        "lit3": "Lit3 Slides",
+        "lit3Url": "/guides/lit3-en.pdf",
         "styleGuide": "Style Guide",
         "styleGuideUrl": "/guides/lokapal-style-guide.pdf"
     },
