@@ -1,18 +1,20 @@
 'use client';
 
 import { useState } from 'react';
-import { useChapterByIndex } from '@/hooks/useShardEvents';
 import { ShardDialog } from './shard-dialog';
 import { useDictionary } from "@/components/contexts/dictionary-provider";
+import { useChapterByTitle } from '@/hooks/useShardEvents';
+
 
 interface ShardButtonsProps {
-  shardIndex: number;
+  shardNumber: number;   // Narrative shard number (1, 2, 3...)
+  shardTitle: string;    // "Introduction", "Chapter One", etc.
   chainId?: number;
 }
 
-export function ShardButtons({ shardIndex, chainId = 84532 }: ShardButtonsProps) {
+export function ShardButtons({ shardNumber, shardTitle, chainId = 84532 }: ShardButtonsProps) {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const { data } = useChapterByIndex(shardIndex.toString());
+  const { data } = useChapterByTitle(shardTitle);
   const dict = useDictionary();
   const shard = data?.entries?.[0];
 
@@ -44,7 +46,7 @@ export function ShardButtons({ shardIndex, chainId = 84532 }: ShardButtonsProps)
         <button
           onClick={handleRevealLogs}
           className="flex items-center gap-2 px-4 py-2 bg-primary/90 hover:bg-primary/70 text-primary-foreground rounded-lg transition-colors font-medium transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
-          aria-label={`${dict.shard.reveal_logs} ${shardIndex}`}
+          aria-label={`${dict.shard.reveal_logs} ${shardNumber}`}
         >
           <svg 
             className="w-4 h-4" 
@@ -66,7 +68,7 @@ export function ShardButtons({ shardIndex, chainId = 84532 }: ShardButtonsProps)
           onClick={handleScanShard}
           disabled={!shard?.transactionHash}
           className="flex items-center gap-2 px-4 py-2 bg-primary/90 hover:bg-primary/70 disabled:bg-gray-400 disabled:cursor-not-allowed text-primary-foreground rounded-lg transition-colors font-medium transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
-          aria-label={`${dict.shard.scan_shard} ${shardIndex}`}
+          aria-label={`${dict.shard.scan_shard} ${shardNumber}`}
         >
           <svg 
             className="w-4 h-4" 
@@ -86,7 +88,8 @@ export function ShardButtons({ shardIndex, chainId = 84532 }: ShardButtonsProps)
       </div>
       
       <ShardDialog 
-        shardIndex={shardIndex}
+        shardNumber={shardNumber}
+        shardTitle={shardTitle}
         isOpen={isDialogOpen}
         onClose={() => setIsDialogOpen(false)}
         dict={dict}

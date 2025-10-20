@@ -100,6 +100,34 @@ export const GET_CHAPTER_ENTRIES = gql`
   }
 `;
 
+// Query for a specific chapter by title (gets current non-deprecated version)
+export const GET_CHAPTER_BY_TITLE = gql`
+  query GetChapterByTitle($title: String!) {
+    entries(
+      where: { 
+        title: $title, 
+        deprecated: false 
+      }
+      orderBy: versionIndex
+      orderDirection: desc
+      first: 1
+    ) {
+      id
+      entryIndex
+      title
+      source
+      timestamp1
+      timestamp2
+      curatorNote
+      versionIndex
+      deprecated
+      blockNumber
+      blockTimestamp
+      transactionHash
+    }
+  }
+`;
+
 // Query to get a specific entry by index (all fields for dashboard)
 export const GET_ENTRY_BY_INDEX = gql`
   query GetEntryByIndex($entryIndex: String!) {

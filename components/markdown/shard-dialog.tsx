@@ -1,17 +1,19 @@
 'use client';
 
-import { useChapterByIndex } from '@/hooks/useShardEvents';
+import { useChapterByTitle } from '@/hooks/useShardEvents';
 import { Dictionary } from "@/lib/dictionaries";
 
 interface ShardDialogProps {
-  shardIndex: number;
+  shardNumber: number;   // Narrative shard number
+  shardTitle: string;    // Chapter title for querying
   isOpen: boolean;
   onClose: () => void;
   dict: Dictionary;
 }
 
-export function ShardDialog({ shardIndex, isOpen, onClose, dict }: ShardDialogProps) {
-  const { data, loading, error } = useChapterByIndex(shardIndex.toString());
+export function ShardDialog({ shardNumber, shardTitle, isOpen, onClose, dict }: ShardDialogProps) {
+  const { data, loading, error } = useChapterByTitle(shardTitle);
+
 
   if (!isOpen) return null;
 
@@ -30,7 +32,7 @@ export function ShardDialog({ shardIndex, isOpen, onClose, dict }: ShardDialogPr
         {/* Header */}
         <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-700">
           <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
-            {dict.shard.shard_title}{shardIndex}{dict.shard.plexus_archive}
+            {dict.shard.shard_title}{shardNumber}{dict.shard.plexus_archive}
           </h2>
           <button
             onClick={onClose}

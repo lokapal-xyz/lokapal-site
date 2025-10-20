@@ -2,6 +2,7 @@ import { useQuery, useSubscription, useLazyQuery } from '@apollo/client/react';
 import { 
   GET_ENTRIES,
   GET_CHAPTER_ENTRIES,
+  GET_CHAPTER_BY_TITLE,
   GET_ENTRY_BY_INDEX,
   GET_CHAPTER_BY_INDEX,
   GET_RECENT_CHAPTERS,
@@ -28,7 +29,6 @@ export function useEntries(variables?: { first?: number; skip?: number; orderBy?
         orderDirection: 'desc',
         ...variables,
       },
-      pollInterval: 30000,
       notifyOnNetworkStatusChange: true,
     }
   );
@@ -44,7 +44,17 @@ export function useChapterEntries(variables?: { first?: number; skip?: number })
         skip: 0,
         ...variables,
       },
-      pollInterval: 30000,
+      notifyOnNetworkStatusChange: true,
+    }
+  );
+}
+
+// Hook to get current version of a chapter by title
+export function useChapterByTitle(title: string) {
+  return useQuery<EntriesQueryResult, { title: string }>(
+    GET_CHAPTER_BY_TITLE,
+    {
+      variables: { title },
       notifyOnNetworkStatusChange: true,
     }
   );
@@ -86,7 +96,6 @@ export function useRecentChapters(since: string) {
     {
       variables: { since },
       skip: !since,
-      pollInterval: 10000,
     }
   );
 }
@@ -107,7 +116,7 @@ export function useEntriesWithNFT() {
   return useQuery<{ entries: Entry[] }>(
     GET_ENTRIES_WITH_NFT,
     {
-      pollInterval: 60000,
+      pollInterval: 600000,
     }
   );
 }
@@ -117,7 +126,7 @@ export function useEntriesWithHash() {
   return useQuery<{ entries: Entry[] }>(
     GET_ENTRIES_WITH_HASH,
     {
-      pollInterval: 60000,
+      pollInterval: 600000,
     }
   );
 }
@@ -127,7 +136,7 @@ export function useLedgerInfo() {
   return useQuery<{ ledgers: Array<{ id: string; totalEntries: string; currentCurator: string; lastUpdated: string }> }>(
     GET_LEDGER_INFO,
     {
-      pollInterval: 60000,
+      pollInterval: 600000,
     }
   );
 }
