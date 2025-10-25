@@ -1,0 +1,140 @@
+---
+title: Guía rápida sobre Lit3
+description: Bienvenidos
+---
+
+*Una Introducción a la Literatura en Web3*
+
+## ¿Qué es la Lit3?
+
+La **Web3** ha transformado las finanzas, el arte, la música y los videojuegos. Pero hay un medio creativo notablemente ausente de esta transformación: **la literatura**.
+
+Esta ausencia no se debe a que blockchain no pueda ayudar a los escritores — es porque no hemos preguntado seriamente: *¿Qué necesita realmente la literatura de la Web3?*
+
+La **Lit3** (Literatura en Web3) es la respuesta a esa pregunta. En lugar de tratar a la blockchain simplemente como otra plataforma de distribución, Lit3 aprovecha la infraestructura Web3 como un **medio creativo fundamental** — permitiendo nuevas formas de propiedad, gobernanza, preservación y participación de lectores que son imposibles con la publicación tradicional.
+
+---
+
+## ¿Por qué importa?
+
+La Lit3 aborda desafíos reales que enfrentan escritores y lectores hoy:
+
+**Precariedad Económica:** Los escritores luchan por sostener trabajos experimentales.
+
+**Coordinación Colaborativa:** Los proyectos de múltiples autores carecen de infraestructura.
+
+**Dependencia de Plataformas:** Amazon, Substack y otras plataformas controlan la distribución y pueden alterar o eliminar contenido.
+
+**Integridad del Canon:** Los textos digitales pueden ser alterados silenciosamente o perderse.
+
+**Participación del Lector:** La publicación tradicional limita a los lectores al consumo pasivo.
+
+---
+
+## Los cuatro marcos
+
+Lit3 está construido sobre cuatro marcos modulares y componibles. Cada uno aborda un desafío literario específico y puede usarse de forma independiente o combinarse para proyectos más complejos.
+
+### Marco de Tokens
+**Blockchain como Activo Narrativo**
+
+El Marco de Tokens usa NFTs y otros tokens para establecer **propiedad, escasez y financiamiento** para obras literarias.
+
+**Lo que permite:**
+- Relaciones directas entre creador y coleccionista sin intermediarios
+- Lanzamientos de edición limitada y primeras ediciones coleccionables
+- Contenido protegido por tokens para seguidores
+- Modelos de ingresos sostenibles para literatura experimental
+
+**Ejemplo:** Un novelista acuña el Capítulo Uno como 100 NFTs. Los coleccionistas poseen primeras ediciones verificadas, y el autor recibe financiamiento directo para continuar escribiendo.
+
+---
+
+### Marco de Gobernanza
+**Blockchain como Cabildo Narrativo**
+
+El Marco de Gobernanza usa tokens o mecanismos de votación para darle a los lectores **influencia directa sobre la dirección narrativa**.
+
+**Lo que permite:**
+- Votación en DAOs sobre decisiones de la trama
+- Co-creación comunitaria de universos ficticios
+- Participación de lectores que es registrada y verificable
+- Nuevas formas de narración colaborativa
+
+**Ejemplo:** Al final de cada capítulo, los poseedores de tokens votan sobre decisiones importantes—qué personaje sobrevive, qué ubicación explora la historia a continuación, o cómo se resuelve un conflicto. Los resultados de la votación se registran en la blockchain e influyen directamente en el siguiente capítulo.
+
+---
+
+### Marco de Registro
+**Blockchain como Legajo Narrativo**
+
+El Marco de Registro usa contratos inteligentes para crear y gestionar un **archivo transparente e inmutable** de eventos meta-narrativos e historial de versiones.
+
+**Lo que permite:**
+- Registros con marca de tiempo de eventos narrativos (fechas específicas, ubicaciones, perspectivas del narrador)
+- Integración con contratos NFT para ediciones coleccionables
+- Evolución editorial transparente (versiones antiguas marcadas como obsoletas, sin ser eliminadas)
+- Gestión de metadatos dispersos (licencias, fechas de publicación)
+
+**Ejemplo:** Cada evento significativo en una historia serializada — presentaciones de personajes, decisiones que alteran el lore, votos de gobernanza — se registra on-chain. Los lectores pueden consultar este registro para explorar la línea de tiempo canónica o rastrear cómo evolucionó la historia a lo largo de su publicación.
+
+---
+
+### Marco de Permanencia
+**Blockchain como Canon Narrativo**
+
+El Marco de Permanencia usa el hash criptográfico y el almacenamiento descentralizado para garantizar **integridad y accesibilidad perpetua del texto**.
+
+**Lo que permite:**
+- Prueba criptográfica de autenticidad del texto (hashes canónicos)
+- Almacenamiento descentralizado en IPFS, Arweave o Filecoin
+- Declaraciones de licencia inmutables (Creative Commons, copyright, etc.)
+- Protección contra alteración, censura o dependencia de plataformas
+
+**Ejemplo:** Un capítulo se normaliza usando un protocolo estandarizado, se hashea con SHA-256, y ese hash se almacena on-chain. El texto completo se sube a IPFS. Décadas después, cualquiera puede verificar que posee el texto auténtico comparando el hash de su copia con el registro en la blockchain. Y si han perdido su copia, pueden recuperarla desde IPFS.
+
+---
+
+## Autonomía y composabilidad de los marcos
+
+Los cuatro marcos están diseñados para ser tanto **autónomos** como **componibles**:
+
+**Autónomos:** Cada marco ofrece valor de forma independiente. Un poeta puede usar solo el Marco de Permanencia para archivar su trabajo. Un proyecto de ficción colaborativa puede usar solo el Marco de Gobernanza para coordinar autores.
+
+**Componibles:** Los marcos se potencian mutuamente cuando se combinan. Un proyecto que usa Token + Permanencia crea ediciones coleccionables y verificables. Un proyecto que usa los cuatro marcos crea un ecosistema Lit3 completamente realizado: económicamente sostenible, gobernado por la comunidad, archivado transparentemente y preservado criptográficamente.
+
+Los creadores pueden elegir marcos según sus objetivos narrativos, evitando mandatos técnicos.
+
+---
+
+## Implementación técnica
+
+Lit3 está construido sobre infraestructura de código abierto:
+
+**Lit3Ledger.sol:** Un contrato inteligente de Ethereum que implementa el Marco de Registro con acceso controlado por curadores, seguimiento de versiones e integración opcional con los Marcos de Tokens y Permanencia.
+
+**Protocolo de Normalización con Hash (HNP-1):** Un proceso estandarizado para normalizar archivos de texto antes del hash, asegurando que el mismo texto produzca el mismo hash independientemente de diferencias de formato (finales de línea, espacios en blanco, normalización Unicode, etc.).
+
+**Integración con The Graph:** Los eventos emitidos por Lit3Ledger.sol pueden ser indexados usando The Graph, permitiendo consultas eficientes de historiales de archivos sin escanear toda la blockchain.
+
+**Almacenamiento descentralizado:** Los archivos de texto se almacenan en IPFS, Arweave o Filecoin, con referencias registradas on-chain para accesibilidad permanente.
+
+---
+
+## Aprende más
+
+**Análisis enfocado:** Lee la [serie completa de ensayos de Lit3](https://www.lokapal.xyz/es/thoughtchain) para exploraciones detalladas de teoría, implementación y contexto cultural.
+
+**Construye:** Explora los [contratos de código abierto en GitHub](https://github.com/lokapal-xyz) y la documentación técnica.
+
+---
+
+## Involúcrate
+
+Lit3 no es un movimiento con una sola misión. Es un reconocimiento de que la infraestructura Web3 puede ayudar con desafíos literarios reales — y es una invitación a escritores y constructores a explorar lo que es posible.
+
+Ya seas un novelista buscando financiamiento sostenible, una comunidad de ficción colaborativa que necesita herramientas de coordinación, un archivista preocupado por la preservación digital, o un desarrollador interesado en aplicaciones literarias de la tecnología blockchain, hay un lugar para ti en el ecosistema Lit3.
+
+La infraestructura existe. Los marcos están definidos. Las herramientas están listas.
+
+**¿Qué vas a crear?**

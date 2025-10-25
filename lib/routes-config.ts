@@ -15,6 +15,7 @@ export const FMAO_ROUTES: EachRoute[] = [
     noLink: true,
     items: [
       { title: "introduction", href: "/introduction" },
+      { title: "lit3-guide", href: "/lit3-guide" },
     ],
   },
   {
