@@ -1,0 +1,214 @@
+---
+title: "Notas sobre Lit3 — Parte 7: El marco de permanencia"
+description: "Asegurando que el Texto Mismo Perdure."
+date: 23-10-2025
+authors:
+  - avatar: "/images/LokapalMain.png"
+    handle: lokapalxyz
+    username: lokapal.eth
+    handleUrl: "https://x.com/lokapalxyz"
+cover: "/images/voyager.jpg"
+---
+
+*Asegurando que el Texto Mismo Perdure*
+
+## La capa faltante
+
+**Nota:** Este artículo expande los conceptos desarrollados en:
+- [*El alba de la Lit3*](https://www.lokapal.xyz/es/thoughtchain/the-dawn-of-lit3),
+- [*Marcos Lit3*](https://www.lokapal.xyz/es/thoughtchain/lit3-frameworks),
+- [*Blockchain como canon narrativo*](https://www.lokapal.xyz/es/thoughtchain/blockchain-canon),
+- [*Hash canónico de Lit3*](https://www.lokapal.xyz/es/thoughtchain/canonical-hash),
+- [*Protocolo de Normalización con Hash*](https://www.lokapal.xyz/es/thoughtchain/hashed-normalization), y
+- [*Lit3Ledger.sol*](https://www.lokapal.xyz/es/thoughtchain/lit3-ledger-sol).
+
+Los tres marcos introducidos en *Marcos Lit3*—Token, Registro y Gobernanza—establecieron la base para la creación literaria descentralizada. Sin embargo, una pregunta crítica quedó sin respuesta: **¿Qué asegura que el texto mismo sobreviva?**
+
+El Marco de Registro gestiona *metadatos*: marcas de tiempo, notas del curador, historiales de versiones. El Marco de Token establece la *propiedad* de artefactos literarios. El Marco de Gobernanza habilita la *participación* en la dirección narrativa. Pero ninguno de estos marcos garantiza que la historia misma permanecerá accesible y verificable en perpetuidad.
+
+Esta brecha no es meramente técnica; toca el corazón del propósito de la literatura. Una novela no es sus metadatos. Un poema no es su registro de propiedad. El texto es el arte, y si el texto desaparece, todo lo demás pierde sentido.
+
+El **Marco de Permanencia** aborda esta necesidad fundamental.
+
+---
+
+## Propósito: Múltiples garantías para la supervivencia literaria
+
+El Marco de Permanencia proporciona tres formas complementarias de protección para el contenido literario:
+
+### 1. Verificación: El hash canónico
+
+El **hash canónico** es una huella criptográfica (SHA-256) del texto normalizado, calculada según el estándar **HNP-1 (Protocolo de Normalización con Hash)**. Este hash se almacena on-chain (por ejemplo, en el Registro Lit3), proporcionando una prueba matemática de la autenticidad de un texto.
+
+**Lo que garantiza:**
+- Cualquier lector, en cualquier lugar, puede verificar que posee el texto canónico auténtico comparando el hash de su archivo local con el registro on-chain.
+- Incluso si todos los servidores centralizados fallan, una única copia sobreviviente puede probarse genuina.
+- La manipulación es instantáneamente detectable—cambiar incluso un carácter produce un hash completamente diferente.
+
+**Lo que NO garantiza:**
+- Que el texto sea fácil de encontrar. El hash prueba autenticidad pero no almacena ni distribuye el contenido.
+- Que el texto sea accesible. Necesitas una copia para verificar; el hash solo no puede reconstruir el original.
+
+### 2. Distribución: El enlace permaweb
+
+El **enlace permaweb** es una referencia al texto completo almacenado en una red de almacenamiento permanente y descentralizada como Arweave, IPFS o Filecoin. Este enlace también puede almacenarse on-chain en el Registro Lit3, proporcionando una fuente canónica para recuperar el contenido.
+
+**Lo que garantiza:**
+- Los lectores siempre pueden localizar y acceder al texto completo a través de una referencia públicamente documentada.
+- El contenido es preservado por infraestructura descentralizada diseñada para permanencia, no sujeta a puntos únicos de falla como el alojamiento web tradicional.
+- La fuente canónica permanece disponible incluso si el sitio web del autor, el servidor del editor o plataformas de terceros desaparecen.
+
+**Lo que NO garantiza:**
+- Inmortalidad absoluta. Aunque protocolos como Arweave están diseñados para durabilidad extrema, ninguna tecnología es literalmente eterna. El enlace permaweb es la *mejor solución disponible*, no una garantía metafísica.
+
+### 3. Derechos: La declaración de licencia
+
+El campo **licencia** almacena los términos canónicos de uso del texto — cómo puede ser legalmente usado, compartido, modificado o comercializado. Esta declaración se registra inmutablemente on-chain junto con el hash del contenido y el enlace permaweb.
+
+**Lo que garantiza:**
+- Los derechos de uso previstos por el creador están permanentemente documentados y no pueden ser alterados retroactivamente.
+- Lectores, creadores de derivados y entidades legales pueden referenciar una declaración de licencia autoritativa y con marca de tiempo.
+- Las disputas de licencia tienen una fuente inmutable de verdad — sin ambigüedad sobre qué términos son aplicables.
+
+**Formatos comunes de licencia:**
+- Creative Commons: `CC BY-SA 4.0`, `CC BY-NC-ND 4.0`, `CC0 1.0`
+- Copyright tradicional: `Todos los Derechos Reservados`, `Copyright © 2025 [Nombre del Autor]`
+- Dominio público: `Dominio Público`, `Sin Derechos Reservados`
+- Términos personalizados: `Licencia Personalizada - Ver [URL]`
+
+---
+
+## La relación complementaria
+
+El poder del Marco de Permanencia radica en la integración de estos tres mecanismos:
+
+| Componente | Función | Fortaleza | Limitación |
+|---|---|---|---|
+| **Hash Canónico** | Prueba autenticidad | Funciona con *cualquier* copia, en cualquier lugar | Requiere posesión de una copia para verificar |
+| **Enlace Permaweb** | Proporciona acceso | Asegura que el contenido sea localizable y recuperable | Depende de la durabilidad del almacenamiento descentralizado |
+| **Licencia** | Define derechos de uso | Registro legal inmutable | No puede hacer cumplir el acatamiento (solo documenta términos) |
+
+Juntos, crean un sistema completo de preservación:
+- Si el enlace permaweb falla de alguna manera décadas después, cualquier copia sobreviviente aún puede verificarse contra el hash.
+- Si las copias se vuelven escasas o corruptas, el enlace permaweb asegura que una versión canónica permanezca accesible para verificación.
+- Si surgen disputas de licencia, la declaración on-chain proporciona un registro autoritativo y con marca de tiempo de los términos previstos por el creador.
+
+Este enfoque de tres pilares aborda las necesidades fundamentales de la preservación literaria digital: **autenticidad** (hash), **accesibilidad** (permaweb) y **derechos** (licencia).
+
+---
+
+## Implementación técnica: Expandiendo el struct Entry
+
+Para soportar el Marco de Permanencia, el struct `Entry` en **Lit3Ledger.sol** ha sido expandido:
+
+```solidity
+struct Entry {
+    // Elementos del Marco de Registro
+    string title;
+    string source;
+    string timestamp1;
+    string timestamp2;
+    string curatorNote;
+    bool deprecated;
+    uint256 versionIndex;
+    // Elementos del Marco de Token
+    address nftAddress;
+    uint256 nftId;
+    // Elementos del Marco de Permanencia
+    bytes32 contentHash;
+    string permawebLink;
+    string license;
+}
+```
+
+### Campo de permanencia previo
+
+**`contentHash` (bytes32):**
+- Almacena el hash SHA-256 del texto canónico, calculado usando normalización HNP-1.
+- Un hash cero (`0x0000...`) indica que no se proporcionó hash (campo opcional).
+- Habilita verificación criptográfica de cualquier copia de texto contra el registro on-chain.
+
+### Nuevos campos de permanencia
+
+**`permawebLink` (string):**
+- Contiene una referencia de almacenamiento descentralizado (ej., ID de transacción de Arweave, CID de IPFS).
+- Una cadena vacía indica que no se proporcionó enlace permaweb (campo opcional).
+- Proporciona una fuente canónica y públicamente accesible para el texto completo.
+
+**`license` (string):**
+- Almacena los términos canónicos de uso del texto (ej., "CC BY-SA 4.0", "Todos los Derechos Reservados").
+- Una cadena vacía indica que no se declaró explícitamente una licencia (se asume copyright estándar por defecto).
+- Crea un registro inmutable de los derechos de uso previstos por el creador.
+
+El campo `permawebLink` es intencionalmente genérico (un string) para soportar múltiples protocolos de almacenamiento descentralizado:
+
+| Protocolo | Formato de Referencia | Características |
+|---|---|---|
+| **Arweave** | `ar://[transaction-id]` | Pago único para almacenamiento permanente; optimizado para archivos grandes |
+| **IPFS** | `ipfs://[CID]` | Direccionado por contenido; requiere servicios de anclaje para persistencia |
+| **Filecoin** | `filecoin://[CID]` | Mercado de almacenamiento descentralizado con garantías criptoeconómicas |
+| **Protocolos Futuros** | `[protocol]://[identifier]` | El marco se adapta a tecnologías emergentes |
+
+Esta flexibilidad asegura que el Marco de Permanencia conserve relevancia a medida que evoluciona la tecnología de almacenamiento descentralizado.
+
+### Ejemplo de uso
+
+Un curador archiva un capítulo con integración completa del Marco de Permanencia:
+
+```solidity
+archiveEntry(
+    "Capítulo Uno: El Despertar",
+    "Archivo del Autor",
+    "2025-10-23",
+    "2025-10-23T14:30:00Z",
+    "Primera publicación con almacenamiento permanente",
+    0x0000000000000000000000000000000000000000,  // Sin NFT
+    0,
+    0x8a4b2f9d3c7e1a5f6b8d2e4c9a1b3d5e7f9a2c4b6d8e1a3c5b7d9e2f4a6c8e0a,    // Hash canónico
+    "ar://jK9s3mP7nQ2wX5tY8uV1zR4fG6hJ0kL3mN5pQ8sT1vW4xZ7aB9cD2eF5gH8j"    // Enlace Arweave
+    "CC BY-NC-SA 4.0"                                                      // Licencia
+);
+```
+
+**Resultado:**
+- La entrada se archiva con los tres componentes del Marco de Permanencia: verificación (hash), distribución (permaweb) y derechos (licencia).
+- Los lectores pueden verificar su copia hasheándola y comparándola con el `contentHash` on-chain.
+- Los lectores pueden recuperar el texto canónico resolviendo la referencia en `permawebLink` (ej., vía una puerta de enlace IPFS: `https://ipfs.io/ipfs/QmYwAPJ...`).
+- Cualquiera que consulte el registro puede ver que el texto está licenciado bajo Creative Commons Atribución-NoComercial-CompartirIgual 4.0.
+
+---
+
+## Autonomía y composabilidad de marcos
+
+El ecosistema Lit3 ahora comprende cuatro marcos modulares y componibles, cada uno sirviendo un propósito distinto:
+
+| Marco | Función Principal | Eslogan |
+|---|---|---|
+| **Marco de Token** | Establece Propiedad y Escasez | Blockchain como Activo Narrativo |
+| **Marco de Gobernanza** | Habilita Influencia del Lector y Co-Creación | Blockchain como Cabildo Narrativo |
+| **Marco de Registro** | Proporciona Gestión de Metadatos | Blockchain como Legajo Narrativo |
+| **Marco de Permanencia** | Asegura Integridad Perpetua del Texto | Blockchain como Canon Narrativo |
+
+### Principios de marcos Lit3
+
+**Autonomía:** Cada marco ofrece valor de manera independiente. Un proyecto puede adoptar uno, algunos o todos.
+
+**Composabilidad:** Los marcos están diseñados para potenciarse mutuamente. Combinarlos crea capacidades emergentes.
+
+**Modularidad:** Los creadores eligen marcos basados en sus objetivos narrativos, no en mandatos técnicos. Una colección de sonetos requiere herramientas diferentes que una épica de ciencia ficción serializada y gobernada por una DAO.
+
+---
+
+## Reflexiones finales
+
+El Marco de Permanencia fortalece la base estructural de Lit3. Asegura que el elemento más importante — el texto mismo — reciba las mismas garantías habilitadas por la blockchain que la propiedad, la gobernanza y los metadatos.
+
+Al integrar verificación criptográfica (el hash canónico), distribución descentralizada (el enlace permaweb) y documentación inmutable de derechos (la licencia), el Marco de Permanencia transforma la literatura de archivos digitales efímeros en artefactos culturales perdurables. Las palabras ya no son rehenes de servidores, corporaciones o políticas de plataformas. Existen, verificablemente y accesiblemente, mientras persistan la blockchain y las redes de almacenamiento descentralizado.
+
+Para los creadores, esto representa la forma definitiva de legado artístico: tu obra, probadamente auténtica y públicamente accesible, mucho después de que te hayas ido.
+
+Para los lectores, esto representa la forma definitiva de confianza: la historia que amas no es una copia de una copia de una entrada de base de datos corporativa. Es el texto canónico, criptográficamente garantizado, permanentemente preservado.
+
+---
+
+*La historia permanente ahora puede ser escrita. La pregunta ya no es si perdurará, sino qué dirá.*
