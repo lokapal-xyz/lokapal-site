@@ -1,0 +1,406 @@
+---
+title: "Notas sobre Lit3 — Parte 8: El Estándar de Metadatos Lit3"
+description: "Haciendo la literatura legible para la Web3."
+date: 28-10-2025
+authors:
+  - avatar: "/images/LokapalMain.png"
+    handle: lokapalxyz
+    username: lokapal.eth
+    handleUrl: "https://x.com/lokapalxyz"
+cover: "/images/metadata.png"
+---
+
+*Haciendo la literatura legible para la Web3*
+
+## La brecha de metadatos
+
+Los cuatro marcos de Lit3 — Token, Gobernanza, Ledger y Permanencia — proporcionan la infraestructura para la literatura en Web3. Los creadores pueden acuñar tokens de libros, archivar capítulos onchain, almacenar hashes canónicos y preservar textos en almacenamiento descentralizado. La base técnica existe.
+
+Sin embargo, persiste un problema práctico: **¿Cómo reconocen los lectores, marketplaces y herramientas que un token representa narrativas en lugar de artes visuales, un videojuego o un instrumento financiero?**
+
+Los tokens ERC-721 y ERC-1155 utilizan metadatos JSON para describir lo que representan. Un archivo de metadatos NFT típico incluye campos como `name`, `description`, `image` y `attributes`. Estos estándares funcionan bien para arte visual y coleccionables, pero no fueron diseñados pensando en obras literarias. No hay una forma convencional de señalar que un token se conecta a un contrato de registro Lit3, referencia un hash de texto canónico o implementa marcos literarios específicos.
+
+El **Estándar de Metadatos Lit3** aborda esta brecha introduciendo un objeto `lit3` dedicado, dentro de los metadatos del token. Un espacio de nombres que hace que la literatura sea legible para el ecosistema Web3 más amplio.
+
+---
+
+## Propósito: Una declaración de intención literaria
+
+El objeto `lit3` cumple tres funciones esenciales:
+
+### 1. Descubrimiento de marcos
+
+El array `frameworks` declara explícitamente qué marcos Lit3 implementa un proyecto:
+```json
+"lit3": {
+  "frameworks": ["Token", "Ledger", "Permanence"]
+}
+```
+
+Esta simple declaración le da información a lectores, herramientas y mercados:
+- Este es un token literario, no un NFT genérico
+- Utiliza infraestructura Lit3 específica
+- Ciertas capacidades y garantías están disponibles
+
+Sin esta señal, un token lit3 es indistinguible de cualquier otro token. Con ella, las interfaces especializadas pueden reconocer y responder apropiadamente a obras literarias.
+
+### 2. Integración de permanencia
+
+El objeto `lit3` proporciona referencias directas a los componentes centrales del Marco de Permanencia:
+```json
+"lit3": {
+  "frameworks": ["Token", "Permanence"],
+  "canonical_text": {
+    "normalization_protocol": "HNP-1",
+    "hash_algorithm": "SHA-256",
+    "hash": "abc123..."
+  },
+  "storage": {
+    "primary": "https://example.com/book",
+    "ipfs": "ipfs://QmHash",
+    "arweave": "ar://TxId"
+  },
+  "license": "CC BY-NC-SA 4.0"
+}
+```
+
+Estos campos responden preguntas fundamentales que los lectores tienen sobre las obras literarias:
+- **¿Es este texto auténtico?** (Verificar el hash canónico)
+- **¿Dónde puedo leerlo?** (Seguir los enlaces de almacenamiento)
+- **¿Cuáles son mis derechos de uso?** (Consultar la licencia)
+
+Al incorporar esta información en los metadatos del token, los creadores aseguran que las garantías de permanencia sean inmediatamente descubribles. No se requieren documentos separados ni registros off-chain.
+
+### 3. Interoperabilidad del registro
+
+Para proyectos que utilizan el Marco de Registro (Ledger), el objeto `lit3` proporciona referencias de contratos en cadena:
+```json
+"lit3": {
+  "frameworks": ["Token", "Ledger"],
+  "ledger_contract": "0x1234...",
+  "ledger_network": "Base"
+}
+```
+
+Esto crea un enlace bidireccional:
+- Token → Registro: "Este token de libro se conecta a estos registros en cadena"
+- Registro → Token: "Estas entradas de capítulos pertenecen a esta colección de tokens"
+
+Las herramientas pueden recorrer estas conexiones para construir archivos literarios completos, rastrear bitácoras narrativas o verificar que los metadatos reclamados coincidan con los registros en cadena.
+
+---
+
+## La estructura estándar
+
+El Estándar de Metadatos Lit3 introduce un objeto `lit3` de nivel superior junto con los campos estándar ERC-721/1155:
+```json
+{
+  "name": "Título del Libro",
+  "description": "Descripción del token",
+  "image": "ipfs://...",
+  "external_url": "https://...",
+  "attributes": [...],
+  
+  "lit3": {
+    "frameworks": ["Token", "Ledger", "Permanence"],
+    "ledger_contract": "0x...",
+    "ledger_network": "Base",
+    "canonical_text": {
+      "normalization_protocol": "HNP-1",
+      "hash_algorithm": "SHA-256",
+      "hash": "..."
+    },
+    "storage": {
+      "primary": "https://...",
+      "ipfs": "ipfs://...",
+      "arweave": "ar://..."
+    },
+    "license": "CC BY-NC-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-nc-sa/4.0/"
+  }
+}
+```
+
+### Campos principales
+
+**`frameworks`**
+- Declara qué marcos Lit3 implementa el proyecto
+- Valores válidos: `"Token"`, `"Governance"`, `"Ledger"`, `"Permanence"`
+- Permite que se proporcionen características específicas del marco
+
+**`ledger_contract`**
+- Dirección Ethereum del contrato de registro Lit3
+- Solo relevante para proyectos que usan el marco de registro 
+- Permite verificar que los metadatos del token coincidan con los registros en cadena
+
+**`ledger_network`**
+- Red blockchain donde está desplegado el contrato de registro
+- Ejemplos: `"Ethereum"`, `"Base"`, `"Polygon"`, `"Arbitrum"`
+- Necesario porque la misma dirección puede existir en múltiples redes
+
+**`canonical_text`**
+- Contiene el hash criptográfico del texto normalizado
+- Subcampos:
+  - `normalization_protocol`: El estándar de preparación de texto (ej., `"HNP-1"`)
+  - `hash_algorithm`: El método de hashing (ej., `"SHA-256"`)
+  - `hash`: El valor hash real
+
+**`storage`**
+- Proporciona referencias sobre dónde se puede acceder al texto completo
+- Subcampos:
+  - `primary`: Punto de acceso principal (a menudo el sitio web del autor)
+  - `ipfs`: Identificador de contenido IPFS
+  - `arweave`: ID de transacción Arweave
+  - Se pueden agregar protocolos adicionales según sea necesario
+
+**`license`**
+- Los términos de uso canónicos para el texto
+- Formatos comunes: identificadores Creative Commons, declaraciones de derechos de autor, declaraciones de dominio público
+- Crea un registro inmutable de la intención del creador
+
+**`license_url`**
+- Enlace directo al texto completo de la licencia
+- Útil para licencias personalizadas o términos detallados
+
+---
+
+## Patrones específicos por marco
+
+No todos los proyectos usan los cuatro marcos. El objeto `lit3` se adapta a la combinación específica implementada:
+
+### Solo marco de token
+```json
+"lit3": {
+  "frameworks": ["Token"],
+  "license": "Todos los Derechos Reservados"
+}
+```
+
+**Caso de uso:** Un novelista acuñando primeros capítulos de edición limitada como tokens coleccionables, pero sin implementar gestión de metadatos en cadena ni almacenamiento permanente.
+
+---
+
+### Token + Permanencia
+```json
+"lit3": {
+  "frameworks": ["Token", "Permanence"],
+  "canonical_text": {
+    "normalization_protocol": "HNP-1",
+    "hash_algorithm": "SHA-256",
+    "hash": "abc123..."
+  },
+  "storage": {
+    "ipfs": "ipfs://QmHash",
+    "arweave": "ar://TxId"
+  },
+  "license": "CC0 1.0"
+}
+```
+
+**Caso de uso:** Un poeta publicando una colección completa, con verificación criptográfica y almacenamiento descentralizado, pero sin metadatos de capítulos en cadena ni mecanismos de gobernanza.
+
+---
+
+### Token + Registro + Permanencia
+```json
+"lit3": {
+  "frameworks": ["Token", "Ledger", "Permanence"],
+  "ledger_contract": "0x1234...",
+  "ledger_network": "Base",
+  "canonical_text": {
+    "normalization_protocol": "HNP-1",
+    "hash_algorithm": "SHA-256",
+    "hash": "abc123..."
+  },
+  "storage": {
+    "primary": "https://example.com/book",
+    "ipfs": "ipfs://QmHash",
+    "arweave": "ar://TxId"
+  },
+  "license": "CC BY-NC-SA 4.0",
+  "license_url": "https://creativecommons.org/licenses/by-nc-sa/4.0/"
+}
+```
+
+**Caso de uso:** Una novela web serializada implementando un respaldo de libro tokenizado, archivos de capítulos en cadena y preservación permanente del texto.
+
+---
+
+### Token + Registro + Permanencia + Gobernanza (Implementación completa)
+```json
+"lit3": {
+  "frameworks": ["Token", "Governance", "Ledger", "Permanence"],
+  "ledger_contract": "0x1234...",
+  "ledger_network": "Base",
+  "governance": {
+    "voting_contract": "0x5678...",
+    "voting_network": "Base",
+    "mechanism": "Votación Ponderada por Token",
+    "participation_token": "0x1234...",
+    "proposal_threshold": 1000,
+    "description": "Los poseedores de tokens votan sobre decisiones de trama importantes en hitos de Parley"
+  },
+  "canonical_text": {
+    "normalization_protocol": "HNP-1",
+    "hash_algorithm": "SHA-256",
+    "hash": "abc123..."
+  },
+  "storage": {
+    "primary": "https://example.com/book",
+    "ipfs": "ipfs://QmHash",
+    "arweave": "ar://TxId"
+  },
+  "license": "CC BY-NC-SA 4.0",
+  "license_url": "https://creativecommons.org/licenses/by-nc-sa/4.0/"
+}
+```
+
+**Caso de uso:** Una novela web serializada implementando el stack Lit3 completo: apoyo comunitario tokenizado, gobernanza de lectores sobre la dirección narrativa, archivos de capítulos en cadena y preservación permanente del texto. Los lectores que posean tokens del libro pueden participar en votaciones de gobernanza que influyan en el desarrollo de la historia, con todas las decisiones registradas en cadena junto con el texto canónico y los metadatos.
+
+---
+
+## La convención "pending"
+
+Para obras en progreso (particularmente ficción serializada) no todos los componentes del Marco de Permanencia están disponibles inmediatamente. La **convención "pending"** (pendiente) proporciona una forma de señalar intención sin tergiversar el estado actual:
+```json
+"lit3": {
+  "frameworks": ["Token", "Ledger", "Permanence"],
+  "ledger_contract": "0x1234...",
+  "ledger_network": "Base",
+  "canonical_text": "pending",
+  "storage": {
+    "primary": "https://example.com/book",
+    "ipfs": "pending",
+    "arweave": "pending"
+  },
+  "license": "CC BY-NC-SA 4.0"
+}
+```
+
+Esta estructura comunica:
+- El proyecto implementa el Marco de Permanencia
+- El almacenamiento permanente y el hashing canónico están planeados
+- La obra aún no está completa, pero se está construyendo la infraestructura
+- Los lectores pueden verificar más tarde el hash canónico y los enlaces de almacenamiento descentralizado
+
+**Sistema de tres estados:**
+- **Campo con datos** → Implementado
+- **Campo con `"pending"`** → Planeado pero aún no implementado
+- **Campo ausente** → No aplicable para esta obra
+
+Este enfoque evita confusión. Si `canonical_text` simplemente se omitiera, los lectores no sabrían si el creador olvidó, eligió no implementarlo o planea agregarlo más tarde. El valor `"pending"` hace explícita la intención.
+
+---
+
+## Evolución futura: Lo que se hace posible
+
+El Estándar de Metadatos Lit3 es deliberadamente mínimo: define los campos esenciales necesarios, mientras permanece flexible para las necesidades de mañana. A medida que más creadores adoptan Lit3, pueden emerger varias expansiones naturales:
+
+### Para creadores
+
+**Archivos multi-formato:**
+A medida que emergen nuevos protocolos de almacenamiento descentralizado, el objeto `storage` puede expandirse:
+```json
+"storage": {
+  "primary": "https://example.com/book",
+  "ipfs": "ipfs://QmHash",
+  "arweave": "ar://TxId",
+  "filecoin": "filecoin://...",
+  "storj": "storj://...",
+  "future_protocol": "protocol://..."
+}
+```
+
+El estándar acomoda la evolución tecnológica sin requerir actualizaciones de especificación.
+
+**Seguimiento de traducciones y ediciones:**
+Para obras con múltiples ediciones o traducciones, los creadores pueden extender los metadatos:
+```json
+"lit3": {
+  "frameworks": ["Token", "Permanence"],
+  "editions": [
+    {
+      "language": "English",
+      "version": "First Edition",
+      "hash": "abc123...",
+      "storage": {"ipfs": "ipfs://QmHash1"}
+    },
+    {
+      "language": "Spanish",
+      "version": "Primera Edición",
+      "hash": "def456...",
+      "storage": {"ipfs": "ipfs://QmHash2"}
+    }
+  ]
+}
+```
+
+### Para mercados
+
+**Interfaces específicas literarias:**
+Los mercados de tokens pueden detectar el objeto `lit3` y proporcionar características especializadas:
+- Mostrar herramientas de verificación de hash canónico
+- Mostrar enlaces directos "Leer Ahora" desde los campos de almacenamiento
+- Destacar términos de licencia de manera prominente
+- Enlazar al contrato de registro Lit3 para navegación de capítulos
+- Filtrar tokens por marcos implementados
+
+**Descubrimiento entre proyectos:**
+Un mercado podría construir una vista de "Biblioteca Lit3" que agregue todos los tokens con `"frameworks": ["Token", ...]`, creando un espacio dedicado para NFTs literarios distinto de artes visuales, música o coleccionables de videojuegos.
+
+**Servicios de verificación:**
+Los mercados podrían ofrecer insignias de "Proyecto Lit3 Verificado" mediante:
+- Confirmar que la dirección `ledger_contract` es válida
+- Verificar que los enlaces de almacenamiento son accesibles
+- Comprobar que el hash canónico coincida con el texto recuperable
+- Validar declaraciones de licencia contra formatos estándar
+
+### Para lectores y herramientas
+
+**Archivos literarios personales:**
+Las aplicaciones de billetera podrían detectar tokens Lit3 y crear vistas automáticas de "biblioteca", extrayendo metadatos del objeto `lit3` para organizar posesiones por serie, autor o implementación de marco.
+
+**Aplicaciones de lectura:**
+Una aplicación de lectura Lit3 dedicada podría:
+- Analizar el objeto `storage` para obtener el texto completo desde IPFS, Arweave o la URL principal
+- Verificar autenticidad comparando el hash del archivo local con `canonical_text.hash`
+- Mostrar información de licencia antes de permitir exportaciones o compartir
+- Mostrar metadatos de capítulos en cadena del contrato Lit3 Ledger vinculado
+
+**Investigación académica y archivística:**
+Académicos que estudian literatura Web3 podrían consultar datos de blockchain para encontrar todos los tokens con `"frameworks": ["Permanence"]`, luego analizar qué protocolos de almacenamiento se usan más comúnmente, cómo han evolucionado las licencias con el tiempo o qué redes alojan la mayoría de los archivos literarios.
+
+---
+
+## Por qué importa un estándar
+
+El Estándar de Metadatos Lit3 no es una especificación rígida impuesta por una autoridad central. Es una **convención emergente**—un patrón que los creadores adoptan porque hace que su trabajo sea más descubrible, sus afirmaciones más verificables y su infraestructura más componible.
+
+Sin un estándar, cada proyecto Lit3 estructuraría sus metadatos de manera diferente. Una herramienta construida para trabajar con un token de libro no funcionaría con otro. Los lectores no tendrían forma confiable de encontrar el texto canónico o verificar su autenticidad. Los mercados no podrían proporcionar características específicas literarias porque no sabrían qué tokens representan libros.
+
+El objeto `lit3` resuelve esto creando un **lenguaje compartido**. Cuando un creador incluye `"frameworks": ["Token", "Permanence"]`, no solo está documentando sus elecciones técnicas—se está uniendo a una comunidad, señalando a lectores y herramientas que su trabajo participa en un ecosistema literario más amplio.
+
+Así es como emergen los estándares en ecosistemas abiertos: no por decreto, sino por consenso. Suficientes creadores encuentran útil el patrón, suficientes herramientas lo apoyan, suficientes lectores lo reconocen, y de repente no es una propuesta—es infraestructura.
+
+---
+
+## Reflexiones finales
+
+El Estándar de Metadatos Lit3 completa el puente entre la infraestructura Web3 y el contenido literario. Los marcos proporcionan las capacidades (propiedad, gobernanza, archivo, permanencia) pero el objeto `lit3` hace que esas capacidades sean **legibles**.
+
+Responde las preguntas esenciales:
+- ¿Qué es este token?
+- ¿Qué garantías proporciona?
+- ¿Dónde puedo encontrar la historia real?
+- ¿Cómo puedo verificar que es auténtico?
+- ¿Qué puedo hacer con él?
+
+Al incorporar estas respuestas directamente en los metadatos del token, el estándar asegura que la literatura en Web3 no solo sea técnicamente posible sino **prácticamente accesible**. Los lectores no necesitan entender contratos inteligentes o exploradores de blockchain. Solo necesitan mirar los metadatos, y todo lo que necesitan saber — dónde leer, cómo verificar, qué derechos tienen — está justo ahí.
+
+Para los creadores, el estándar proporciona una plantilla clara. No tienes que inventar tu propia estructura de metadatos ni preguntarte si los mercados entenderán tu proyecto. Incluyes un objeto `lit3`, declaras tus marcos, y el ecosistema sabe qué hacer con él.
+
+Para el ecosistema en su conjunto, el estándar permite **componibilidad en la capa de aplicación**. Billeteras, lectores, mercados y herramientas de archivo pueden reconocer e interactuar con tokens Lit3, creando una rica infraestructura alrededor de obras literarias sin requerir coordinación entre cada participante.
+
+---
+
+*Los marcos Lit3 construyeron los cimientos. El Estándar de Metadatos Lit3 abre la puerta.*

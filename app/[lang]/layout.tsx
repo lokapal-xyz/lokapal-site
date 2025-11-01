@@ -8,6 +8,8 @@ import { getDictionary, LangProps } from "@/lib/dictionaries";
 import { ClientDictionary } from "@/components/contexts/dictionary-provider";
 import { locales } from "@/lib/locale";
 import "@/styles/globals.css";
+import '@rainbow-me/rainbowkit/styles.css';
+import { WalletProviders } from "@/components/providers/wallet-providers";
 
 const sansFont = Space_Grotesk({
   subsets: ["latin"],
@@ -60,11 +62,13 @@ export default async function RootLayout({
               enableSystem
               disableTransitionOnChange
             >
-              <Navbar dict={dict} lang={lang} />
-              <main className="sm:container mx-auto w-[90vw] flex-1 scroll-smooth">
-                {children}
-              </main>
-              <Footer dict={dict} />
+              <WalletProviders>
+                <Navbar dict={dict} lang={lang} />
+                <main className="sm:container mx-auto w-[90vw] flex-1 scroll-smooth">
+                  {children}
+                </main>
+                <Footer dict={dict} />
+              </WalletProviders>
             </ThemeProvider>
           </ClientDictionary>
         </ApolloProviderWrapper>

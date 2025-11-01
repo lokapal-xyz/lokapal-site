@@ -22,6 +22,9 @@ import Link from "@/components/markdown/link";
 import Outlet from "@/components/markdown/outlet";
 import { ShardButtons } from '@/components/markdown/shard-buttons';
 import { ShardDialog } from '@/components/markdown/shard-dialog';
+// Book Tokens components
+import BookTokenGrid from '@/components/BookTokens/BookTokenGrid';
+import ConnectButtonWrapper from '@/components/BookTokens/ConnectButtonWrapper';
 
 // add custom components
 const components = {
@@ -38,6 +41,8 @@ const components = {
   Outlet,
   ShardButtons,
   ShardDialog,
+  BookTokenGrid,
+  ConnectButton: ConnectButtonWrapper, // Use wrapper instead of direct import
 };
 
 // can be used for other pages like blogs, Guides etc
