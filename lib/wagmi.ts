@@ -25,10 +25,6 @@ export const initializeConfig = (): Config => {
       [baseSepolia.id]: http(),
     },
     ssr: true,
-    // Mobile-specific configuration
-    appDescription: 'From Many, as One - Web3 Literary Project',
-    appUrl: typeof window !== 'undefined' ? window.location.origin : 'https://lokapal.xyz',
-    appIcon: typeof window !== 'undefined' ? `${window.location.origin}/favicon.ico` : 'https://lokapal.xyz/favicon.ico',
   });
 
   return configCache;
