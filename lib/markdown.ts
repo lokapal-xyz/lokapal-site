@@ -25,6 +25,7 @@ import { ShardDialog } from '@/components/markdown/shard-dialog';
 // Book Tokens components
 import BookTokenGrid from '@/components/BookTokens/BookTokenGrid';
 import ConnectButtonWrapper from '@/components/BookTokens/ConnectButtonWrapper';
+import ContractAddress from '@/components/BookTokens/ContractAddress';
 
 // add custom components
 const components = {
@@ -42,6 +43,7 @@ const components = {
   ShardButtons,
   ShardDialog,
   BookTokenGrid,
+  ContractAddress,
   ConnectButton: ConnectButtonWrapper, // Use wrapper instead of direct import
 };
 

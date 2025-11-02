@@ -1,6 +1,7 @@
 // lib/hooks/useBookTokens.ts
 import { useReadContract, useWriteContract, useWaitForTransactionReceipt } from 'wagmi';
 import { parseEther, Address } from 'viem';
+import { useQueryClient } from '@tanstack/react-query';
 import { BOOK_TOKENS_ADDRESS, BOOK_TOKENS_ABI, BOOK_PRICE } from '@/constants/bookTokens';
 
 export function useTotalMinted(bookId: number) {
@@ -34,6 +35,7 @@ export function useUserBalance(address: Address | undefined, bookId: number) {
 }
 
 export function useMintBook() {
+  const queryClient = useQueryClient();
   const { data: hash, writeContract, isPending, isError, error } = useWriteContract();
   
   const { isLoading: isConfirming, isSuccess } = useWaitForTransactionReceipt({
@@ -51,6 +53,11 @@ export function useMintBook() {
       value,
     });
   };
+
+  // Invalidate and refetch balance queries when transaction succeeds
+  if (isSuccess) {
+    queryClient.invalidateQueries({ queryKey: ['readContract'] });
+  }
 
   return {
     mintBook,
