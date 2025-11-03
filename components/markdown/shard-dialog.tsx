@@ -2,6 +2,7 @@
 
 import { useChapterByTitle } from '@/hooks/useShardEvents';
 import { Dictionary } from "@/lib/dictionaries";
+import { X, Loader2 } from 'lucide-react';
 
 interface ShardDialogProps {
   shardNumber: number;   // Narrative shard number
@@ -9,124 +10,112 @@ interface ShardDialogProps {
   isOpen: boolean;
   onClose: () => void;
   dict: Dictionary;
+  chainId?: number;
 }
 
 export function ShardDialog({ shardNumber, shardTitle, isOpen, onClose, dict }: ShardDialogProps) {
   const { data, loading, error } = useChapterByTitle(shardTitle);
-
 
   if (!isOpen) return null;
 
   const shard = data?.entries?.[0];
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
       {/* Backdrop */}
       <div 
-        className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+        className="absolute inset-0"
         onClick={onClose}
       />
       
       {/* Dialog */}
-      <div className="relative bg-white dark:bg-gray-900 rounded-lg shadow-xl max-w-2xl w-full mx-4 max-h-[80vh] overflow-y-auto">
+      <div className="relative bg-slate-900 border border-cyan-500/30 rounded-lg shadow-2xl max-w-3xl overflow-hidden">
         {/* Header */}
-        <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-700">
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+        <div className="flex items-center justify-between p-6 py-1 border-b border-slate-800">
+          <h2 className="text-2xl font-mono font-bold text-cyan-400">
             {dict.shard.shard_title}{shardNumber}{dict.shard.plexus_archive}
           </h2>
           <button
             onClick={onClose}
-            className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 text-2xl font-bold w-8 h-8 flex items-center justify-center"
+            className="p-2 hover:bg-slate-800 rounded-lg transition-colors"
             aria-label="Close dialog"
           >
-            ×
+            <X className="w-5 h-5 text-slate-400" />
           </button>
         </div>
         
         {/* Content */}
-        <div className="p-6">
+        <div className="p-6 py-1 overflow-y-auto max-h-[calc(90vh-140px)]">
           {loading && (
-            <div className="flex items-center justify-center py-8">
-              <div className="text-gray-500">{dict.shard.loading_shard_data}</div>
+            <div className="flex items-center justify-center py-16">
+              <Loader2 className="w-8 h-8 text-cyan-400 animate-spin" />
             </div>
           )}
           
           {error && (
-            <div className="text-red-500 bg-red-50 dark:bg-red-900/20 p-4 rounded-lg">
-              <p className="font-semibold">{dict.shard.error_loading_shard}</p>
-              <p className="text-sm mt-1">{error.message}</p>
+            <div className="p-4 bg-red-500/10 border border-red-500/30 rounded-lg">
+              <p className="font-mono font-bold text-red-400">{dict.shard.error_loading_shard}</p>
+              <p className="text-sm text-red-300 mt-2 font-mono">{error.message}</p>
             </div>
           )}
           
           {shard && (
             <div className="space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <label className="text-sm font-semibold text-gray-700 dark:text-gray-300">
+                <div className="p-4 bg-slate-800/50 rounded-lg">
+                  <p className="text-xs font-mono text-slate-400 uppercase mb-2">
                     {dict.shard.shard_tag}
-                  </label>
-                  <p className="text-gray-900 dark:text-white bg-gray-50 dark:bg-gray-800 p-3 rounded-lg">
+                  </p>
+                  <p className="text-sm text-slate-200">
                     {shard.title}
                   </p>
                 </div>
                 
-                <div className="space-y-2">
-                  <label className="text-sm font-semibold text-gray-700 dark:text-gray-300">
+                <div className="p-4 bg-slate-800/50 rounded-lg">
+                  <p className="text-xs font-mono text-slate-400 uppercase mb-2">
                     {dict.shard.echo_source}
-                  </label>
-                  <p className="text-gray-900 dark:text-white bg-gray-50 dark:bg-gray-800 p-3 rounded-lg">
+                  </p>
+                  <p className="text-sm text-slate-200">
                     {shard.source}
                   </p>
                 </div>
                 
-                <div className="space-y-2">
-                  <label className="text-sm font-semibold text-gray-700 dark:text-gray-300">
+                <div className="p-4 bg-slate-800/50 rounded-lg">
+                  <p className="text-xs font-mono text-slate-400 uppercase mb-2">
                     {dict.shard.earth_time}
-                  </label>
-                  <p className="text-gray-900 dark:text-white bg-gray-50 dark:bg-gray-800 p-3 rounded-lg">
+                  </p>
+                  <p className="text-sm text-slate-200">
                     {shard.timestamp1}
                   </p>
                 </div>
                 
-                <div className="space-y-2">
-                  <label className="text-sm font-semibold text-gray-700 dark:text-gray-300">
+                <div className="p-4 bg-slate-800/50 rounded-lg">
+                  <p className="text-xs font-mono text-slate-400 uppercase mb-2">
                     {dict.shard.lanka_time}
-                  </label>
-                  <p className="text-gray-900 dark:text-white bg-gray-50 dark:bg-gray-800 p-3 rounded-lg">
+                  </p>
+                  <p className="text-sm text-slate-200">
                     {shard.timestamp2}
                   </p>
                 </div>
               </div>
               
-              <div className="space-y-2">
-                <label className="text-sm font-semibold text-gray-700 dark:text-gray-300">
+              <div className="p-4 bg-slate-800/50 rounded-lg border border-cyan-500/20">
+                <p className="text-xs font-mono text-slate-400 uppercase mb-2">
                   {dict.shard.archivist_log}
-                </label>
-                <p className="text-gray-900 dark:text-white bg-gray-50 dark:bg-gray-800 p-4 rounded-lg leading-relaxed">
+                </p>
+                <p className="text-sm text-slate-200 leading-relaxed">
                   {shard.curatorNote}
                 </p>
-              </div>
-              
-              {/* Additional metadata */}
-              <div className="pt-4 border-t border-gray-200 dark:border-gray-700">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm text-gray-600 dark:text-gray-400">
-                  <div>
-                    <span className="font-semibold">{dict.shard.block_number}</span> {shard.blockNumber}
-                  </div>
-                  <div className="font-mono">
-                    <span className="font-semibold">{dict.shard.transaction}</span> {shard.transactionHash.slice(0, 10)}...{shard.transactionHash.slice(-8)}
-                  </div>
-                </div>
               </div>
             </div>
           )}
         </div>
         
         {/* Footer */}
-        <div className="flex justify-end gap-3 p-6 border-t border-gray-200 dark:border-gray-700">
+        <div className="flex justify-end p-6 border-t border-slate-800">
           <button
             onClick={onClose}
-            className="px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
+            className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg transition-colors font-mono text-sm"
           >
             {dict.shard.close}
           </button>

@@ -26,6 +26,10 @@ import { ShardDialog } from '@/components/markdown/shard-dialog';
 import BookTokenGrid from '@/components/BookTokens/BookTokenGrid';
 import ConnectButtonWrapper from '@/components/BookTokens/ConnectButtonWrapper';
 import ContractAddress from '@/components/BookTokens/ContractAddress';
+// Dashboard components
+import { Lit3Dashboard } from '@/components/dashboard/Lit3Dashboard';
+import { HashVerifier } from '@/components/dashboard/HashVerifier';
+import { DashboardStats } from '@/components/dashboard/DashboardStats';
 
 // add custom components
 const components = {
@@ -45,6 +49,10 @@ const components = {
   BookTokenGrid,
   ContractAddress,
   ConnectButton: ConnectButtonWrapper, // Use wrapper instead of direct import
+  // Dashboard components
+  Lit3Dashboard,
+  HashVerifier,
+  DashboardStats,
 };
 
 // can be used for other pages like blogs, Guides etc

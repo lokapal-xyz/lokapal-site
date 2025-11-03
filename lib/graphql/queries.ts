@@ -13,6 +13,8 @@ export interface Entry {
   nftAddress: string;
   nftId: string;
   contentHash: string;
+  permawebLink: string;
+  license: string;
   deprecated: boolean;
   blockNumber: string;
   blockTimestamp: string;
@@ -63,6 +65,8 @@ export const GET_ENTRIES = gql`
       nftAddress
       nftId
       contentHash
+      permawebLink
+      license
       deprecated
       blockNumber
       blockTimestamp
@@ -120,6 +124,11 @@ export const GET_CHAPTER_BY_TITLE = gql`
       timestamp2
       curatorNote
       versionIndex
+      nftAddress
+      nftId
+      contentHash
+      permawebLink
+      license
       deprecated
       blockNumber
       blockTimestamp
@@ -143,6 +152,8 @@ export const GET_ENTRY_BY_INDEX = gql`
       nftAddress
       nftId
       contentHash
+      permawebLink
+      license
       deprecated
       blockNumber
       blockTimestamp
