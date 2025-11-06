@@ -10,6 +10,8 @@ import { locales } from "@/lib/locale";
 import "@/styles/globals.css";
 import '@rainbow-me/rainbowkit/styles.css';
 import { WalletProviders } from "@/components/providers/wallet-providers";
+import { GovernanceProvider } from '@/components/providers/governance-provider';
+
 
 const sansFont = Space_Grotesk({
   subsets: ["latin"],
@@ -54,24 +56,26 @@ export default async function RootLayout({
         className={`${sansFont.variable} ${monoFont.variable} font-regular antialiased tracking-wide min-h-screen flex flex-col`}
         suppressHydrationWarning
       >
-        <ApolloProviderWrapper language={lang}>
-          <ClientDictionary dict={dict}>
-            <ThemeProvider
-              attribute="class"
-              defaultTheme="system"
-              enableSystem
-              disableTransitionOnChange
-            >
-              <WalletProviders>
-                <Navbar dict={dict} lang={lang} />
-                <main className="sm:container mx-auto w-[90vw] flex-1 scroll-smooth">
-                  {children}
-                </main>
-                <Footer dict={dict} />
-              </WalletProviders>
-            </ThemeProvider>
-          </ClientDictionary>
-        </ApolloProviderWrapper>
+        <GovernanceProvider>
+          <ApolloProviderWrapper language={lang}>
+            <ClientDictionary dict={dict}>
+              <ThemeProvider
+                attribute="class"
+                defaultTheme="system"
+                enableSystem
+                disableTransitionOnChange
+              >
+                <WalletProviders>
+                  <Navbar dict={dict} lang={lang} />
+                  <main className="sm:container mx-auto w-[90vw] flex-1 scroll-smooth">
+                    {children}
+                  </main>
+                  <Footer dict={dict} />
+                </WalletProviders>
+              </ThemeProvider>
+            </ClientDictionary>
+          </ApolloProviderWrapper>
+        </GovernanceProvider>
       </body>
     </html>
   );

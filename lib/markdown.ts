@@ -30,6 +30,8 @@ import ContractAddress from '@/components/BookTokens/ContractAddress';
 import { Lit3Dashboard } from '@/components/dashboard/Lit3Dashboard';
 import { HashVerifier } from '@/components/dashboard/HashVerifier';
 import { DashboardStats } from '@/components/dashboard/DashboardStats';
+// Governance components
+import {GovernanceDashboard} from '@/components/governance/GovernanceDashboard';
 
 // add custom components
 const components = {
@@ -53,6 +55,8 @@ const components = {
   Lit3Dashboard,
   HashVerifier,
   DashboardStats,
+  // Governance components
+  GovernanceDashboard,
 };
 
 // can be used for other pages like blogs, Guides etc
