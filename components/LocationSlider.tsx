@@ -12,7 +12,11 @@ interface LocationSliderProps {
 export function LocationSlider({ category }: LocationSliderProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [, setDirection] = useState<'left' | 'right'>('right');
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+  const [touchEnd, setTouchEnd] = useState<number | null>(null);
 
+  // Minimum swipe distance (in px)
+  const minSwipeDistance = 50;
   // Filter locations by category
   const filteredLocations = locations.filter((loc) => {
     return !category || loc.category === category;
@@ -45,6 +49,30 @@ export function LocationSlider({ category }: LocationSliderProps) {
     setCurrentIndex((prev) => (prev - 1 + filteredLocations.length) % filteredLocations.length);
   };
 
+  // Touch handlers for swipe
+  const onTouchStart = (e: React.TouchEvent) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const onTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const onTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance;
+
+    if (isLeftSwipe) {
+      goToNext();
+    } else if (isRightSwipe) {
+      goToPrevious();
+    }
+  };
+
   const getCategoryColor = (cat: LocationCategory) => {
     const colors = {
       'lanka-districts': 'text-red-400 border-red-500/30',
@@ -57,6 +85,12 @@ export function LocationSlider({ category }: LocationSliderProps) {
   return (
     <div className="space-y-6">
       {/* Location Card */}
+      <div 
+        className="relative border border-slate-700 bg-slate-900/30 rounded-lg overflow-hidden"
+        onTouchStart={onTouchStart}
+        onTouchMove={onTouchMove}
+        onTouchEnd={onTouchEnd}
+      >
       <div className="relative border border-slate-700 bg-slate-900/30 rounded-lg overflow-hidden">
         {/* Location Image and Header */}
         <div className="relative h-80 md:h-[700px] overflow-hidden">
@@ -74,20 +108,21 @@ export function LocationSlider({ category }: LocationSliderProps) {
 
           {/* Location Info Overlay */}
           <div className="relative h-full flex flex-col justify-end p-6">
-            {/* Category Badge */}
+            {/* Category Badge 
             <div className="mb-4">
-              <span className={`px-3 py-1 rounded-full text-xs font-mono border ${getCategoryColor(currentLocation.category)}`}>
-                {categoryNames[currentLocation.category]}
-              </span>
-            </div>
+
+            </div>*/}
 
             {/* Location Name */}
             <div className="space-y-2">
-              <h2 className="text-4xl font-bold text-cyan-400 font-mono">
+              <span className={`px-3 py-1 rounded-full text-xs sm:text-md font-mono border ${getCategoryColor(currentLocation.category)}`}>
+                {categoryNames[currentLocation.category]}
+              </span>
+              <h2 className="text-xl sm:text-4xl font-bold text-cyan-400 font-mono">
                 {currentLocation.name}
               </h2>
               {currentLocation.subtitle && (
-                <p className="text-xl text-slate-300 font-mono">
+                <p className="text-md sm:text-xl text-slate-300 font-mono">
                   {currentLocation.subtitle}
                 </p>
               )}
@@ -127,6 +162,7 @@ export function LocationSlider({ category }: LocationSliderProps) {
             </p>
           </div>
         </div>
+      </div>
       </div>
 
       {/* Navigation Controls */}

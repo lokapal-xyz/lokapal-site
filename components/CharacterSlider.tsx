@@ -13,6 +13,11 @@ interface CharacterSliderProps {
 export function CharacterSlider({ category, showSpoilers = false }: CharacterSliderProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [, setDirection] = useState<'left' | 'right'>('right');
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+  const [touchEnd, setTouchEnd] = useState<number | null>(null);
+
+  // Minimum swipe distance (in px)
+  const minSwipeDistance = 50;
 
   // Filter characters by category and spoiler settings
   const filteredCharacters = characters.filter((char) => {
@@ -49,6 +54,30 @@ export function CharacterSlider({ category, showSpoilers = false }: CharacterSli
     setCurrentIndex((prev) => (prev - 1 + filteredCharacters.length) % filteredCharacters.length);
   };
 
+  // Touch handlers for swipe
+  const onTouchStart = (e: React.TouchEvent) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const onTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const onTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance;
+
+    if (isLeftSwipe) {
+      goToNext();
+    } else if (isRightSwipe) {
+      goToPrevious();
+    }
+  };
+
   const getCategoryColor = (cat: CharacterCategory) => {
     const colors = {
       'old-guardians': 'text-cyan-400 border-cyan-500/30',
@@ -63,6 +92,12 @@ export function CharacterSlider({ category, showSpoilers = false }: CharacterSli
   return (
     <div className="space-y-6">
       {/* Character Card */}
+      <div 
+        className="relative border border-slate-700 bg-slate-900/30 rounded-lg overflow-hidden"
+        onTouchStart={onTouchStart}
+        onTouchMove={onTouchMove}
+        onTouchEnd={onTouchEnd}
+      >
       <div className="relative border border-slate-700 bg-slate-900/30 rounded-lg overflow-hidden">
         {/* Character Image and Header */}
         <div className="relative h-80 md:h-[700px] overflow-hidden">
@@ -80,19 +115,22 @@ export function CharacterSlider({ category, showSpoilers = false }: CharacterSli
 
           {/* Character Info Overlay */}
           <div className="relative h-full flex flex-col justify-end p-6">
-            {/* Category Badge */}
+            {/* Category Badge 
             <div className="mb-4">
               <span className={`px-3 py-1 rounded-full text-xs font-mono border ${getCategoryColor(currentCharacter.category)}`}>
                 {categoryNames[currentCharacter.category]}
               </span>
-            </div>
+            </div>*/}
 
             {/* Character Name */}
             <div className="space-y-2">
-              <h2 className="text-4xl font-bold text-cyan-400 font-mono">
+              <span className={`px-3 py-1 rounded-full text-xs sm:text-md font-mono border ${getCategoryColor(currentCharacter.category)}`}>
+                {categoryNames[currentCharacter.category]}
+              </span>
+              <h2 className="text-xl sm:text-4xl font-bold text-cyan-400 font-mono">
                 {currentCharacter.name}
               </h2>
-              <p className="text-xl text-slate-300 font-mono">
+              <p className="text-md sm:text-xl text-slate-300 font-mono">
                 {currentCharacter.title}
               </p>
             </div>
@@ -147,6 +185,7 @@ export function CharacterSlider({ category, showSpoilers = false }: CharacterSli
           </div>
         </div>
       </div>
+      </div>
 
       {/* Navigation Controls */}
       <div className="flex items-center justify-center">
@@ -187,6 +226,7 @@ export function CharacterSlider({ category, showSpoilers = false }: CharacterSli
           </button>
         </div>
 
+
         {/* Mobile Navigation - Dots Only */}
         <div className="flex md:hidden items-center gap-2 overflow-x-auto pb-2 scrollbar-hide max-w-full px-4">
           {filteredCharacters.map((_, index) => (
@@ -213,6 +253,7 @@ export function CharacterSlider({ category, showSpoilers = false }: CharacterSli
           Character {currentIndex + 1} of {filteredCharacters.length}
         </p>
       </div>
+
     </div>
   );
 }
