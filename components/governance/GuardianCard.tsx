@@ -19,14 +19,14 @@ interface GuardianCardProps {
 
 // Guardian image mapping
 const GUARDIAN_IMAGES: Record<string, string> = {
-  'indra': '/images/guardians/indra2.jpg',
-  'varuna': '/images/guardians/varuna2.jpg',
-  'yama': '/images/guardians/yama2.jpg',
-  'kubera': '/images/guardians/kubera2.jpg',
-  'vayu': '/images/guardians/vayu2.jpg',
-  'ishana': '/images/guardians/ishana2.jpg',
-  'agni': '/images/guardians/agni2.jpg',
-  'nirrti': '/images/guardians/nirrti2.jpg',
+  'indra': '/images/characters/indra2.jpg',
+  'varuna': '/images/characters/varuna2.jpg',
+  'yama': '/images/characters/yama2.jpg',
+  'kubera': '/images/characters/kubera2.jpg',
+  'vayu': '/images/characters/vayu2.jpg',
+  'ishana': '/images/characters/ishana2.jpg',
+  'agni': '/images/characters/agni2.jpg',
+  'nirrti': '/images/characters/nirrti2.jpg',
 };
 
 export function GuardianCard({ guardian }: GuardianCardProps) {
@@ -50,6 +50,8 @@ export function GuardianCard({ guardian }: GuardianCardProps) {
         {guardianImage && (
           <div className="absolute inset-0">
             <Image
+              width={324}
+              height={182}
               src={guardianImage}
               alt={guardian.name}
               className="w-full h-full object-cover opacity-65 sm:opacity-50 group-hover:opacity-65 transition-opacity"

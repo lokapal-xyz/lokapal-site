@@ -7,14 +7,14 @@ import Image from 'next/image';
 
 // Guardian image mapping
 const GUARDIAN_IMAGES: Record<string, string> = {
-  'indra': '/images/guardians/indra.jpg',
-  'varuna': '/images/guardians/varuna.jpg',
-  'yama': '/images/guardians/yama.jpg',
-  'kubera': '/images/guardians/kubera.jpg',
-  'vayu': '/images/guardians/vayu.jpg',
-  'ishana': '/images/guardians/ishana.jpg',
-  'agni': '/images/guardians/agni.jpg',
-  'nirrti': '/images/guardians/nirrti.jpg',
+  'indra': '/images/characters/indra.jpg',
+  'varuna': '/images/characters/varuna.jpg',
+  'yama': '/images/characters/yama.jpg',
+  'kubera': '/images/characters/kubera.jpg',
+  'vayu': '/images/characters/vayu.jpg',
+  'ishana': '/images/characters/ishana.jpg',
+  'agni': '/images/characters/agni.jpg',
+  'nirrti': '/images/characters/nirrti.jpg',
 };
 
 export function GuardianLeaderboard() {
@@ -97,6 +97,8 @@ export function GuardianLeaderboard() {
                   <div className="flex items-center justify-center w-16 h-16 rounded-full bg-slate-900/50 border-2 border-slate-700 overflow-hidden">
                     {guardianImage ? (
                       <Image
+                        width={512}
+                        height={512}
                         src={guardianImage}
                         alt={guardian.name}
                         className="w-full h-full object-cover"

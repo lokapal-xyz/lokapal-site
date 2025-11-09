@@ -256,6 +256,7 @@
         "fmao-web3-framework": "Web3 Framework Details",
         "references-license-and-contact": "References, License and Contact",
         "lit3-guide": "A Quick Guide to Lit3",
+        "fmao-lore": "Lore Dashboard",
         "book-tokens": "Book Tokens",
         "lit3-dashboard": "Lit3 Dashboard",
         "governance-dashboard": "Governance Dashboard",
@@ -265,7 +266,10 @@
         "book-1": "🔹Book 1",
         "shard-undefined": "Shard {undefined}",
         "shard-0": "Shard 0",
-        "shard-1": "Shard 1"
+        "shard-1": "Shard 1",
+        "shard-2": "Shard 2",
+        "shard-3": "Shard 3",
+        "shard-4": "Shard 4"
     },
     "blog": {
         "title": "Thoughtchain",

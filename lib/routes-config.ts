@@ -15,6 +15,7 @@ export const FMAO_ROUTES: EachRoute[] = [
     noLink: true,
     items: [
       { title: "introduction", href: "/introduction" },
+      { title: "fmao-lore", href: "/fmao-lore" },
       { title: "lit3-guide", href: "/lit3-guide" },
       { title: "lit3-dashboard", href: "/lit3-dashboard" },
       { title: "governance-dashboard", href: "/governance-dashboard" },
@@ -33,6 +34,9 @@ export const FMAO_ROUTES: EachRoute[] = [
         items: [
           { title: "shard-0", href: "/shard-0" },
           { title: "shard-1", href: "/shard-1" },
+          { title: "shard-2", href: "/shard-2" },
+          { title: "shard-3", href: "/shard-3" },
+          { title: "shard-4", href: "/shard-4" },
         ],
       },
       {

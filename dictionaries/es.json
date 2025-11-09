@@ -261,14 +261,18 @@
         "lit3-guide": "Guía rápida sobre Lit3",
         "book-tokens": "Tokens de libros",
         "lit3-dashboard": "Dashboard de Lit3",
-        "governance-dashboard": "Dashboard de Governanza",
+        "fmao-lore": "Dashboard del lore",
+        "governance-dashboard": "Dashboard de gobernanza",
         "fmao-whitepaper": "💠 Libro blanco de En lo múltiple, como uno",
         "fmao": "💠 En lo múltiple, como uno",
         "book-0": "🔹Libro 0",
         "book-1": "🔹Libro 1",
         "shard-undefined": "Esquirla {no-definido}",
         "shard-0": "Esquirla 0",
-        "shard-1": "Esquirla 1"
+        "shard-1": "Esquirla 1",
+        "shard-2": "Esquirla 2",
+        "shard-3": "Esquirla 3",
+        "shard-4": "Esquirla 4"
     },
     "blog": {
         "title": "Thoughtchain",

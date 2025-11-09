@@ -32,6 +32,10 @@ import { HashVerifier } from '@/components/dashboard/HashVerifier';
 import { DashboardStats } from '@/components/dashboard/DashboardStats';
 // Governance components
 import {GovernanceDashboard} from '@/components/governance/GovernanceDashboard';
+// Sliders
+import { CharacterShowcase } from '@/components/CharacterShowcase';
+import { LocationShowcase } from '@/components/LocationShowcase';
+
 
 // add custom components
 const components = {
@@ -57,6 +61,9 @@ const components = {
   DashboardStats,
   // Governance components
   GovernanceDashboard,
+  // Sliders
+  LocationShowcase,
+  CharacterShowcase,
 };
 
 // can be used for other pages like blogs, Guides etc
