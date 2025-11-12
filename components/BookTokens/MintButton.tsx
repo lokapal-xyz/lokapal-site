@@ -45,15 +45,38 @@ export default function MintButton({ bookId }: MintButtonProps) {
         <label className="text-sm text-slate-400 font-mono whitespace-nowrap">
           Amount:
         </label>
-        <input
-          type="number"
-          min="1"
-          max="10"
-          value={amount}
-          onChange={(e) => setAmount(Math.max(1, Math.min(10, Number(e.target.value))))}
-          className="flex-1 bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white font-mono text-center focus:outline-none focus:border-slate-500 transition-colors"
-          disabled={isPending || isConfirming}
-        />
+        {/* Custom increment/decrement buttons for mobile-friendly UX */}
+        <div className="flex-1 flex items-center gap-2">
+          <button
+            onClick={() => setAmount(Math.max(1, amount - 1))}
+            disabled={amount <= 1 || isPending || isConfirming}
+            className="w-10 h-10 bg-slate-800 border border-slate-700 rounded-lg text-slate-400 hover:bg-slate-700 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed transition-colors font-bold text-lg"
+          >
+            −
+          </button>
+          
+          <input
+            type="text"
+            inputMode="numeric"
+            pattern="[0-9]*"
+            value={amount}
+            onChange={(e) => {
+              const val = e.target.value.replace(/[^0-9]/g, '');
+              const num = val === '' ? 1 : parseInt(val, 10);
+              setAmount(Math.max(1, Math.min(10, num)));
+            }}
+            className="w-16 bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white font-mono text-center focus:outline-none focus:border-slate-500 transition-colors"
+            disabled={isPending || isConfirming}
+          />
+          
+          <button
+            onClick={() => setAmount(Math.min(10, amount + 1))}
+            disabled={amount >= 10 || isPending || isConfirming}
+            className="w-10 h-10 bg-slate-800 border border-slate-700 rounded-lg text-slate-400 hover:bg-slate-700 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed transition-colors font-bold text-lg"
+          >
+            +
+          </button>
+        </div>
       </div>
 
       {/* Mint Button */}
