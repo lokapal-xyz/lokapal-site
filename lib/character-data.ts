@@ -119,7 +119,7 @@ export const characters: Character[] = [
     imagePath: '/images/characters/ishana.jpg',
     spoiler: true,
   },
-  // TRIMURTI
+  // Continuum
   {
     id: 'aruna',
     name: 'Aruna',

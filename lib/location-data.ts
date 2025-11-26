@@ -135,7 +135,7 @@ export const locations: Location[] = [
   {
     id: 'tri-core',
     name: 'The Tri~Core',
-    subtitle: 'Forces Abode',
+    subtitle: 'Scions Abode',
     category: 'svarga-zones',
     description: 'The highest point in Svarga, a hyper-technological nexus of creation, preservation, and destruction. The fundamental operating system of the cosmos, accessible only by the three primary deities. Contains the Dawn~Core (Aruna\'s creative engine), Noon~Core (Madyana\'s library of existence), and Dusk~Core (Sandya\'s reactor of controlled dissolution). This is where the universe itself is designed, maintained, and transformed.',
     imagePath: '/images/locations/tri-core.jpg',
