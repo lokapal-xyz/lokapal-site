@@ -126,7 +126,7 @@ export function LocationShowcase() {
             <p className="text-sm text-slate-400 leading-relaxed">
               The celestial realm built from solidified light and advanced technology.
               A breathtaking city of impossible geometries where guardians, oracles, and
-              the Trimurti maintain cosmic order.
+              the Continuum maintain cosmic order.
             </p>
           </div>
 

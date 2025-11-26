@@ -82,7 +82,7 @@ export function CharacterSlider({ category, showSpoilers = false }: CharacterSli
     const colors = {
       'old-guardians': 'text-cyan-400 border-cyan-500/30',
       'new-guardians': 'text-purple-400 border-purple-500/30',
-      'trimurti': 'text-yellow-400 border-yellow-500/30',
+      'continuum': 'text-yellow-400 border-yellow-500/30',
       'oracles': 'text-green-400 border-green-500/30',
       'defiants': 'text-red-400 border-red-500/30',
     };

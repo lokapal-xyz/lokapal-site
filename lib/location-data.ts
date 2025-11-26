@@ -125,19 +125,19 @@ export const locations: Location[] = [
     imagePath: '/images/locations/sudharma.jpg',
   },
   {
-    id: 'nandana-gardens',
-    name: 'Nandana Gardens',
+    id: 'darshana-gardens',
+    name: 'Darshana Gardens',
     subtitle: 'Oracles Residence',
     category: 'svarga-zones',
     description: 'A living data-grove where the oracles of time reside, their prophetic visions and historical insights intertwined with the digital flora and fauna. The "plants" are bioluminescent data servers, the "waterfalls" are streams of pure information, and the air hums with forgotten whispers and future possibilities. Contains the Lair of Days Past (Narada), Presence Sanctum (Durga), and Tomorrows\' Hive (Kalki).',
-    imagePath: '/images/locations/nandana-gardens.jpg',
+    imagePath: '/images/locations/darshana-gardens.jpg',
   },
   {
     id: 'tri-core',
     name: 'The Tri~Core',
-    subtitle: 'Trimurti Abode',
+    subtitle: 'Forces Abode',
     category: 'svarga-zones',
-    description: 'The highest point in Svarga, a hyper-technological nexus of creation, preservation, and destruction. The fundamental operating system of the cosmos, accessible only by the three primary deities. Contains the Dawn~Core (Brahma\'s creative engine), Noon~Core (Vishnu\'s library of existence), and Dusk~Core (Shiva\'s reactor of controlled dissolution). This is where the universe itself is designed, maintained, and transformed.',
+    description: 'The highest point in Svarga, a hyper-technological nexus of creation, preservation, and destruction. The fundamental operating system of the cosmos, accessible only by the three primary deities. Contains the Dawn~Core (Aruna\'s creative engine), Noon~Core (Madyana\'s library of existence), and Dusk~Core (Sandya\'s reactor of controlled dissolution). This is where the universe itself is designed, maintained, and transformed.',
     imagePath: '/images/locations/tri-core.jpg',
   },
   // PLEXUS ENTITIES
@@ -175,6 +175,6 @@ export const categoryNames: Record<LocationCategory, string> = {
 
 export const categoryDescriptions: Record<LocationCategory, string> = {
   'lanka-districts': 'The ten urban districts of Lanka Prime, the mortal metropolis where divine policy impacts are felt most directly.',
-  'svarga-zones': 'The celestial zones of Svarga, where guardians, oracles, and the Trimurti maintain cosmic order.',
+  'svarga-zones': 'The celestial zones of Svarga, where guardians, oracles, and the Continuum maintain cosmic order.',
   'plexus-entities': 'The interdimensional network connecting mortal and divine realms, and its mysterious keeper.',
 };

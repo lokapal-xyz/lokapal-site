@@ -33,7 +33,7 @@ export function GuardianCard({ guardian }: GuardianCardProps) {
   const bhaktiNum = parseFloat(guardian.bhaktiBalance) / 1e18;
   const direction = getGuardianDirection(guardian.address);
   
-  // Calculate net BHAKTI movement (subtract initial 12.5M allocation from Trimurti)
+  // Calculate net BHAKTI movement (subtract initial 12.5M allocation from Continuum)
   const INITIAL_ALLOCATION = 12_500_000;
   const bhaktiReceived = parseFloat(guardian.bhaktiReceived) / 1e18;
   // const bhaktiSent = parseFloat(guardian.bhaktiSent) / 1e18;
@@ -157,7 +157,7 @@ export function GuardianCard({ guardian }: GuardianCardProps) {
             </div>
           </div>
           <p className="text-xs text-slate-500 mt-2 italic">
-            * Excludes 12.5M initial allocation from Trimurti
+            * Excludes 12.5M initial allocation from Continuum
           </p>
         </div>
 

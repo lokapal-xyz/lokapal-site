@@ -12,7 +12,7 @@ export function CharacterShowcase() {
   const categories: CharacterCategory[] = [
     'old-guardians',
     'new-guardians',
-    'trimurti',
+    'continuum',
     'oracles',
     'defiants',
   ];
@@ -109,14 +109,14 @@ export function CharacterShowcase() {
             The New<br />Guardians
           </button>
           <button
-            onClick={() => setSelectedCategory('trimurti')}
+            onClick={() => setSelectedCategory('continuum')}
             className={`px-4 py-3 rounded-lg font-mono text-sm transition-colors ${
-              selectedCategory === 'trimurti'
+              selectedCategory === 'continuum'
                 ? 'bg-cyan-500/20 text-cyan-400 border border-cyan-500/50'
                 : 'bg-slate-800 text-slate-400 border border-slate-700 hover:border-slate-600'
             }`}
           >
-            The<br />Trimurti
+            The<br />Continuum
           </button>
           <button
             onClick={() => setSelectedCategory('oracles')}
@@ -180,7 +180,7 @@ export function CharacterShowcase() {
               Governance Structure
             </h3>
             <p className="text-sm text-slate-400 leading-relaxed">
-              Above the guardians sits the Trimurti - the supreme trinity of Creation,
+              Above the guardians sits the Continuum - the supreme trinity of Creation,
               Preservation, and Destruction. Three Oracles provide temporal wisdom, while
               the Defiants challenge the established order from outside.
             </p>

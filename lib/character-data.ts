@@ -1,6 +1,6 @@
 // Character data extracted from FMAO lore
 
-export type CharacterCategory = 'old-guardians' | 'new-guardians' | 'trimurti' | 'oracles' | 'defiants';
+export type CharacterCategory = 'old-guardians' | 'new-guardians' | 'continuum' | 'oracles' | 'defiants';
 
 export interface Character {
   id: string;
@@ -121,34 +121,34 @@ export const characters: Character[] = [
   },
   // TRIMURTI
   {
-    id: 'brahma',
-    name: 'Brahma',
-    title: 'Lord of Creation',
+    id: 'aruna',
+    name: 'Aruna',
+    title: 'Lord of Dawn',
     domain: 'Creation, Knowledge, Wisdom, Arts, Craftsmanship, Innovation',
     archetype: 'Creative force, wants to bring new things into existence, seeks to manifest potential into reality',
     signatureIssues: 'New project initiation, innovation strategies, knowledge systems, creative endeavors, foundational planning',
-    category: 'trimurti',
-    imagePath: '/images/characters/brahma.jpg',
+    category: 'continuum',
+    imagePath: '/images/characters/aruna.jpg',
   },
   {
-    id: 'vishnu',
-    name: 'Vishnu',
-    title: 'Lord of Preservation',
+    id: 'madyana',
+    name: 'Madyana',
+    title: 'Lord of Noon',
     domain: 'Preservation, Protection, Maintenance, Cosmic Order, Incarnation, Dharma',
     archetype: 'Sustainer and protector, wants to maintain balance and harmony, seeks to preserve what is good and necessary',
     signatureIssues: 'System maintenance, conflict resolution, balance preservation, protective measures, dharmic governance',
-    category: 'trimurti',
-    imagePath: '/images/characters/vishnu.jpg',
+    category: 'continuum',
+    imagePath: '/images/characters/madyana.jpg',
   },
   {
-    id: 'shiva',
-    name: 'Shiva',
-    title: 'Lord of Destruction',
+    id: 'sandya',
+    name: 'Sandya',
+    title: 'Lord of Dusk',
     domain: 'Destruction, Transformation, Dance, Meditation, Asceticism, Time',
     archetype: 'Dissolution and renewal, wants to destroy what no longer serves, seeks ultimate truth through destruction and recreation',
     signatureIssues: 'Organizational restructuring, ending outdated systems, spiritual transformation, crisis management, radical change',
-    category: 'trimurti',
-    imagePath: '/images/characters/shiva.jpg',
+    category: 'continuum',
+    imagePath: '/images/characters/sandya.jpg',
   },
   // ORACLES
   {
@@ -220,7 +220,7 @@ export const characters: Character[] = [
 export const categoryNames: Record<CharacterCategory, string> = {
   'old-guardians': 'The Old Guardians',
   'new-guardians': 'The New Guardians',
-  'trimurti': 'The Trimurti',
+  'continuum': 'The Continuum',
   'oracles': 'Oracles',
   'defiants': 'The Defiants',
 };
@@ -228,7 +228,7 @@ export const categoryNames: Record<CharacterCategory, string> = {
 export const categoryDescriptions: Record<CharacterCategory, string> = {
   'old-guardians': 'The four original cosmic protectors who maintain balance across the cardinal directions.',
   'new-guardians': 'The recently appointed guardians representing the intermediate directions.',
-  'trimurti': 'The supreme trinity of cosmic authority overseeing the entire guardian system.',
+  'continuum': 'The supreme trinity of cosmic authority overseeing the entire guardian system.',
   'oracles': 'Three eternal advisors who provide temporal wisdom to guide decision-making.',
   'defiants': 'Powerful independent forces who challenge the established order.',
 };
