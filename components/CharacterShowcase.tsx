@@ -126,7 +126,7 @@ export function CharacterShowcase() {
                 : 'bg-slate-800 text-slate-400 border border-slate-700 hover:border-slate-600'
             }`}
           >
-            <br />Oracles
+            The<br />Oracles
           </button>
           <button
             onClick={() => setSelectedCategory('defiants')}
