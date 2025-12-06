@@ -3,6 +3,12 @@ import { ComponentProps } from "react";
 
 export default function Link({ href, ...props }: ComponentProps<"a">) {
   if (!href) return null;
+  
+  // Check if it's an anchor link (internal page navigation)
+  if (href.startsWith('#')) {
+    return <a href={href} {...props} />;
+  }
+  
   return (
     <NextLink
       href={href}
