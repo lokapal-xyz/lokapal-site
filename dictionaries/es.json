@@ -268,11 +268,17 @@
         "book-0": "🔹Libro 0",
         "book-1": "🔹Libro 1",
         "shard-undefined": "Esquirla {no-definido}",
-        "shard-0": "Esquirla 0",
-        "shard-1": "Esquirla 1",
-        "shard-2": "Esquirla 2",
-        "shard-3": "Esquirla 3",
-        "shard-4": "Esquirla 4"
+        "shard-0": "Esquirla 0 [Archivo del Plexo]",
+        "shard-1": "Esquirla 1 [Plaza de Ahamkara]",
+        "shard-2": "Esquirla 2 [Bolsa de Lobha]",
+        "shard-3": "Esquirla 3 [Altos de Mada]",
+        "shard-4": "Esquirla 4 [Ciudadela del Moha]",
+        "shard-5": "Esquirla 5 [Bazar Matsarya]",
+        "shard-6": "Esquirla 6 [Nodo Buddhi]",
+        "shard-7": "Esquirla 7 [Fundiciones del Krodha]",
+        "shard-8": "Esquirla 8 [Coliseo de Ghrina]",
+        "shard-9": "Esquirla 9 [Paseo del Kama]",
+        "shard-10": "Esquirla 10 [Campo de Bhaya]"
     },
     "blog": {
         "title": "Thoughtchain",

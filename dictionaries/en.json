@@ -265,11 +265,17 @@
         "book-0": "🔹Book 0",
         "book-1": "🔹Book 1",
         "shard-undefined": "Shard {undefined}",
-        "shard-0": "Shard 0",
-        "shard-1": "Shard 1",
-        "shard-2": "Shard 2",
-        "shard-3": "Shard 3",
-        "shard-4": "Shard 4"
+        "shard-0": "Shard 0 [Plexus Archive]",
+        "shard-1": "Shard 1 [Ahamkara Plaza]",
+        "shard-2": "Shard 2 [Lobha Exchange]",
+        "shard-3": "Shard 3 [Mada Heights]",
+        "shard-4": "Shard 4 [Moha Citadel]",
+        "shard-5": "Shard 5 [Matsarya Bazaar]",
+        "shard-6": "Shard 6 [Buddhi Hub]",
+        "shard-7": "Shard 7 [Krodha Foundries]",
+        "shard-8": "Shard 8 [Ghrina Colosseum]",
+        "shard-9": "Shard 9 [Kama Strip]",
+        "shard-10": "Shard 10 [Bhaya Compound]"
     },
     "blog": {
         "title": "Thoughtchain",
