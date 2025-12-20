@@ -3,6 +3,19 @@ import { NextRequest, NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
+import { marked } from 'marked';
+
+function cleanMDXContent(content: string): string {
+  // Remove React components
+  let cleaned = content.replace(/<[A-Z][a-zA-Z0-9]*\s+[^>]*\/>/g, '');
+  cleaned = cleaned.replace(/<[A-Z][a-zA-Z0-9]*\s+[^>]*>[\s\S]*?<\/[A-Z][a-zA-Z0-9]*>/g, '');
+  cleaned = cleaned.replace(/^import\s+.*$/gm, '');
+  
+  // Convert markdown to HTML
+  const html = marked.parse(cleaned);
+  
+  return html as string;
+}
 
 export async function GET(
   request: NextRequest,
@@ -56,7 +69,8 @@ export async function GET(
 
     // Read and parse MDX file
     const fileContents = fs.readFileSync(filePath, 'utf8');
-    const { data, content } = matter(fileContents);
+    const { data, content: rawContent } = matter(fileContents);
+    const content = cleanMDXContent(rawContent);
 
     // Return structured data with CORS headers
     const response = NextResponse.json({
