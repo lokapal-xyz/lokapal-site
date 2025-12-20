@@ -25,7 +25,7 @@ export async function GET(
     }
 
     // Build the file path based on your structure
-    // content/fmao/{lang}/fmao/{bookId}/{chapterId}/index.mdx
+    // contents/fmao/{lang}/fmao/{bookId}/{chapterId}/index.mdx
     const filePath = path.join(
       process.cwd(),
       'contents',
@@ -58,8 +58,8 @@ export async function GET(
     const fileContents = fs.readFileSync(filePath, 'utf8');
     const { data, content } = matter(fileContents);
 
-    // Return structured data
-    return NextResponse.json({
+    // Return structured data with CORS headers
+    const response = NextResponse.json({
       bookId,
       chapterId,
       lang,
@@ -70,20 +70,34 @@ export async function GET(
       },
       content,
     });
+    
+    // Add CORS headers
+    response.headers.set('Access-Control-Allow-Origin', '*');
+    response.headers.set('Access-Control-Allow-Methods', 'GET, OPTIONS');
+    response.headers.set('Access-Control-Allow-Headers', 'Content-Type');
+    
+    return response;
   } catch (error) {
     console.error('Error reading chapter:', error);
-    return NextResponse.json(
+    const errorResponse = NextResponse.json(
       { 
         error: 'Failed to load chapter',
         details: error instanceof Error ? error.message : String(error)
       },
       { status: 500 }
     );
+    
+    // Add CORS headers to error response too
+    errorResponse.headers.set('Access-Control-Allow-Origin', '*');
+    errorResponse.headers.set('Access-Control-Allow-Methods', 'GET, OPTIONS');
+    errorResponse.headers.set('Access-Control-Allow-Headers', 'Content-Type');
+    
+    return errorResponse;
   }
 }
 
 // Enable CORS
-export async function OPTIONS() {
+export async function OPTIONS(request: NextRequest) {
   return new NextResponse(null, {
     status: 200,
     headers: {

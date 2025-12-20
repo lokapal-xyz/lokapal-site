@@ -25,7 +25,7 @@ export async function GET(
     }
 
     // Build path to book directory
-    // content/fmao/{lang}/fmao/{bookId}/
+    // contents/fmao/{lang}/fmao/{bookId}/
     const bookDir = path.join(
       process.cwd(),
       'contents',
@@ -83,26 +83,40 @@ export async function GET(
       return aNum - bNum;
     });
 
-    return NextResponse.json({
+    const response = NextResponse.json({
       bookId,
       lang,
       chapters,
       total: chapters.length,
     });
+    
+    // Add CORS headers
+    response.headers.set('Access-Control-Allow-Origin', '*');
+    response.headers.set('Access-Control-Allow-Methods', 'GET, OPTIONS');
+    response.headers.set('Access-Control-Allow-Headers', 'Content-Type');
+    
+    return response;
   } catch (error) {
     console.error('Error listing chapters:', error);
-    return NextResponse.json(
+    const errorResponse = NextResponse.json(
       { 
         error: 'Failed to load chapters',
         details: error instanceof Error ? error.message : String(error)
       },
       { status: 500 }
     );
+    
+    // Add CORS headers to error response too
+    errorResponse.headers.set('Access-Control-Allow-Origin', '*');
+    errorResponse.headers.set('Access-Control-Allow-Methods', 'GET, OPTIONS');
+    errorResponse.headers.set('Access-Control-Allow-Headers', 'Content-Type');
+    
+    return errorResponse;
   }
 }
 
 // Enable CORS
-export async function OPTIONS() {
+export async function OPTIONS(request: NextRequest) {
   return new NextResponse(null, {
     status: 200,
     headers: {
