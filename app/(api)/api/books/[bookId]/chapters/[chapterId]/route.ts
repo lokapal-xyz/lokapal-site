@@ -83,7 +83,7 @@ export async function GET(
 }
 
 // Enable CORS
-export async function OPTIONS(request: NextRequest) {
+export async function OPTIONS() {
   return new NextResponse(null, {
     status: 200,
     headers: {
