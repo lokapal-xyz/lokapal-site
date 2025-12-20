@@ -9,6 +9,11 @@ export function middleware(request: NextRequest) {
         return NextResponse.rewrite(new URL('/favicon.ico', request.url));
     }
 
+    // Skip i18n routing for API routes
+    if (pathname.startsWith('/api/')) {
+        return NextResponse.next();
+    }
+
     // Skip i18n routing for static assets
     if (
         pathname.startsWith('/images/') ||
@@ -34,8 +39,8 @@ export function middleware(request: NextRequest) {
 
 export const config = {
     matcher: [
-        // Skip all internal paths (_next) but allow favicon and other static assets
-        "/((?!_next|favicon.ico|images|icons|assets).*)",
+        // Skip all internal paths (_next), API routes, and static assets
+        "/((?!api|_next|favicon.ico|images|icons|assets).*)",
         "/favicon.ico"
     ],
 };
