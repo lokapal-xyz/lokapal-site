@@ -1,0 +1,240 @@
+---
+title: "Notes on Lit3 — Part 12: HNP-2 and Format-Aware Canon"
+description: "When Structure Is Part of the Text."
+date: 26-12-2025
+authors:
+  - avatar: "/images/LokapalMain.png"
+    handle: lokapalxyz
+    username: lokapal.eth
+    handleUrl: "https://x.com/lokapalxyz"
+cover: "/images/markdown.jpg"
+---
+
+*When Structure Is Part of the Text*
+
+## A Reminder: What HNP-1 Solves
+
+The Hashed Normalization Protocol (HNP-1) was introduced to solve a specific problem: how to generate a **canonical, verifiable hash** for a literary text independent of platform, typography, or presentation layer.
+
+HNP-1 achieves this by:
+
+* Taking a text as input
+* Normalizing it according to a deterministic set of rules
+* Producing a cryptographic hash that can be independently reproduced
+
+Crucially, **HNP-1 is format-agnostic**. It does not care whether a text originated as Markdown, HTML, PDF, or plain text. Its goal is semantic stability: ensuring that the *words themselves* can be verified as canonical.
+
+For many use cases, this is sufficient—and desirable.
+
+But format-agnosticism comes with an implicit assumption: that meaning survives normalization intact.
+
+That assumption does not always hold.
+
+---
+
+## When Formatting Carries Meaning
+
+In many literary works, formatting is not decorative. It encodes structure, hierarchy, rhythm, and intent.
+
+Consider the following opening, written in Markdown:
+
+```markdown
+# Shard 1: A Name for Oneself
+
+*A Story from Ahamkara Plaza*
+
+---
+
+## Part One: Varsam 7E9, Dinam 02A
+```
+
+This structure communicates several things simultaneously:
+
+* Title hierarchy
+* Paratextual framing
+* Sectional division
+* A deliberate pacing before the narrative begins
+
+If this text is processed under HNP-1, the Markdown syntax must be stripped away to ensure that verification from a rendered front-end produces the same normalized input. The result might look like this:
+
+```
+Shard 1: A Name for Oneself
+
+A Story from Ahamkara Plaza
+
+Part One: Varsam 7E9, Dinam 02A
+```
+
+While linguistically equivalent, this version has lost structural information that was part of the original narrative expression.
+
+Nothing has gone *wrong*. HNP-1 is behaving exactly as designed.
+
+But it is now clear that HNP-1 is solving only one class of canonicality problem.
+
+---
+
+## The Limits of Format-Agnostic Canon
+
+HNP-1 implicitly treats formatting as **presentation-layer metadata**—something that can be safely discarded without altering meaning.
+
+This is a reasonable assumption for:
+
+* Most prose
+* Essays
+* Research articles
+* Plain-text fiction
+
+It is less reasonable for:
+
+* Works where layout signals narrative breaks
+* Titles and subtitles that encode hierarchy
+* Section markers used rhythmically or thematically
+* Paratext that is intentionally distinguished from body text
+
+In these cases, formatting is not external to the work. It is part of the work.
+
+If Lit3 is serious about canon, then canon must sometimes include **structure**, not just content.
+
+---
+
+## Introducing HNP-2: Format-Aware Normalization
+
+HNP-2 is proposed as a complementary normalization protocol for cases where **format is semantically relevant**.
+
+Where HNP-1 asks:
+
+> “What is the canonical text?”
+
+HNP-2 poses:
+
+> “What is the canonical structured text?”
+
+### Core Properties of HNP-2
+
+* **Format-aware**: Formatting is preserved as part of the normalized input.
+* **Deterministic**: Given the same source and rules, all verifiers produce the same hash.
+* **Opt-in**: Authors explicitly choose HNP-2 when structure matters.
+
+HNP-2 does not replace HNP-1. It specializes it.
+
+---
+
+## Why Markdown?
+
+A format-aware protocol must choose its scope carefully. Unlimited format support creates ambiguity, not expressiveness.
+
+HNP-2 therefore proposes **Markdown as its canonical format**.
+
+This choice is deliberate:
+
+* Markdown is human-readable
+* It is diff-friendly and versionable
+* It is already dominant in Web3 tooling
+* It supports hierarchy, emphasis, and separation without becoming opaque
+* It can be rendered consistently across platforms
+
+Most importantly, Markdown has a formal specification (CommonMark). This means "canonical Markdown" isn't just a convention—it's a defined standard that HNP-2 can reference.
+
+Markdown strikes a balance between **expressive structure** and **deterministic normalization**. HNP-2 does not attempt to canonize *all possible literary formats*. It canonizes one widely shared structural language and makes that choice explicit.
+
+Authors who do not want this constraint can continue to use HNP-1.
+
+---
+
+## Normalization in HNP-2
+
+HNP-2 does not hash raw Markdown files as-is. Doing so would fragment canon, since multiple Markdown representations can be semantically equivalent while differing syntactically. Instead, HNP-2 introduces an additional normalization step prior to hashing.
+
+Under HNP-2, the Markdown source is first reduced to a canonical Markdown representation through deterministic normalization—collapsing equivalent syntax, normalizing structure, and removing non-semantic variance. Only after this step is the resulting text passed through the same final normalization and hashing procedure used in HNP-1.
+
+This preserves the core guarantees of the Hashed Normalization Protocol—determinism, reproducibility, and independent verification—while extending canon to include structural meaning.
+
+- **Example Input**:
+
+```markdown
+#  Shard 1: A Name for Oneself
+
+_A Story from Ahamkara Plaza_
+
+***
+
+##Part One: Varsam 7E9, Dinam 02A
+
+* __First item__
++ Second item
+```
+
+- **After Markdown Normalization**:
+
+```markdown
+# Shard 1: A Name for Oneself
+
+*A Story from Ahamkara Plaza*
+
+---
+
+## Part One: Varsam 7E9, Dinam 02A
+
+- **First item**
+- Second item
+```
+
+---
+
+## HNP-1 and HNP-2 as Complementary Protocols
+
+The relationship between HNP-1 and HNP-2 is not hierarchical. It is contextual.
+
+| Protocol | Canon Includes                          |
+| -------- | --------------------------------------- |
+| HNP-1    | Linguistic content only                 |
+| HNP-2    | Linguistic content + Markdown structure |
+
+This allows authors to choose based on intent:
+
+* Use **HNP-1** when meaning survives normalization
+* Use **HNP-2** when structure contributes to meaning
+
+Both are valid Lit3 implementations.
+
+---
+
+## Declaring the Protocol: Canon Must Be Explicit
+
+Once multiple normalization protocols exist, a hash alone is no longer self-describing.
+
+The same literary artifact can legitimately produce different hashes under different protocols. Therefore, **canon requires declaration**.
+
+In Lit3, that declaration belongs in the **Ledger Framework**.
+
+Each ledger entry should explicitly state which normalization protocol defines its canonical hash. This is not an implementation detail; it is part of the work’s metadata, just like license, versioning, or source attribution.
+
+Conceptually, the ledger records:
+
+* the hash (`contentHash`)
+* the **protocol identifier** that produced it (`hnp`)
+
+The ledger does not interpret the protocol. It names it.
+
+Verification tools, front ends, and readers can then reproduce the hash using the declared standard—without relying on assumptions or social convention.
+
+This preserves Lit3’s core promise: **verifiability without trust**.
+
+---
+
+## Final Thoughts
+
+HNP-2 exists because literature is not always plain text.
+
+By introducing a format-aware normalization protocol:
+
+* Lit3 acknowledges that structure can be meaning
+* Canon becomes expressive without becoming arbitrary
+* Authors retain control over how their work is canonized
+* Readers retain the ability to verify that canon independently
+
+By separating format-agnostic and format-aware normalization, Lit3 gives authors a precise vocabulary for that choice—without forcing it on everyone.
+
+---
+
+*Lit3 precision is not technical pedantry. It is literary respect.*

@@ -1,0 +1,713 @@
+---
+title: "Notes on Lit3 — Part 13: HNP Technical Specification"
+description: "Implementation Details for HNP-1 and HNP-2."
+date: 29-12-2025
+authors:
+  - avatar: "/images/LokapalMain.png"
+    handle: lokapalxyz
+    username: lokapal.eth
+    handleUrl: "https://x.com/lokapalxyz"
+cover: "/images/specs.jpg"
+---
+
+*Implementation Details for HNP-1 and HNP-2*
+
+## Prerequisites
+
+**Note:** This article provides the complete technical specification for both HNP-1 (format-agnostic) and HNP-2 (format-aware) normalization protocols. This document is intended for developers implementing HNP verification tools, creators who want to understand the normalization process in detail, and anyone auditing the protocols for correctness.
+
+---
+
+## HNP-1 Technical Specification
+
+### Design Philosophy
+
+HNP-1 treats all formatting as presentation-layer metadata that can be safely discarded. Its goal is to normalize the *linguistic content* of a text while eliminating variations caused by:
+
+- Different operating systems (line ending conventions)
+- Different text editors (tab handling, trailing whitespace)
+- Different encoding practices (BOM, Unicode normalization forms)
+- Accidental whitespace artifacts (leading/trailing blank lines)
+
+### Normalization Rules
+
+HNP-1 applies ten sequential transformation rules to the input text:
+
+#### Rule 1: BOM Stripping
+
+**Purpose**: Remove the Byte Order Mark (U+FEFF) if present at the beginning of the file.
+
+**Rationale**: The BOM is a zero-width character used to signal byte order in UTF-16/UTF-32 encodings. In UTF-8, it's optional and often added by Windows text editors. Its presence or absence doesn't affect meaning but changes the byte sequence.
+
+**Implementation**:
+```javascript
+if (content.charCodeAt(0) === 0xFEFF) {
+  content = content.slice(1);
+}
+```
+
+**Example**:
+```
+Input:  \uFEFFThe story begins.
+Output: The story begins.
+```
+
+---
+
+#### Rule 2: Unicode Normalization (NFC)
+
+**Purpose**: Convert all Unicode characters to Normalization Form C (Composed).
+
+**Rationale**: Unicode allows multiple byte sequences to represent the same visual character. For example, the character "é" can be encoded as:
+- A single codepoint: U+00E9 (é)
+- Two codepoints: U+0065 (e) + U+0301 (combining acute accent)
+
+Both render identically but produce different hashes. NFC normalization ensures consistency by preferring composed forms.
+
+**Implementation**:
+```javascript
+content = content.normalize('NFC');
+```
+
+**Example**:
+```
+Input:  cafe\u0301 (café using e + combining accent)
+Output: café (café using single composed character)
+```
+
+---
+
+#### Rule 3: Line Ending Conversion
+
+**Purpose**: Convert all line endings to Unix-style LF (`\n`).
+
+**Rationale**: Different operating systems use different line ending conventions:
+- Unix/Linux/macOS: LF (`\n`)
+- Windows: CRLF (`\r\n`)
+- Old macOS: CR (`\r`)
+
+These variations are invisible to readers but change byte sequences.
+
+**Implementation**:
+```javascript
+content = content.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+```
+
+**Example**:
+```
+Input:  Line one\r\nLine two\r\nLine three
+Output: Line one\nLine two\nLine three
+```
+
+---
+
+#### Rule 4: Trailing Whitespace Removal
+
+**Purpose**: Remove all spaces and tabs from the end of each line.
+
+**Rationale**: Trailing whitespace is invisible, accidental, and has no semantic meaning in prose. Text editors often add or remove it automatically.
+
+**Implementation**:
+```javascript
+lines = lines.map(line => line.replace(/\s+$/, ''));
+```
+
+**Example**:
+```
+Input:  The story begins.   \n
+        Chapter One.  \n
+Output: The story begins.\n
+        Chapter One.\n
+```
+
+---
+
+#### Rule 5: Tab Expansion
+
+**Purpose**: Convert all tab characters (`\t`) to four space characters.
+
+**Rationale**: Tabs render differently depending on editor settings (2 spaces, 4 spaces, 8 spaces). Converting to a fixed width ensures consistency.
+
+**Implementation**:
+```javascript
+lines = lines.map(line => line.replace(/\t/g, '    '));
+```
+
+**Example**:
+```
+Input:  \tIndented paragraph.
+Output:     Indented paragraph.
+```
+
+---
+
+#### Rule 6: Leading Blank Line Removal
+
+**Purpose**: Remove all blank lines from the beginning of the file.
+
+**Rationale**: Files often have accidental blank lines at the start due to editor behavior or copy-paste operations. These don't affect the text's meaning.
+
+**Implementation**:
+```javascript
+while (lines.length > 0 && lines[0].trim() === '') {
+  lines.shift();
+}
+```
+
+**Example**:
+```
+Input:  \n
+        \n
+        The story begins.
+Output: The story begins.
+```
+
+---
+
+#### Rule 7: Trailing Blank Line Removal
+
+**Purpose**: Remove all blank lines from the end of the file.
+
+**Rationale**: Same as Rule 6—accidental trailing whitespace is common and meaningless.
+
+**Implementation**:
+```javascript
+while (lines.length > 0 && lines[lines.length - 1].trim() === '') {
+  lines.pop();
+}
+```
+
+**Example**:
+```
+Input:  The story ends.\n
+        \n
+        \n
+Output: The story ends.
+```
+
+---
+
+#### Rule 8: Blank Line Compression
+
+**Purpose**: Collapse sequences of multiple consecutive blank lines into a single blank line.
+
+**Rationale**: Authors use blank lines to separate paragraphs or sections. Whether two paragraphs are separated by one, two, or five blank lines is usually accidental. HNP-1 preserves the *presence* of separation but normalizes the *amount*.
+
+**Implementation**:
+```javascript
+let normalizedLines = [];
+let lastWasBlank = false;
+
+for (let line of lines) {
+  const isBlank = line.trim() === '';
+  
+  if (isBlank) {
+    if (!lastWasBlank) {
+      normalizedLines.push(line);
+      lastWasBlank = true;
+    }
+    // Skip additional consecutive blank lines
+  } else {
+    normalizedLines.push(line);
+    lastWasBlank = false;
+  }
+}
+```
+
+**Example**:
+```
+Input:  First paragraph.\n
+        \n
+        \n
+        \n
+        Second paragraph.
+Output: First paragraph.\n
+        \n
+        Second paragraph.
+```
+
+---
+
+#### Rule 9: File End Normalization
+
+**Purpose**: Ensure the file ends with exactly one newline character.
+
+**Rationale**: POSIX standards define a text file as ending with a newline. Some editors add it automatically; others don't. Normalizing to exactly one newline ensures consistency.
+
+**Implementation**:
+```javascript
+normalized = normalized.replace(/\n*$/, '\n');
+```
+
+**Example**:
+```
+Input:  The story ends.
+Output: The story ends.\n
+
+Input:  The story ends.\n\n\n
+Output: The story ends.\n
+```
+
+---
+
+#### Rule 10: Cryptographic Hashing
+
+**Purpose**: Compute the SHA-256 hash of the normalized UTF-8 byte sequence.
+
+**Rationale**: SHA-256 is:
+- Collision-resistant (practically impossible to find two inputs with the same hash)
+- Deterministic (same input always produces same hash)
+- Widely supported (standard in cryptographic libraries)
+- EVM-native (Ethereum's built-in hash function)
+
+**Implementation**:
+```javascript
+const hash = crypto.createHash('sha256')
+  .update(normalized, 'utf8')
+  .digest('hex');
+const solidityHash = '0x' + hash;
+```
+
+**Output Format**: A 66-character string (0x prefix + 64 hex characters) representing 32 bytes.
+
+**Example**:
+```
+Input:  The story begins.\n
+Output: 0x8f3a4b2c1d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a
+```
+
+---
+
+### Complete HNP-1 Pipeline
+
+```
+Raw File
+  ↓
+[Rule 1: Strip BOM]
+  ↓
+[Rule 2: Unicode NFC]
+  ↓
+[Rule 3: Line endings → \n]
+  ↓
+[Rule 4: Remove trailing whitespace per line]
+  ↓
+[Rule 5: Tabs → 4 spaces]
+  ↓
+[Rule 6: Remove leading blank lines]
+  ↓
+[Rule 7: Remove trailing blank lines]
+  ↓
+[Rule 8: Compress multiple blank lines]
+  ↓
+[Rule 9: Ensure single trailing \n]
+  ↓
+[Rule 10: SHA-256 hash]
+  ↓
+0x-prefixed canonical hash
+```
+
+---
+
+## HNP-2 Technical Specification
+
+### Design Philosophy
+
+HNP-2 recognizes that Markdown syntax is not merely presentational—it encodes structural semantics. A heading (`# Title`) is semantically different from body text, even if both render as "Title" when stripped of formatting.
+
+HNP-2 extends HNP-1 by adding a **Markdown normalization phase** before applying text normalization. This phase reduces Markdown to a canonical form while preserving its structural meaning.
+
+### Two-Phase Processing
+
+HNP-2 operates in two distinct phases:
+
+**Phase 1: Markdown Normalization**
+- Input: Raw Markdown file
+- Process: Normalize Markdown syntax to canonical forms
+- Output: Canonicalized Markdown text
+
+**Phase 2: Text Normalization**
+- Input: Canonicalized Markdown from Phase 1
+- Process: Apply all HNP-1 rules (Rules 1-10)
+- Output: 0x-prefixed canonical hash
+
+This design means HNP-2 inherits all of HNP-1's guarantees (deterministic whitespace handling, Unicode normalization, etc.) while adding format-awareness.
+
+---
+
+### Phase 1: Markdown Normalization Rules
+
+#### Rule M1: ATX Heading Normalization
+
+**Purpose**: Standardize heading syntax to use exactly one space between hash marks and text.
+
+**Rationale**: Markdown allows variable spacing:
+```markdown
+#Heading (no space)
+# Heading (one space)
+#  Heading (two spaces)
+```
+All three render identically. HNP-2 normalizes to single-space format.
+
+**Implementation**:
+```javascript
+// Fix headings with content but incorrect spacing
+processed = processed.replace(/^(#{1,6})\s+(.+)$/, '$1 $2');
+// Fix headings with no space
+processed = processed.replace(/^(#{1,6})([^\s#].*)$/, '$1 $2');
+```
+
+**Examples**:
+```
+Input:  #Shard 1
+Output: # Shard 1
+
+Input:  ##  Chapter One
+Output: ## Chapter One
+
+Input:  ### Section Title
+Output: ### Section Title (unchanged - already normalized)
+```
+
+**Edge Cases**:
+- Preserves heading level (number of `#` characters)
+- Only matches valid ATX headings (1-6 hash marks)
+- Doesn't affect `#` characters in the middle of lines
+
+---
+
+#### Rule M2: Emphasis Normalization
+
+**Purpose**: Standardize bold and italic markers to a single syntax style.
+
+**Rationale**: Markdown allows two syntax styles for emphasis:
+- Bold: `**text**` or `__text__`
+- Italic: `*text*` or `_text_`
+
+HNP-2 normalizes to asterisk-based syntax (`**bold**` and `*italic*`).
+
+**Implementation**:
+```javascript
+// Bold: Convert __ to **
+processed = processed.replace(/__(.*?)__/g, '**$1**');
+
+// Italic: Convert _ to * (word boundaries only to avoid mid-word underscores)
+processed = processed.replace(/\b_(.*?)_\b/g, '*$1*');
+```
+
+**Examples**:
+```
+Input:  __Bold text__ and _italic text_
+Output: **Bold text** and *italic text*
+
+Input:  **Already bold** and *already italic*
+Output: **Already bold** and *already italic* (unchanged)
+
+Input:  snake_case_variable (no word boundaries)
+Output: snake_case_variable (unchanged - not treated as emphasis)
+```
+
+**Edge Cases**:
+- Nested emphasis: `**bold *and italic***` remains unchanged (valid Markdown)
+- Escaped markers: `\_not italic\_` remains unchanged (backslash-escaped)
+- Mid-word underscores: `snake_case` is not treated as emphasis
+
+---
+
+#### Rule M3: Horizontal Rule Normalization
+
+**Purpose**: Standardize all horizontal rule syntax to triple dash (`---`).
+
+**Rationale**: Markdown allows multiple syntaxes for horizontal rules:
+```markdown
+***
+---
+___
+----
+* * *
+- - -
+```
+All render identically. HNP-2 normalizes to `---`.
+
+**Implementation**:
+```javascript
+// Match lines that are only HR markers (*, -, _) with optional spaces
+if (/^\s*([*\-_])\s*\1\s*\1+\s*$/.test(processed)) {
+  processed = '---';
+}
+```
+
+**Examples**:
+```
+Input:  ***
+Output: ---
+
+Input:  ___
+Output: ---
+
+Input:  ----
+Output: ---
+
+Input:  * * *
+Output: ---
+
+Input:  ---
+Output: --- (unchanged - already normalized)
+```
+
+**Edge Cases**:
+- Requires at least 3 marker characters
+- Allows leading/trailing whitespace
+- Doesn't affect text containing these characters (e.g., `Use --- for rules`)
+
+---
+
+#### Rule M4: Unordered List Normalization
+
+**Purpose**: Standardize all unordered list markers to hyphen (`-`).
+
+**Rationale**: Markdown allows three list marker characters:
+```markdown
+* Item
+- Item
++ Item
+```
+HNP-2 normalizes to hyphen-based lists.
+
+**Implementation**:
+```javascript
+// Convert * or + at start of line (with optional indent) to -
+processed = processed.replace(/^(\s*)[\*\+]\s+/, '$1- ');
+```
+
+**Examples**:
+```
+Input:  * First item
+        + Second item
+Output: - First item
+        - Second item
+
+Input:  - Already normalized
+Output: - Already normalized (unchanged)
+
+Input:      * Indented item
+Output:     - Indented item
+```
+
+**Edge Cases**:
+- Preserves indentation (for nested lists)
+- Ensures single space after marker
+- Only affects line-start markers (doesn't change `*` in text)
+
+---
+
+#### Rule M5: Ordered List Normalization
+
+**Purpose**: Ensure ordered lists have exactly one space after the period.
+
+**Rationale**: Variable spacing after list numbers is common:
+```markdown
+1.Item (no space)
+1.  Item (two spaces)
+```
+HNP-2 normalizes to single space.
+
+**Implementation**:
+```javascript
+processed = processed.replace(/^(\s*)(\d+)\.\s+/, '$1$2. ');
+```
+
+**Examples**:
+```
+Input:  1.First item
+Output: 1. First item
+
+Input:  2.  Second item
+Output: 2. Second item
+
+Input:  3. Already normalized
+Output: 3. Already normalized (unchanged)
+```
+
+**Edge Cases**:
+- Preserves indentation
+- Preserves the actual number (doesn't renumber lists)
+- Only affects line-start patterns
+
+---
+
+#### Rule M6: Link and Image Spacing Normalization
+
+**Purpose**: Remove spaces between link/image brackets and parentheses.
+
+**Rationale**: Markdown allows optional spacing:
+```markdown
+[text](url)    # valid
+[text] (url)   # also valid, but inconsistent
+```
+HNP-2 normalizes to no-space format.
+
+**Implementation**:
+```javascript
+// Links: [text] (url) → [text](url)
+processed = processed.replace(/\[([^\]]+)\]\s+\(([^\)]+)\)/g, '[$1]($2)');
+
+// Images: ![alt] (url) → ![alt](url)
+processed = processed.replace(/!\[([^\]]*)\]\s+\(([^\)]+)\)/g, '![$1]($2)');
+```
+
+**Examples**:
+```
+Input:  [Link text] (https://example.com)
+Output: [Link text](https://example.com)
+
+Input:  ![Image alt] (https://example.com/img.png)
+Output: ![Image alt](https://example.com/img.png)
+
+Input:  [Already normalized](https://example.com)
+Output: [Already normalized](https://example.com) (unchanged)
+```
+
+**Edge Cases**:
+- Doesn't affect bracket/paren pairs that aren't links
+- Preserves URL content exactly
+- Handles image syntax separately from link syntax
+
+---
+
+#### Rule M7: Code Block Fence Normalization
+
+**Purpose**: Standardize code block fences to triple backtick (` ``` `).
+
+**Rationale**: Markdown allows two fence styles:
+````markdown
+```
+code
+```
+
+~~~
+code
+~~~
+````
+HNP-2 normalizes to backtick-based fences.
+
+**Implementation**:
+```javascript
+if (/^~~~/.test(processed)) {
+  processed = processed.replace(/^~~~/, '```');
+}
+```
+
+**Examples**:
+````
+Input:  ~~~javascript
+        code
+        ~~~
+Output: ```javascript
+        code
+        ```
+
+Input:  ```python
+        code
+        ```
+Output: ```python (unchanged - already normalized)
+        code
+        ```
+````
+
+**Edge Cases**:
+- Preserves language identifiers (e.g., `javascript`, `python`)
+- Only affects fence-opening lines (closing fences handled separately)
+- Doesn't affect inline code (`` `code` ``)
+
+---
+
+### Markdown Normalization Edge Cases and Limitations
+
+#### What HNP-2 Does NOT Normalize
+
+**Preserved Elements**:
+- Block quotes (`>`) - preserved exactly as written
+- Inline code (`` `code` ``) - preserved exactly
+- Tables - preserved exactly (structure is semantic)
+- Footnotes - preserved exactly
+- Definition lists - preserved exactly
+- Content within code blocks - never modified
+
+**Rationale**: These elements either:
+- Have single, unambiguous Markdown syntax (blockquotes, inline code)
+- Contain user content that shouldn't be modified (code blocks)
+- Are complex enough that normalization could break them (tables)
+
+#### Nested and Complex Markdown
+
+**Nested emphasis**:
+```markdown
+Input:  **Bold with *italic* inside**
+Output: **Bold with *italic* inside** (unchanged)
+```
+Nested structures are preserved—normalization only affects top-level syntax.
+
+**Escaped characters**:
+```markdown
+Input:  \*Not italic\*
+Output: \*Not italic\* (unchanged)
+```
+Backslash-escaped Markdown is left alone.
+
+**Malformed Markdown**:
+HNP-2 normalizes valid Markdown syntax. If input is malformed (e.g., unclosed emphasis markers), it's passed through unchanged rather than attempting repair.
+
+---
+
+### Phase 2: Text Normalization
+
+After Markdown normalization, HNP-2 applies **all HNP-1 rules** (Rules 1-10) to the canonicalized Markdown text.
+
+This means the final hash benefits from:
+- Markdown structure normalization (Phase 1)
+- Whitespace normalization (HNP-1 Rules 1-9)
+- Cryptographic hashing (HNP-1 Rule 10)
+
+---
+
+### Complete HNP-2 Pipeline
+
+```
+Raw Markdown File
+  ↓
+[Phase 1: Markdown Normalization]
+  ├─ [M1: Normalize headings]
+  ├─ [M2: Normalize emphasis]
+  ├─ [M3: Normalize horizontal rules]
+  ├─ [M4: Normalize unordered lists]
+  ├─ [M5: Normalize ordered lists]
+  ├─ [M6: Normalize link/image spacing]
+  └─ [M7: Normalize code block fences]
+  ↓
+Canonicalized Markdown
+  ↓
+[Phase 2: HNP-1 Text Normalization]
+  ├─ [Rule 1: Strip BOM]
+  ├─ [Rule 2: Unicode NFC]
+  ├─ [Rule 3: Line endings → \n]
+  ├─ [Rule 4: Remove trailing whitespace]
+  ├─ [Rule 5: Tabs → 4 spaces]
+  ├─ [Rule 6: Remove leading blank lines]
+  ├─ [Rule 7: Remove trailing blank lines]
+  ├─ [Rule 8: Compress blank lines]
+  └─ [Rule 9: Ensure single trailing \n]
+  ↓
+[Rule 10: SHA-256 hash]
+  ↓
+0x-prefixed canonical hash
+```
+
+---
+
+## Final Thoughts: Precision Enables Trust
+
+The HNP protocols are technical specifications, but their purpose is human: **enabling readers to trust that the words they're reading are the words the author wrote.**
+
+In an age of AI-generated text, deepfakes, and platform manipulation, this guarantee matters. When you verify a hash against the Lit3 Ledger, you're not just checking bytes—you're confirming authorship, authenticity, and intent.
+
+The technical precision documented in this specification exists to make that trust possible.

@@ -1,0 +1,779 @@
+---
+title: "Notas sobre Lit3 — Parte 13: Especificación Técnica de HNP"
+description: "Detalles de implementación para el HNP-1 y el HNP-2."
+date: 29-12-2025
+authors:
+  - avatar: "/images/LokapalMain.png"
+    handle: lokapalxyz
+    username: lokapal.eth
+    handleUrl: "https://x.com/lokapalxyz"
+cover: "/images/specs.jpg"
+---
+
+*Detalles de implementación para el HNP-1 y el HNP-2*
+
+## Prerrequisitos
+
+**Nota:** Este artículo proporciona la especificación técnica completa para los protocolos de normalización HNP-1 (agnóstico al formato) y HNP-2 (consciente del formato). Este documento está destinado a desarrolladores que implementen herramientas de verificación HNP, a creadores que deseen comprender el proceso de normalización en detalle, y a cualquier persona que audite los protocolos para verificar su precisión.
+
+---
+
+## Especificación Técnica del HNP-1
+
+### Filosofía de diseño
+
+El HNP-1 trata todo formato literario como metadata de la capa de presentación que puede descartarse de forma segura. Su objetivo es normalizar el *contenido lingüístico* de un texto eliminando las variaciones causadas por:
+
+* Diferentes sistemas operativos (convenciones de finales de línea)
+* Diferentes editores de texto (manejo de tabulaciones, espacios en blanco finales)
+* Diferentes prácticas de codificación (BOM, formas de normalización Unicode)
+* Artefactos accidentales de espacios en blanco (líneas en blanco iniciales/finales)
+
+### Reglas de normalización
+
+HNP-1 aplica diez reglas de transformación secuenciales al texto de entrada:
+
+#### Regla 1: Eliminación del BOM
+
+**Propósito**: Eliminar el Byte Order Mark (U+FEFF) si está presente al comienzo del archivo.
+
+**Justificación**: El BOM es un carácter de ancho cero utilizado para indicar el orden de bytes en codificaciones UTF-16/UTF-32. En UTF-8 es opcional y a menudo añadido por editores de texto de Windows. Su presencia o ausencia no afecta el significado, pero sí la secuencia de bytes.
+
+**Implementación**:
+
+```javascript
+if (content.charCodeAt(0) === 0xFEFF) {
+  content = content.slice(1);
+}
+```
+
+**Ejemplo**:
+
+```
+Entrada: \uFEFFLa historia comienza.
+Salida:  La historia comienza.
+```
+
+---
+
+#### Regla 2: Normalización Unicode (NFC)
+
+**Propósito**: Convertir todos los caracteres Unicode a la Forma de Normalización C (Compuesta).
+
+**Justificación**: Unicode permite múltiples secuencias de bytes para representar el mismo carácter visual. Por ejemplo, el carácter “é” puede codificarse como:
+
+* Un solo codepoint: U+00E9 (é)
+* Dos codepoints: U+0065 (e) + U+0301 (acento agudo combinante)
+
+Ambos se renderizan de forma idéntica pero producen hashes distintos. La normalización NFC garantiza consistencia al preferir formas compuestas.
+
+**Implementación**:
+
+```javascript
+content = content.normalize('NFC');
+```
+
+**Ejemplo**:
+
+```
+Entrada: cafe\u0301 (café usando e + acento combinante)
+Salida:  café (café usando un solo carácter compuesto)
+```
+
+---
+
+#### Regla 3: Conversión de finales de línea
+
+**Propósito**: Convertir todos los finales de línea al estilo Unix LF (`\n`).
+
+**Justificación**: Diferentes sistemas operativos utilizan distintas convenciones:
+
+* Unix/Linux/macOS: LF (`\n`)
+* Windows: CRLF (`\r\n`)
+* macOS antiguo: CR (`\r`)
+
+Estas variaciones son invisibles para el lector, pero modifican la secuencia de bytes.
+
+**Implementación**:
+
+```javascript
+content = content.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+```
+
+**Ejemplo**:
+
+```
+Entrada: Línea uno\r\nLínea dos\r\nLínea tres
+Salida:  Línea uno\nLínea dos\nLínea tres
+```
+
+---
+
+#### Regla 4: Eliminación de espacios en blanco finales
+
+**Propósito**: Eliminar todos los espacios y tabulaciones al final de cada línea.
+
+**Justificación**: Los espacios finales son invisibles, accidentales y no tienen significado semántico en la prosa. Los editores suelen agregarlos o quitarlos automáticamente.
+
+**Implementación**:
+
+```javascript
+lines = lines.map(line => line.replace(/\s+$/, ''));
+```
+
+**Ejemplo**:
+
+```
+Entrada: La historia comienza.   \n
+         Capítulo uno.  \n
+Salida:  La historia comienza.\n
+         Capítulo uno.\n
+```
+
+---
+
+#### Regla 5: Expansión de tabulaciones
+
+**Propósito**: Convertir todos los caracteres de tabulación (`\t`) en cuatro espacios.
+
+**Justificación**: Las tabulaciones se renderizan de manera diferente según el editor (2, 4 u 8 espacios). Convertirlas a un ancho fijo garantiza consistencia.
+
+**Implementación**:
+
+```javascript
+lines = lines.map(line => line.replace(/\t/g, '    '));
+```
+
+**Ejemplo**:
+
+```
+Entrada: \tPárrafo sangrado.
+Salida:     Párrafo sangrado.
+```
+
+---
+
+#### Regla 6: Eliminación de líneas en blanco iniciales
+
+**Propósito**: Eliminar todas las líneas en blanco al comienzo del archivo.
+
+**Justificación**: Los archivos suelen tener líneas en blanco accidentales al inicio por comportamiento del editor o por copiado/pegado. No afectan al significado del texto.
+
+**Implementación**:
+
+```javascript
+while (lines.length > 0 && lines[0].trim() === '') {
+  lines.shift();
+}
+```
+
+**Ejemplo**:
+
+```
+Entrada: \n
+         \n
+         La historia comienza.
+Salida:  La historia comienza.
+```
+
+---
+
+#### Regla 7: Eliminación de líneas en blanco finales
+
+**Propósito**: Eliminar todas las líneas en blanco al final del archivo.
+
+**Justificación**: Igual que la Regla 6; los espacios finales accidentales son comunes y carecen de significado.
+
+**Implementación**:
+
+```javascript
+while (lines.length > 0 && lines[lines.length - 1].trim() === '') {
+  lines.pop();
+}
+```
+
+**Ejemplo**:
+
+```
+Entrada: La historia termina.\n
+         \n
+         \n
+Salida:  La historia termina.
+```
+
+---
+
+#### Regla 8: Compresión de líneas en blanco
+
+**Propósito**: Colapsar secuencias de múltiples líneas en blanco consecutivas en una sola línea en blanco.
+
+**Justificación**: Los autores usan líneas en blanco para separar párrafos o secciones. Que dos párrafos estén separados por una, dos o cinco líneas suele ser accidental. La HNP-1 preserva la *presencia* de separación pero normaliza la *cantidad*.
+
+**Implementación**:
+
+```javascript
+let normalizedLines = [];
+let lastWasBlank = false;
+
+for (let line of lines) {
+  const isBlank = line.trim() === '';
+  
+  if (isBlank) {
+    if (!lastWasBlank) {
+      normalizedLines.push(line);
+      lastWasBlank = true;
+    }
+    // Omitir líneas en blanco consecutivas adicionales
+  } else {
+    normalizedLines.push(line);
+    lastWasBlank = false;
+  }
+}
+```
+
+**Ejemplo**:
+
+```
+Entrada: Primer párrafo.\n
+         \n
+         \n
+         \n
+         Segundo párrafo.
+Salida:  Primer párrafo.\n
+         \n
+         Segundo párrafo.
+```
+
+---
+
+#### Regla 9: Normalización del final del archivo
+
+**Propósito**: Garantizar que el archivo termine con exactamente un carácter de nueva línea.
+
+**Justificación**: Los estándares POSIX definen un archivo de texto como aquel que termina con una nueva línea. Algunos editores la agregan automáticamente; otros no. Normalizar a exactamente una nueva línea garantiza consistencia.
+
+**Implementación**:
+
+```javascript
+normalized = normalized.replace(/\n*$/, '\n');
+```
+
+**Ejemplo**:
+
+```
+Entrada: La historia termina.
+Salida:  La historia termina.\n
+
+Entrada: La historia termina.\n\n\n
+Salida:  La historia termina.\n
+```
+
+---
+
+#### Regla 10: Hash criptográfico
+
+**Propósito**: Calcular el hash SHA-256 de la secuencia de bytes UTF-8 normalizada.
+
+**Justificación**: SHA-256 es:
+
+* Resistente a colisiones (prácticamente imposible encontrar dos entradas con el mismo hash)
+* Determinista (la misma entrada siempre produce el mismo hash)
+* Ampliamente soportado (estándar en bibliotecas criptográficas)
+* Nativo de EVM (función hash integrada de Ethereum)
+
+**Implementación**:
+
+```javascript
+const hash = crypto.createHash('sha256')
+  .update(normalized, 'utf8')
+  .digest('hex');
+const solidityHash = '0x' + hash;
+```
+
+**Formato de salida**: Una cadena de 66 caracteres (prefijo 0x + 64 caracteres hexadecimales) que representa 32 bytes.
+
+**Ejemplo**:
+
+```
+Entrada: La historia comienza.\n
+Salida:  0x84ee17047034bd5e2dcea8e033f92f8c27a9eb51a2783028c76d1fd7dc61fb10
+```
+
+---
+
+### Conducto completo de HNP-1
+
+```
+Archivo en bruto
+  ↓
+[Regla 1: Eliminar BOM]
+  ↓
+[Regla 2: Unicode NFC]
+  ↓
+[Regla 3: Finales de línea → \n]
+  ↓
+[Regla 4: Eliminar espacios finales por línea]
+  ↓
+[Regla 5: Tabulaciones → 4 espacios]
+  ↓
+[Regla 6: Eliminar líneas en blanco iniciales]
+  ↓
+[Regla 7: Eliminar líneas en blanco finales]
+  ↓
+[Regla 8: Comprimir líneas en blanco]
+  ↓
+[Regla 9: Asegurar un solo \n final]
+  ↓
+[Regla 10: Hash SHA-256]
+  ↓
+Hash canónico con prefijo 0x
+```
+
+---
+
+## Especificación Técnica del HNP-2
+
+### Filosofía de Diseño
+
+HNP-2 reconoce que la sintaxis Markdown no es meramente presentacional: codifica semántica estructural. Un encabezado (`# Título`) es semánticamente diferente del texto del cuerpo, incluso si ambos se renderizan como “Título” cuando se elimina el formato.
+
+HNP-2 extiende HNP-1 añadiendo una **fase de normalización de Markdown** antes de aplicar la normalización de texto. Esta fase reduce al Markdown a una forma canónica preservando su significado estructural.
+
+### Procesamiento en Dos Fases
+
+HNP-2 opera en dos fases distintas:
+
+**Fase 1: Normalización de Markdown**
+
+* Entrada: Archivo Markdown sin procesar
+* Proceso: Normalizar la sintaxis Markdown a formas canónicas
+* Salida: Texto Markdown canonizado
+
+**Fase 2: Normalización de Texto**
+
+* Entrada: Markdown canonizado de la Fase 1
+* Proceso: Aplicar todas las reglas de HNP-1 (Reglas 1–10)
+* Salida: Hash canónico con prefijo 0x
+
+Este diseño significa que HNP-2 hereda todas las garantías de HNP-1 (manejo determinista de espacios en blanco, normalización Unicode, etc.) mientras añade conciencia del formato.
+
+---
+
+### Fase 1: Reglas de Normalización de Markdown
+
+#### Regla M1: Normalización de Encabezados ATX
+
+**Propósito**: Estandarizar la sintaxis de encabezados para usar exactamente un espacio entre las almohadillas y el texto.
+
+**Justificación**: Markdown permite espaciado variable:
+
+```markdown
+#Heading (sin espacio)
+# Heading (un espacio)
+#  Heading (dos espacios)
+```
+
+Los tres se renderizan de forma idéntica. HNP-2 normaliza al formato de un solo espacio.
+
+**Implementación**:
+
+```javascript
+// Corrige encabezados con contenido pero espaciado incorrecto
+processed = processed.replace(/^(#{1,6})\s+(.+)$/, '$1 $2');
+// Corrige encabezados sin espacio
+processed = processed.replace(/^(#{1,6})([^\s#].*)$/, '$1 $2');
+```
+
+**Ejemplos**:
+
+```
+Entrada:  #Esquirla 1
+Salida:   # Esquirla 1
+
+Entrada:  ##  Capítulo uno
+Salida:   ## Capítulo uno
+
+Entrada:  ### Título de sección
+Salida:   ### Título de sección (sin cambios - ya normalizado)
+```
+
+**Casos Límite**:
+
+* Preserva el nivel del encabezado (número de caracteres `#`)
+* Solo coincide con encabezados ATX válidos (1–6 almohadillas)
+* No afecta caracteres `#` en medio de las líneas
+
+---
+
+#### Regla M2: Normalización de Énfasis
+
+**Propósito**: Estandarizar los marcadores de negrita y cursiva a un solo estilo de sintaxis.
+
+**Justificación**: Markdown permite dos estilos de sintaxis para el énfasis:
+
+* Negrita: `**texto**` o `__texto__`
+* Cursiva: `*texto*` o `_texto_`
+
+El HNP-2 normaliza a una sintaxis basada en asteriscos (`**negrita**` y `*cursiva*`).
+
+**Implementación**:
+
+```javascript
+// Negrita: Convertir __ a **
+processed = processed.replace(/__(.*?)__/g, '**$1**');
+
+// Cursiva: Convertir _ a * (solo en límites de palabra para evitar guiones bajos en medio de palabras)
+processed = processed.replace(/\b_(.*?)_\b/g, '*$1*');
+```
+
+**Ejemplos**:
+
+```
+Entrada:  __Texto en negrita__ y _texto en cursiva_
+Salida:   **Texto en negrita** y *texto en cursiva*
+
+Entrada:  **Ya en negrita** y *ya en cursiva*
+Salida:   **Ya en negrita** y *ya en cursiva* (sin cambios)
+
+Entrada:  snake_case_variable (sin límites de palabra)
+Salida:   snake_case_variable (sin cambios - no se trata como énfasis)
+```
+
+**Casos Límite**:
+
+* Énfasis anidado: `**negrita *y cursiva***` permanece sin cambios (Markdown válido)
+* Marcadores escapados: `\_no cursiva\_` permanece sin cambios (escapado con barra invertida)
+* Guiones bajos en medio de palabras: `snake_case` no se trata como énfasis
+
+---
+
+#### Regla M3: Normalización de Reglas Horizontales
+
+**Propósito**: Estandarizar toda la sintaxis de reglas horizontales a triple guion (`---`).
+
+**Justificación**: Markdown permite múltiples sintaxis para reglas horizontales:
+
+```markdown
+***
+---
+___
+----
+* * *
+- - -
+```
+
+Todas se renderizan de forma idéntica. HNP-2 normaliza a `---`.
+
+**Implementación**:
+
+```javascript
+// Coincide con líneas que solo contienen marcadores de HR (*, -, _) con espacios opcionales
+if (/^\s*([*\-_])\s*\1\s*\1+\s*$/.test(processed)) {
+  processed = '---';
+}
+```
+
+**Ejemplos**:
+
+```
+Entrada:  ***
+Salida:   ---
+
+Entrada:  ___
+Salida:   ---
+
+Entrada:  ----
+Salida:   ---
+
+Entrada:  * * *
+Salida:   ---
+
+Entrada:  ---
+Salida:   --- (sin cambios - ya normalizado)
+```
+
+**Casos Límite**:
+
+* Requiere al menos 3 caracteres marcadores
+* Permite espacios en blanco iniciales y finales
+* No afecta texto que contiene estos caracteres (por ejemplo, `Usa --- para reglas`)
+
+---
+
+#### Regla M4: Normalización de Listas No Ordenadas
+
+**Propósito**: Estandarizar todos los marcadores de listas no ordenadas al guion (`-`).
+
+**Justificación**: Markdown permite tres caracteres como marcadores de lista:
+
+```markdown
+* Ítem
+- Ítem
++ Ítem
+```
+
+HNP-2 normaliza a listas basadas en guiones.
+
+**Implementación**:
+
+```javascript
+// Convertir * o + al inicio de línea (con indentación opcional) a -
+processed = processed.replace(/^(\s*)[\*\+]\s+/, '$1- ');
+```
+
+**Ejemplos**:
+
+```
+Entrada:  * Primer ítem
+          + Segundo ítem
+Salida:   - Primer ítem
+          - Segundo ítem
+
+Entrada:  - Ya normalizado
+Salida:   - Ya normalizado (sin cambios)
+
+Entrada:      * Ítem indentado
+Salida:       - Ítem indentado
+```
+
+**Casos Límite**:
+
+* Preserva la indentación (para listas anidadas)
+* Garantiza un solo espacio después del marcador
+* Solo afecta marcadores al inicio de línea (no cambia `*` dentro del texto)
+
+---
+
+#### Regla M5: Normalización de Listas Ordenadas
+
+**Propósito**: Asegurar que las listas ordenadas tengan exactamente un espacio después del punto.
+
+**Justificación**: El espaciado variable después de los números de lista es común:
+
+```markdown
+1.Item (sin espacio)
+1.  Item (dos espacios)
+```
+
+HNP-2 normaliza a un solo espacio.
+
+**Implementación**:
+
+```javascript
+processed = processed.replace(/^(\s*)(\d+)\.\s+/, '$1$2. ');
+```
+
+**Ejemplos**:
+
+```
+Entrada:  1.Primer ítem
+Salida:   1. Primer ítem
+
+Entrada:  2.  Segundo ítem
+Salida:   2. Segundo ítem
+
+Entrada:  3. Ya normalizado
+Salida:   3. Ya normalizado (sin cambios)
+```
+
+**Casos Límite**:
+
+* Preserva la indentación
+* Preserva el número real (no renumera listas)
+* Solo afecta patrones al inicio de línea
+
+---
+
+#### Regla M6: Normalización de Espaciado en Enlaces e Imágenes
+
+**Propósito**: Eliminar espacios entre los corchetes de enlace/imagen y los paréntesis.
+
+**Justificación**: Markdown permite espaciado opcional:
+
+```markdown
+[text](url)    # válido
+[text] (url)   # también válido, pero inconsistente
+```
+
+HNP-2 normaliza al formato sin espacios.
+
+**Implementación**:
+
+```javascript
+// Enlaces: [text] (url) → [text](url)
+processed = processed.replace(/\[([^\]]+)\]\s+\(([^\)]+)\)/g, '[$1]($2)');
+
+// Imágenes: ![alt] (url) → ![alt](url)
+processed = processed.replace(/!\[([^\]]*)\]\s+\(([^\)]+)\)/g, '![$1]($2)');
+```
+
+**Ejemplos**:
+
+```
+Entrada:  [Texto del enlace] (https://example.com)
+Salida:   [Texto del enlace](https://example.com)
+
+Entrada:  ![Alt de imagen] (https://example.com/img.png)
+Salida:   ![Alt de imagen](https://example.com/img.png)
+
+Entrada:  [Ya normalizado](https://example.com)
+Salida:   [Ya normalizado](https://example.com) (sin cambios)
+```
+
+**Casos Límite**:
+
+* No afecta pares de corchetes/paréntesis que no sean enlaces
+* Preserva exactamente el contenido de la URL
+* Maneja la sintaxis de imagen por separado de la de enlaces
+
+---
+
+#### Regla M7: Normalización de Cercas de Bloques de Código
+
+**Propósito**: Estandarizar las cercas de bloques de código a triple acento grave (` ``` `).
+
+**Justificación**: Markdown permite dos estilos de cercas:
+
+````markdown
+```
+código
+```
+
+~~~
+código
+~~~
+````
+
+HNP-2 normaliza a cercas basadas en acentos graves.
+
+**Implementación**:
+
+````javascript
+if (/^~~~/.test(processed)) {
+  processed = processed.replace(/^~~~/, '```');
+}
+````
+
+**Ejemplos**:
+
+````
+Entrada:  ~~~javascript
+          código
+          ~~~
+Salida:   ```javascript
+          código
+          ```
+
+Entrada:  ```python
+          código
+          ```
+Salida:   ```python (sin cambios - ya normalizado)
+          código
+          ```
+````
+
+**Casos Límite**:
+
+* Preserva los identificadores de lenguaje (por ejemplo, `javascript`, `python`)
+* Solo afecta las líneas de apertura de cercas (las de cierre se manejan por separado)
+* No afecta el código en línea (`` `código` ``)
+
+---
+
+### Casos Límite y Limitaciones de la Normalización de Markdown
+
+#### Lo que HNP-2 NO Normaliza
+
+**Elementos Preservados**:
+
+* Citas en bloque (`>`) – preservadas exactamente como están escritas
+* Código en línea (`` `code` ``) – preservado exactamente
+* Tablas – preservadas exactamente (la estructura es semántica)
+* Notas al pie – preservadas exactamente
+* Listas de definición – preservadas exactamente
+* Contenido dentro de bloques de código – nunca se modifica
+
+**Justificación**: Estos elementos:
+
+* Tienen una sintaxis Markdown única y no ambigua (citas en bloque, código en línea)
+* Contienen contenido del usuario que no debe modificarse (bloques de código)
+* Son lo suficientemente complejos como para que la normalización pueda romperlos (tablas)
+
+#### Markdown Anidado y Complejo
+
+**Énfasis anidado**:
+
+```markdown
+Entrada:  **Negrita con *cursiva* dentro**
+Salida:   **Negrita con *cursiva* dentro** (sin cambios)
+```
+
+Las estructuras anidadas se preservan; la normalización solo afecta la sintaxis de nivel superior.
+
+**Caracteres escapados**:
+
+```markdown
+Entrada:  \*No cursiva\*
+Salida:   \*No cursiva\* (sin cambios)
+```
+
+El Markdown escapado con barra invertida se deja intacto.
+
+**Markdown malformado**:
+HNP-2 normaliza sintaxis Markdown válida. Si la entrada está malformada (por ejemplo, marcadores de énfasis sin cerrar), se deja pasar sin cambios en lugar de intentar repararla.
+
+---
+
+### Fase 2: Normalización de Texto
+
+Después de la normalización de Markdown, HNP-2 aplica **todas las reglas de HNP-1** (Reglas 1–10) al texto Markdown canonizado.
+
+Esto significa que el hash final se beneficia de:
+
+* Normalización de la estructura Markdown (Fase 1)
+* Normalización de espacios en blanco (Reglas HNP-1 1–9)
+* Hashing criptográfico (Regla HNP-1 10)
+
+---
+
+### Conducto completo de HNP-2
+
+```
+Archivo Markdown sin procesar
+  ↓
+[Fase 1: Normalización de Markdown]
+  ├─ [M1: Normalizar encabezados]
+  ├─ [M2: Normalizar énfasis]
+  ├─ [M3: Normalizar reglas horizontales]
+  ├─ [M4: Normalizar listas no ordenadas]
+  ├─ [M5: Normalizar listas ordenadas]
+  ├─ [M6: Normalizar espaciado de enlaces/imágenes]
+  └─ [M7: Normalizar cercas de bloques de código]
+  ↓
+Markdown canonizado
+  ↓
+[Fase 2: Normalización de Texto HNP-1]
+  ├─ [Regla 1: Eliminar BOM]
+  ├─ [Regla 2: Unicode NFC]
+  ├─ [Regla 3: Finales de línea → \n]
+  ├─ [Regla 4: Eliminar espacios en blanco finales]
+  ├─ [Regla 5: Tabulaciones → 4 espacios]
+  ├─ [Regla 6: Eliminar líneas en blanco iniciales]
+  ├─ [Regla 7: Eliminar líneas en blanco finales]
+  ├─ [Regla 8: Comprimir líneas en blanco]
+  └─ [Regla 9: Asegurar un único \n final]
+  ↓
+[Regla 10: Hash SHA-256]
+  ↓
+Hash canónico con prefijo 0x
+```
+
+---
+
+## Reflexiones finales: La precisión genera confianza
+
+Los protocolos HNP son especificaciones técnicas, pero su propósito es humano: **permitir que los lectores confíen en que las palabras que leen son las escritas por el autor.**
+
+En la era de texto generado por IA, deepfakes y manipulación de plataformas, esta garantía es importante. Al verificar un hash con el registro Lit3, no solo se verifican bytes, sino que se confirma la autoría, la autenticidad y la intención.
+
+La precisión técnica documentada en esta especificación existe para hacer posible esa confianza.

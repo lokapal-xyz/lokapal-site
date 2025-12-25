@@ -1,0 +1,241 @@
+---
+title: "Notas sobre Lit3 — Parte 12: HNP-2 y el canon consciente del formato"
+description: "Grados de poder para el lector en narrativas descentralizadas."
+date: 26-12-2025
+authors:
+  - avatar: "/images/LokapalMain.png"
+    handle: lokapalxyz
+    username: lokapal.eth
+    handleUrl: "https://x.com/lokapalxyz"
+cover: "/images/markdown.jpg"
+---
+
+*Cuando la estructura es parte del texto*
+
+## Un recordatorio: qué resuelve el HNP-1
+
+El Protocolo de Normalización con Hash (HNP-1) fue introducido para resolver un problema específico: cómo generar un **hash canónico y verificable** para un texto literario, independientemente de la plataforma, la tipografía o la capa de presentación.
+
+HNP-1 lo consigue:
+
+* tomando un texto como entrada,
+* normalizándolo mediante un conjunto determinista de reglas,
+* y produciendo un hash criptográfico que puede reproducirse de forma independiente.
+
+De manera crucial, **el HNP-1 es agnóstico al formato**. No le importa si el texto original proviene de Markdown, HTML, PDF o texto plano. Su objetivo es la estabilidad semántica: garantizar que *las palabras en sí mismas* puedan verificarse como canónicas.
+
+Para muchos casos de uso, esto es suficiente o hasta deseable.
+
+Pero la agnosticidad al formato implica una suposición implícita: que el significado sobrevive intacto a la normalización.
+
+Esa suposición no siempre se cumple.
+
+---
+
+## Cuando el formato porta significado
+
+En muchas obras literarias, el formato no es decorativo. Codifica estructura, jerarquía, ritmo e intención.
+
+Consideremos la siguiente apertura, escrita en Markdown:
+
+```markdown
+# Esquirla 1: Un nombre para uno mismo
+
+*Una historia de la Plaza de Ahamkara*
+
+---
+
+## Parte uno: Varsam 7E9, Dinam 02A
+```
+
+Esta estructura comunica varias cosas al mismo tiempo:
+
+* jerarquía de títulos,
+* encuadre paratextual,
+* división seccional,
+* una pausa deliberada antes del inicio de la narración.
+
+Si este texto se procesa bajo HNP-1, la sintaxis Markdown debe eliminarse para garantizar que la verificación desde un front-end renderizado produzca la misma entrada normalizada. El resultado podría verse así:
+
+```
+Esquirla 1: Un nombre para uno mismo
+
+Una historia de la Plaza de Ahamkara
+
+Parte uno: Varsam 7E9, Dinam 02A
+```
+
+Aunque lingüísticamente equivalente, esta versión ha perdido información estructural que formaba parte de la expresión narrativa original.
+
+Nada ha salido mal. El HNP-1 está funcionando exactamente como fue diseñado.
+
+Pero ahora queda claro que el HNP-1 resuelve solo una clase de problema canónico.
+
+---
+
+## Los límites del canon agnóstico al formato
+
+El HNP-1 trata implícitamente el formato como **metadato de la capa de presentación**; algo que puede descartarse sin alterar el significado.
+
+Esta es una suposición razonable para:
+
+* la mayoría de la prosa,
+* ensayos,
+* artículos de investigación,
+* ficción en texto plano.
+
+Es menos razonable para:
+
+* obras donde la disposición marca rupturas narrativas,
+* títulos y subtítulos que codifican jerarquía,
+* marcadores seccionales usados rítmica o temáticamente,
+* paratextos deliberadamente diferenciados del cuerpo del texto.
+
+En estos casos, el formato no es externo a la obra. Es parte de la obra.
+
+Si Lit3 se toma en serio el canon, entonces el canon debe incluir a veces **estructura**, no solo contenido.
+
+---
+
+## Introduciendo HNP-2: normalización consciente del formato
+
+El HNP-2 se propone como un protocolo de normalización complementario para los casos en que **el formato es semánticamente relevante**.
+
+Donde el HNP-1 pregunta:
+
+> “¿Cuál es el texto canónico?”
+
+El HNP-2 plantea:
+
+> “¿Cuál es el texto canónico estructurado?”
+
+### Propiedades fundamentales del HNP-2
+
+* **Consciente del formato**: el formato se preserva como parte de la entrada normalizada.
+* **Determinista**: dadas las mismas fuentes y reglas, todos los verificadores producen el mismo hash.
+* **Opt-in**: los autores eligen explícitamente el HNP-2 cuando la estructura importa.
+
+El HNP-2 no reemplaza al HNP-1. Lo especializa.
+
+---
+
+## ¿Por qué Markdown?
+
+Un protocolo consciente del formato debe delimitar cuidadosamente su alcance. El soporte irrestricto de formatos introduce ambigüedad, no expresividad.
+
+El HNP-2 propone por tanto al **Markdown como su formato canónico**.
+
+Esta elección es deliberada:
+
+* el Markdown es legible para humanos,
+* es fácil de versionar y comparar,
+* ya es dominante en el ecosistema Web3,
+* permite jerarquía, énfasis y separación sin volverse opaco,
+* puede renderizarse de forma consistente en múltiples plataformas.
+
+Más importante aún, Markdown cuenta con una especificación formal (CommonMark). Esto significa que el "Markdown canónico" no es solo una convención, sino un estándar definido al que HNP-2 puede hacer referencia.
+
+El Markdown equilibra **estructura expresiva** y **normalización determinista**. El HNP-2 no intenta canonizar todos los formatos literarios posibles. Canoniza un lenguaje estructural ampliamente compartido y hace explícita esa elección.
+
+Los autores que no deseen esta restricción pueden seguir usando el HNP-1.
+
+---
+
+## Normalización en HNP-2
+
+El HNP-2 no hashea archivos Markdown en bruto. Hacerlo fragmentaría el canon, ya que múltiples representaciones Markdown pueden ser semánticamente equivalentes aun cuando difieran sintácticamente. En su lugar, el HNP-2 introduce un paso adicional de normalización previo al hashing.
+
+Bajo el HNP-2, la fuente en Markdown se reduce primero a una **representación Markdown canónica** mediante normalización determinista; colapsando sintaxis equivalentes, normalizando la estructura y eliminando variaciones no semánticas. Solo después de este paso el texto resultante se somete al mismo proceso final de normalización y hashing utilizado por el HNP-1.
+
+De este modo se preservan las garantías fundamentales del Protocolo de Normalización con Hash (determinismo, reproducibilidad y verificación independiente) mientras se amplía el canon para incluir significado estructural.
+
+- **Input de ejemplo**:
+
+```markdown
+#  Esquirla 1: Un nombre para uno mismo
+
+_Una historia de la Plaza de Ahamkara_
+
+***
+
+##Parte uno: Varsam 7E9, Dinam 02A
+
+* __Item uno__
++ Item dos
+```
+
+- **Después de normalización de Markdown**:
+
+```markdown
+# Esquirla 1: Un nombre para uno mismo
+
+*Una historia de la Plaza de Ahamkara*
+
+---
+
+## Parte uno: Varsam 7E9, Dinam 02A
+
+- **Item uno**
+- Item dos
+```
+
+---
+
+## HNP-1 y HNP-2 como protocolos complementarios
+
+La relación entre el HNP-1 y el HNP-2 no es jerárquica. Es contextual.
+
+| Protocolo | El canon incluye                            |
+| --------- | ------------------------------------------- |
+| HNP-1     | Solo contenido lingüístico                  |
+| HNP-2     | Contenido lingüístico + estructura Markdown |
+
+Esto permite a los autores elegir según su intención:
+
+* usar **HNP-1** cuando el significado sobrevive a la normalización,
+* usar **HNP-2** cuando la estructura contribuye al significado.
+
+Ambos son implementaciones Lit3 válidas.
+
+---
+
+## Declarar el protocolo: el canon debe ser explícito
+
+Una vez que existen múltiples protocolos de normalización, un hash por sí solo deja de ser autoexplicativo.
+
+Un mismo artefacto literario puede producir hashes distintos bajo protocolos distintos. Por ello, **el canon requiere declaración**.
+
+En la Lit3, esa declaración pertenece al **Marco de Registro**.
+
+Cada entrada del registro debe indicar explícitamente qué protocolo de normalización define su hash canónico. Esto no es un detalle de implementación; es parte de la metadata de la obra, al igual que la licencia, el versionado o la atribución de fuente.
+
+Conceptualmente, el registro almacena:
+
+* el hash (`contentHash`),
+* y el **identificador del protocolo** que lo produjo (`hnp`).
+
+El registro no interpreta el protocolo. Lo nombra.
+
+Las herramientas de verificación, los front ends y los lectores pueden entonces reproducir el hash utilizando el estándar declarado; sin depender de suposiciones o convenciones sociales.
+
+Esto preserva la promesa central de la Lit3: **verificabilidad sin confianza**.
+
+---
+
+
+## Reflexiones finales
+
+El HNP-2 existe porque la literatura no siempre es texto plano.
+
+Al introducir un protocolo de normalización consciente del formato:
+
+* la Lit3 reconoce que la estructura puede ser significado,
+* el canon se vuelve expresivo sin volverse arbitrario,
+* los autores conservan el control sobre cómo se canoniza su obra,
+* los lectores conservan la capacidad de verificar ese canon de forma independiente.
+
+Al separar la normalización agnóstica del formato de la consciente del formato, la Lit3 ofrece a los autores un vocabulario preciso para esa decisión, sin imponerla a nadie.
+
+---
+
+*La precisión en Lit3 no es pedantería técnica. Es respeto literario.*
