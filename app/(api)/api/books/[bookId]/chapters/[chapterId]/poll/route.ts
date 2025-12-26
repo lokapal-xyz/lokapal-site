@@ -1,5 +1,5 @@
-// app/api/books/[bookId]/chapters/[chapterId]/poll/route.ts
 import { NextRequest, NextResponse } from 'next/server';
+import { kv } from '@vercel/kv';
 import fs from 'fs';
 import path from 'path';
 
@@ -32,31 +32,18 @@ interface PollVote {
   timestamp: number;
 }
 
-// Simple file-based vote storage (you can migrate to DB later)
-function getVotesFilePath(pollId: string): string {
-  const votesDir = path.join(process.cwd(), 'data', 'votes');
-  if (!fs.existsSync(votesDir)) {
-    fs.mkdirSync(votesDir, { recursive: true });
-  }
-  return path.join(votesDir, `${pollId}.json`);
-}
-
-function loadVotes(pollId: string): PollVote[] {
-  const votesPath = getVotesFilePath(pollId);
-  if (!fs.existsSync(votesPath)) {
-    return [];
-  }
+async function loadVotes(pollId: string): Promise<PollVote[]> {
   try {
-    const data = fs.readFileSync(votesPath, 'utf8');
-    return JSON.parse(data);
+    const votes = await kv.get<PollVote[]>(`poll:votes:${pollId}`);
+    return votes || [];
   } catch (error) {
     console.error('Error loading votes:', error);
     return [];
   }
 }
 
-function hasUserVoted(pollId: string, walletAddress: string): { voted: boolean; optionId?: string } {
-  const votes = loadVotes(pollId);
+async function hasUserVoted(pollId: string, walletAddress: string): Promise<{ voted: boolean; optionId?: string }> {
+  const votes = await loadVotes(pollId);
   const userVote = votes.find(v => 
     v.walletAddress.toLowerCase() === walletAddress.toLowerCase()
   );
@@ -65,8 +52,7 @@ function hasUserVoted(pollId: string, walletAddress: string): { voted: boolean; 
     : { voted: false };
 }
 
-function calculateResults(pollId: string, options: PollOption[]) {
-  const votes = loadVotes(pollId);
+function calculateResults(votes: PollVote[], options: PollOption[]) {
   const totalVotes = votes.length;
   
   const results = options.map(option => {
@@ -76,7 +62,7 @@ function calculateResults(pollId: string, options: PollOption[]) {
     return {
       optionId: option.id,
       count,
-      percentage: Math.round(percentage * 10) / 10, // Round to 1 decimal
+      percentage: Math.round(percentage * 10) / 10,
     };
   });
   
@@ -89,12 +75,9 @@ export async function GET(
 ) {
   try {
     const { bookId, chapterId } = await context.params;
-    
-    // Get wallet address from query parameter (for checking if user voted)
     const { searchParams } = new URL(request.url);
     const walletAddress = searchParams.get('wallet');
     
-    // Build path to poll JSON file
     const pollPath = path.join(
       process.cwd(),
       'contents',
@@ -104,9 +87,7 @@ export async function GET(
       `${chapterId}.json`
     );
     
-    // Check if poll exists
     if (!fs.existsSync(pollPath)) {
-      // No poll for this chapter - this is not an error, just return null
       const response = NextResponse.json({
         poll: null,
         message: 'No poll available for this chapter'
@@ -119,22 +100,20 @@ export async function GET(
       return response;
     }
     
-    // Read poll data
     const pollData = fs.readFileSync(pollPath, 'utf8');
     const poll: Poll = JSON.parse(pollData);
     
-    // Check if user has voted (if wallet address provided)
     let hasVoted = false;
     let userVote = null;
     
     if (walletAddress) {
-      const voteStatus = hasUserVoted(poll.id, walletAddress);
+      const voteStatus = await hasUserVoted(poll.id, walletAddress);
       hasVoted = voteStatus.voted;
       userVote = voteStatus.optionId || null;
     }
     
-    // Calculate results
-    const { results, totalVotes } = calculateResults(poll.id, poll.options);
+    const votes = await loadVotes(poll.id);
+    const { results, totalVotes } = calculateResults(votes, poll.options);
     
     const response = NextResponse.json({
       poll: {
@@ -148,7 +127,7 @@ export async function GET(
       },
       hasVoted,
       userVote,
-      results: hasVoted ? results : null, // Only show results after voting
+      results: hasVoted ? results : null,
       totalVotes: hasVoted ? totalVotes : null,
     });
     

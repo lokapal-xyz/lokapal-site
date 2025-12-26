@@ -1,5 +1,6 @@
 // app/api/polls/[pollId]/vote/route.ts
 import { NextRequest, NextResponse } from 'next/server';
+import { kv } from '@vercel/kv';
 import fs from 'fs';
 import path from 'path';
 
@@ -32,36 +33,32 @@ interface Poll {
   options: PollOption[];
 }
 
-function getVotesFilePath(pollId: string): string {
-  const votesDir = path.join(process.cwd(), 'data', 'votes');
-  if (!fs.existsSync(votesDir)) {
-    fs.mkdirSync(votesDir, { recursive: true });
-  }
-  return path.join(votesDir, `${pollId}.json`);
-}
-
-function loadVotes(pollId: string): PollVote[] {
-  const votesPath = getVotesFilePath(pollId);
-  if (!fs.existsSync(votesPath)) {
-    return [];
-  }
+// KV-based vote storage
+async function loadVotes(pollId: string): Promise<PollVote[]> {
   try {
-    const data = fs.readFileSync(votesPath, 'utf8');
-    return JSON.parse(data);
+    const votes = await kv.get<PollVote[]>(`poll:votes:${pollId}`);
+    return votes || [];
   } catch (error) {
-    console.error('Error loading votes:', error);
+    console.error('Error loading votes from KV:', error);
     return [];
   }
 }
 
-function saveVotes(pollId: string, votes: PollVote[]): void {
-  const votesPath = getVotesFilePath(pollId);
-  fs.writeFileSync(votesPath, JSON.stringify(votes, null, 2), 'utf8');
+async function saveVotes(pollId: string, votes: PollVote[]): Promise<void> {
+  try {
+    await kv.set(`poll:votes:${pollId}`, votes);
+  } catch (error) {
+    console.error('Error saving votes to KV:', error);
+    throw error;
+  }
+}
+
+async function hasUserVoted(pollId: string, walletAddress: string): Promise<boolean> {
+  const votes = await loadVotes(pollId);
+  return votes.some(v => v.walletAddress.toLowerCase() === walletAddress.toLowerCase());
 }
 
 function getPollData(pollId: string): Poll | null {
-  // Parse pollId to get bookId and chapterId
-  // Expected format: poll_book0_shard1 or poll_book-0_shard-1
   const match = pollId.match(/poll_(book-?\d+)_(shard-?\d+)/);
   if (!match) return null;
   
@@ -87,8 +84,7 @@ function getPollData(pollId: string): Poll | null {
   }
 }
 
-function calculateResults(pollId: string, options: PollOption[]) {
-  const votes = loadVotes(pollId);
+function calculateResults(votes: PollVote[], options: PollOption[]) {
   const totalVotes = votes.length;
   
   const results = options.map(option => {
@@ -112,36 +108,25 @@ export async function POST(
   try {
     const { pollId } = await context.params;
     
-    // Parse request body
     const body = await request.json();
     const { optionId, walletAddress } = body;
     
-    console.log('Received vote request:', {
-      pollId,
-      optionId,
-      walletAddress,
-      walletType: typeof walletAddress,
-    });
-    
     // Validation
     if (!optionId || !walletAddress) {
-      console.error('Missing fields:', { optionId, walletAddress });
       return NextResponse.json(
         { error: 'Missing required fields: optionId and walletAddress' },
         { status: 400 }
       );
     }
     
-    // More lenient wallet validation - just check if it starts with 0x
     if (!walletAddress.startsWith('0x')) {
-      console.error('Invalid wallet format:', walletAddress);
       return NextResponse.json(
         { error: 'Invalid wallet address format' },
         { status: 400 }
       );
     }
     
-    // Load poll data to validate
+    // Load poll data
     const pollData = getPollData(pollId);
     if (!pollData) {
       return NextResponse.json(
@@ -150,7 +135,6 @@ export async function POST(
       );
     }
     
-    // Check if poll is active
     if (!pollData.active) {
       return NextResponse.json(
         { error: 'This poll is no longer active' },
@@ -158,7 +142,6 @@ export async function POST(
       );
     }
     
-    // Validate optionId exists in poll
     const validOption = pollData.options.find(opt => opt.id === optionId);
     if (!validOption) {
       return NextResponse.json(
@@ -167,20 +150,17 @@ export async function POST(
       );
     }
     
-    // Load existing votes
-    const votes = loadVotes(pollId);
-    
     // Check if user already voted
-    const existingVote = votes.find(v => 
-      v.walletAddress.toLowerCase() === walletAddress.toLowerCase()
-    );
-    
-    if (existingVote) {
+    const alreadyVoted = await hasUserVoted(pollId, walletAddress);
+    if (alreadyVoted) {
       return NextResponse.json(
         { error: 'You have already voted in this poll' },
         { status: 400 }
       );
     }
+    
+    // Load existing votes
+    const votes = await loadVotes(pollId);
     
     // Add new vote
     const newVote: PollVote = {
@@ -191,10 +171,10 @@ export async function POST(
     };
     
     votes.push(newVote);
-    saveVotes(pollId, votes);
+    await saveVotes(pollId, votes);
     
-    // Calculate and return results
-    const { results, totalVotes } = calculateResults(pollId, pollData.options);
+    // Calculate results
+    const { results, totalVotes } = calculateResults(votes, pollData.options);
     
     const response = NextResponse.json({
       success: true,
