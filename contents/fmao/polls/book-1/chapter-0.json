@@ -1,34 +1,41 @@
 {
-  "id": "poll_book1_chapter0",
+  "id": "poll_book-1_chapter-0",
   "bookId": "book-1",
   "chapterId": "chapter-0",
   "active": true,
   "requiresBookToken": true,
   "pollType": "conflict",
   "question": {
-    "en": "Should Guardian Kael have trusted the Council after the Ghrina massacre?",
-    "es": "¿Debería el Guardián Kael haber confiado en el Consejo después de la masacre de Ghrina?"
+    "en": "After witnessing the Ghrina massacre, should the Council have acted more decisively?",
+    "es": "Después de presenciar la masacre de Ghrina, ¿debería el Consejo haber actuado de manera más decisiva?"
   },
   "options": [
     {
       "id": "opt1",
       "text": {
-        "en": "Yes - Unity is paramount in crisis",
-        "es": "Sí - La unidad es primordial en la crisis"
+        "en": "Yes - Immediate military intervention was necessary",
+        "es": "Sí - Era necesaria una intervención militar inmediata"
       }
     },
     {
       "id": "opt2",
       "text": {
-        "en": "No - Too much risk of betrayal",
-        "es": "No - Demasiado riesgo de traición"
+        "en": "No - Diplomatic channels should have been exhausted first",
+        "es": "No - Se deberían haber agotado primero los canales diplomáticos"
       }
     },
     {
       "id": "opt3",
       "text": {
-        "en": "Conditional trust only",
-        "es": "Solo confianza condicional"
+        "en": "They acted appropriately given the circumstances",
+        "es": "Actuaron apropiadamente dadas las circunstancias"
+      }
+    },
+    {
+      "id": "opt4",
+      "text": {
+        "en": "The Council itself may be compromised",
+        "es": "El Consejo mismo puede estar comprometido"
       }
     }
   ]

@@ -116,16 +116,25 @@ export async function POST(
     const body = await request.json();
     const { optionId, walletAddress } = body;
     
+    console.log('Received vote request:', {
+      pollId,
+      optionId,
+      walletAddress,
+      walletType: typeof walletAddress,
+    });
+    
     // Validation
     if (!optionId || !walletAddress) {
+      console.error('Missing fields:', { optionId, walletAddress });
       return NextResponse.json(
         { error: 'Missing required fields: optionId and walletAddress' },
         { status: 400 }
       );
     }
     
-    // Validate wallet address format (basic check)
-    if (!walletAddress.match(/^0x[a-fA-F0-9]{40}$/)) {
+    // More lenient wallet validation - just check if it starts with 0x
+    if (!walletAddress.startsWith('0x')) {
+      console.error('Invalid wallet format:', walletAddress);
       return NextResponse.json(
         { error: 'Invalid wallet address format' },
         { status: 400 }
