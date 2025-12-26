@@ -18,7 +18,6 @@ export const FMAO_ROUTES: EachRoute[] = [
       { title: "lit3-guide", href: "/lit3-guide" },
       { title: "fmao-lore", href: "/fmao-lore" },
       { title: "lit3-dashboard", href: "/lit3-dashboard" },
-      { title: "governance-dashboard", href: "/governance-dashboard" },
       { title: "book-tokens", href: "/book-tokens" },
     ],
   },
@@ -56,49 +55,13 @@ export const FMAO_ROUTES: EachRoute[] = [
     ],
   },
   {
-    title: "fmao-whitepaper",
-    href: "/fmao-whitepaper",
+    title: "fmao-story-bible",
+    href: "/fmao-story-bible",
     noLink: true,
     items: [
-      {
-        title: "fw-part-1",
-        href: "/fw-part-1",
-        noLink: true,
-        items: [
-          { title: "fmao-a-web-serial", href: "/fmao-a-web-serial" },
-          { title: "objectives", href: "/objectives" },
-          { title: "chapter-structure", href: "/chapter-structure" },
-          { title: "story-format", href: "/story-format" },
-          { title: "plexus", href: "/plexus" },
-          { title: "roadmap", href: "/roadmap" },
-        ],
-      },
-      {
-        title: "fw-part-2",
-        href: "/fw-part-2",
-        noLink: true,
-        items: [
-          { title: "lore-summary", href: "/lore-summary" },
-          { title: "character-profiles", href: "/character-profiles" },
-          { title: "locations", href: "/locations" },
-        ],
-      },
-      {
-        title: "fw-part-3",
-        href: "/fw-part-3",
-        noLink: true,
-        items: [
-          { title: "fmao-web3-framework", href: "/fmao-web3-framework" },
-        ],
-      },
-      {
-        title: "fw-appendix",
-        href: "/fw-appendix",
-        noLink: true,
-        items: [
-          { title: "references-license-and-contact", href: "/references-license-and-contact" },
-        ],
-      },
+      { title: "lore-summary", href: "/lore-summary" },
+      { title: "character-profiles", href: "/character-profiles" },
+      { title: "locations", href: "/locations" },
     ],
   },
 ];

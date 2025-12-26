@@ -100,7 +100,7 @@ export function EntryDetailModal({ entry, isOpen, onClose, chainId = 84532 }: En
     entry.nftAddress !== '0x0000000000000000000000000000000000000000';
 
   const hasPermawebLink = entry.permawebLink && entry.permawebLink.trim() !== '';
-  const hasLicense = entry.license && entry.license.trim() !== '';
+  const hasCanonMetadata = entry.canonMetadata && entry.canonMetadata.trim() !== '';
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
@@ -222,7 +222,7 @@ export function EntryDetailModal({ entry, isOpen, onClose, chainId = 84532 }: En
               )}
 
               {/* Permanence Framework */}
-              {(hasContentHash || hasPermawebLink || hasLicense) && (
+              {(hasContentHash || hasPermawebLink || hasCanonMetadata) && (
                 <div>
                   <h3 className="text-lg font-mono font-bold text-cyan-400 mb-4">
                     Permanence Framework
@@ -231,7 +231,7 @@ export function EntryDetailModal({ entry, isOpen, onClose, chainId = 84532 }: En
                     {hasContentHash && (
                       <div className="p-4 bg-slate-800/50 rounded-lg">
                         <div className="flex items-center justify-between mb-2">
-                          <p className="text-xs font-mono text-slate-400 uppercase">Content Hash (HNP-1)</p>
+                          <p className="text-xs font-mono text-slate-400 uppercase">Content Hash (HNP-2)</p>
                           <CopyButton text={entry.contentHash} field="hash" />
                         </div>
                         <p className="text-sm text-cyan-400 font-mono break-all">{entry.contentHash}</p>
@@ -256,10 +256,10 @@ export function EntryDetailModal({ entry, isOpen, onClose, chainId = 84532 }: En
                       </div>
                     )}
 
-                    {hasLicense && (
+                    {hasCanonMetadata && (
                       <div className="p-4 bg-slate-800/50 rounded-lg">
-                        <p className="text-xs font-mono text-slate-400 uppercase mb-2">License</p>
-                        <p className="text-sm text-slate-200">{entry.license}</p>
+                        <p className="text-xs font-mono text-slate-400 uppercase mb-2">Canon Metadata</p>
+                        <p className="text-sm text-slate-200">{entry.canonMetadata}</p>
                       </div>
                     )}
                   </div>
@@ -309,7 +309,7 @@ export function EntryDetailModal({ entry, isOpen, onClose, chainId = 84532 }: En
                 Verify Content Authenticity
               </h3>
               <p className="text-sm text-slate-400 mb-6">
-                Upload a file to verify it matches the cryptographic hash stored in the ledger using HNP-1 protocol.
+                Upload a Markdown file to verify it matches the cryptographic hash stored in the ledger using HNP-2 protocol.
               </p>
               <HashVerifier expectedHash={entry.contentHash} title={entry.title} />
             </div>

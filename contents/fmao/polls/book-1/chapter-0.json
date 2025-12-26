@@ -1,0 +1,35 @@
+{
+  "id": "poll_book1_chapter0",
+  "bookId": "book-1",
+  "chapterId": "chapter-0",
+  "active": true,
+  "requiresBookToken": true,
+  "pollType": "conflict",
+  "question": {
+    "en": "Should Guardian Kael have trusted the Council after the Ghrina massacre?",
+    "es": "¿Debería el Guardián Kael haber confiado en el Consejo después de la masacre de Ghrina?"
+  },
+  "options": [
+    {
+      "id": "opt1",
+      "text": {
+        "en": "Yes - Unity is paramount in crisis",
+        "es": "Sí - La unidad es primordial en la crisis"
+      }
+    },
+    {
+      "id": "opt2",
+      "text": {
+        "en": "No - Too much risk of betrayal",
+        "es": "No - Demasiado riesgo de traición"
+      }
+    },
+    {
+      "id": "opt3",
+      "text": {
+        "en": "Conditional trust only",
+        "es": "Solo confianza condicional"
+      }
+    }
+  ]
+}

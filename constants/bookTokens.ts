@@ -1,7 +1,7 @@
 // constants/bookTokens.ts
 import { Abi } from 'viem';
 
-export const BOOK_TOKENS_ADDRESS = '0x731b33b3c78D9Dfa2D7081ff3874CCf4Bb98D652' as const; // Your deployed contract address
+export const BOOK_TOKENS_ADDRESS = '0x4FEb9Fbc359400d477761cD67d80cF0ce43dd84F' as const; // Your deployed contract address
 
 export interface BookData {
   id: number;

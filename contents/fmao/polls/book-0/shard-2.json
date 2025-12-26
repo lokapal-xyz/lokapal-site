@@ -1,0 +1,35 @@
+{
+  "id": "poll_book0_shard2",
+  "bookId": "book-0",
+  "chapterId": "shard-2",
+  "active": true,
+  "requiresBookToken": false,
+  "pollType": "worldbuilding",
+  "question": {
+    "en": "What intrigues you most about the Plexus Archive?",
+    "es": "¿Qué te intriga más del Archivo del Plexo?"
+  },
+  "options": [
+    {
+      "id": "opt1",
+      "text": {
+        "en": "The mysterious archival process",
+        "es": "El misterioso proceso de archivo"
+      }
+    },
+    {
+      "id": "opt2",
+      "text": {
+        "en": "The dual timestamp system (Earth/Lanka)",
+        "es": "El sistema de doble marca temporal (Tierra/Lanka)"
+      }
+    },
+    {
+      "id": "opt3",
+      "text": {
+        "en": "The curator's perspective",
+        "es": "La perspectiva del curador"
+      }
+    }
+  ]
+}

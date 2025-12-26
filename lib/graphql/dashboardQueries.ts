@@ -28,7 +28,7 @@ export const GET_DASHBOARD_ENTRIES = gql`
       nftId
       contentHash
       permawebLink
-      license
+      canonMetadata
       deprecated
       blockNumber
       blockTimestamp
@@ -91,7 +91,7 @@ export interface DashboardEntry {
   nftId: string;
   contentHash: string;
   permawebLink: string;
-  license: string;
+  canonMetadata: string;
   deprecated: boolean;
   blockNumber: string;
   blockTimestamp: string;

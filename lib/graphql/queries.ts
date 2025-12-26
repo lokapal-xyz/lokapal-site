@@ -14,7 +14,7 @@ export interface Entry {
   nftId: string;
   contentHash: string;
   permawebLink: string;
-  license: string;
+  canonMetadata: string;
   deprecated: boolean;
   blockNumber: string;
   blockTimestamp: string;
@@ -66,7 +66,7 @@ export const GET_ENTRIES = gql`
       nftId
       contentHash
       permawebLink
-      license
+      canonMetadata
       deprecated
       blockNumber
       blockTimestamp
@@ -128,7 +128,7 @@ export const GET_CHAPTER_BY_TITLE = gql`
       nftId
       contentHash
       permawebLink
-      license
+      canonMetadata
       deprecated
       blockNumber
       blockTimestamp
@@ -153,7 +153,7 @@ export const GET_ENTRY_BY_INDEX = gql`
       nftId
       contentHash
       permawebLink
-      license
+      canonMetadata
       deprecated
       blockNumber
       blockTimestamp

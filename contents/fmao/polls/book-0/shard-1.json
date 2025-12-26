@@ -1,0 +1,42 @@
+{
+  "id": "poll_book-0_shard-1",
+  "bookId": "book-0",
+  "chapterId": "shard-1",
+  "active": true,
+  "requiresBookToken": false,
+  "pollType": "worldbuilding",
+  "question": {
+    "en": "What aspect of the Plexus Archive system intrigues you most?",
+    "es": "¿Qué aspecto del sistema de Archivo del Plexo te intriga más?"
+  },
+  "options": [
+    {
+      "id": "opt1",
+      "text": {
+        "en": "The dual timestamp mechanism (Earth/Lanka time)",
+        "es": "El mecanismo de doble marca temporal (tiempo Tierra/Lanka)"
+      }
+    },
+    {
+      "id": "opt2",
+      "text": {
+        "en": "The role of the Archivist/Curator",
+        "es": "El papel del Archivista/Curador"
+      }
+    },
+    {
+      "id": "opt3",
+      "text": {
+        "en": "The permanent on-chain storage",
+        "es": "El almacenamiento permanente en cadena"
+      }
+    },
+    {
+      "id": "opt4",
+      "text": {
+        "en": "The mysterious deprecation system",
+        "es": "El misterioso sistema de depreciación"
+      }
+    }
+  ]
+}
