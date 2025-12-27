@@ -9,7 +9,7 @@ interface LedgerEntryProps {
   chainId?: number;
 }
 
-export function LedgerEntry({ entry, chainId = 84532 }: LedgerEntryProps) {
+export function LedgerEntry({ entry, chainId = 8453 }: LedgerEntryProps) {
   const [showDetailModal, setShowDetailModal] = useState(false);
 
   const formatTimestamp = (timestamp: string) => {

@@ -1,6 +1,6 @@
 // lib/wagmi.ts
 import { getDefaultConfig } from '@rainbow-me/rainbowkit';
-import { baseSepolia } from 'wagmi/chains';
+import { base } from 'wagmi/chains';
 import { http } from 'wagmi';
 import type { Config } from 'wagmi';
 
@@ -20,9 +20,9 @@ export const initializeConfig = (): Config => {
   configCache = getDefaultConfig({
     appName: 'Lokapal - From Many, as One',
     projectId: projectId || '',
-    chains: [baseSepolia],
+    chains: [base],
     transports: {
-      [baseSepolia.id]: http(),
+      [base.id]: http(),
     },
     ssr: true,
   });

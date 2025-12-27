@@ -163,7 +163,7 @@ export const CONTRACT_ADDRESSES = {
 
 // Base Sepolia chain config
 export const CHAIN_CONFIG = {
-  chainId: 84532,
+  chainId: 8453,
   name: 'Base Sepolia',
   blockTime: 2, // seconds
   explorerUrl: 'https://sepolia.basescan.org',

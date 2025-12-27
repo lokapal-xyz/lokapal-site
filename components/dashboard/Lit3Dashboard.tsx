@@ -11,7 +11,7 @@ interface Lit3DashboardProps {
   language?: string; // Add language prop
 }
 
-export function Lit3Dashboard({ chainId = 84532 }: Lit3DashboardProps) {
+export function Lit3Dashboard({ chainId = 8453 }: Lit3DashboardProps) {
   const {
     entries,
     loading,

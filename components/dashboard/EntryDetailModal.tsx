@@ -14,7 +14,7 @@ interface EntryDetailModalProps {
   chainId?: number;
 }
 
-export function EntryDetailModal({ entry, isOpen, onClose, chainId = 84532 }: EntryDetailModalProps) {
+export function EntryDetailModal({ entry, isOpen, onClose, chainId = 8453 }: EntryDetailModalProps) {
   const [activeTab, setActiveTab] = useState<'details' | 'versions' | 'verify'>('details');
   const [copiedField, setCopiedField] = useState<string | null>(null);
   const { versions } = useVersionHistory(entry.title);
@@ -30,18 +30,18 @@ export function EntryDetailModal({ entry, isOpen, onClose, chainId = 84532 }: En
   const getBaseScanUrl = (txHash: string) => {
     const baseUrls = {
       8453: 'https://basescan.org',
-      84532: 'https://sepolia.basescan.org',
+      //8453: 'https://sepolia.basescan.org',
     };
-    const baseUrl = baseUrls[chainId as keyof typeof baseUrls] || baseUrls[84532];
+    const baseUrl = baseUrls[chainId as keyof typeof baseUrls] || baseUrls[8453];
     return `${baseUrl}/tx/${txHash}`;
   };
 
   const getAddressUrl = (address: string) => {
     const baseUrls = {
       8453: 'https://basescan.org',
-      84532: 'https://sepolia.basescan.org',
+      //8453: 'https://sepolia.basescan.org',
     };
-    const baseUrl = baseUrls[chainId as keyof typeof baseUrls] || baseUrls[84532];
+    const baseUrl = baseUrls[chainId as keyof typeof baseUrls] || baseUrls[8453];
     return `${baseUrl}/address/${address}`;
   };
 

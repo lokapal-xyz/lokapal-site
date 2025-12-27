@@ -12,7 +12,7 @@ interface ShardButtonsProps {
   chainId?: number;
 }
 
-export function ShardButtons({ shardNumber, shardTitle, chainId = 84532 }: ShardButtonsProps) {
+export function ShardButtons({ shardNumber, shardTitle, chainId = 8453 }: ShardButtonsProps) {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   //const { data } = useChapterByTitle(shardTitle);
   const dict = useDictionary();
