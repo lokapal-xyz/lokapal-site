@@ -1,7 +1,7 @@
 {
-  "id": "poll_book-1_chapter-0",
+  "id": "poll_book-1_shard-undefined",
   "bookId": "book-1",
-  "chapterId": "chapter-0",
+  "chapterId": "shard-undefined",
   "active": true,
   "requiresBookToken": true,
   "pollType": "conflict",

@@ -35,6 +35,9 @@ import {GovernanceDashboard} from '@/components/governance/GovernanceDashboard';
 // Sliders
 import { CharacterShowcase } from '@/components/CharacterShowcase';
 import { LocationShowcase } from '@/components/LocationShowcase';
+// Polls
+import ChapterPoll from '@/components/polls/ChapterPollWrapper';
+
 
 
 // add custom components
@@ -64,6 +67,8 @@ const components = {
   // Sliders
   LocationShowcase,
   CharacterShowcase,
+  // Polls
+  ChapterPoll,
 };
 
 // can be used for other pages like blogs, Guides etc
