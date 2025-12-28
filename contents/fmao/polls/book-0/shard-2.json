@@ -7,28 +7,28 @@
   "pollType": "philosophical",
   "question": {
     "en": "If you could extend your life through medical technology, would you?",
-    "es": "Si pudieras extender tu vida indefinidamente mediante tecnología médica, ¿lo harías?"
+    "es": "Si pudieras extender tu vida mediante tecnología médica, ¿lo harías?"
   },
   "options": [
     {
       "id": "opt1",
       "text": {
-        "en": "Yes—more life means more time to experience, learn, and accomplish meaningful things",
-        "es": "Sí. Más vida significa más tiempo para experimentar, aprender y lograr cosas significativas"
+        "en": "Yes—more life means more time to experience, learn, and accomplish your objectives",
+        "es": "Sí. Más vida significa más tiempo para experimentar, aprender y lograr tus objetivos"
       }
     },
     {
       "id": "opt2",
       "text": {
-        "en": "No—mortality gives life meaning; infinite extension would become its own prison",
-        "es": "No. La mortalidad da sentido a la vida; la extensión infinita se convertiría en su propia prisión"
+        "en": "No—mortality gives life meaning; extension would become its own prison",
+        "es": "No. La mortalidad da sentido a la vida; extenderla la convertiría en una prisión"
       }
     },
     {
       "id": "opt3",
       "text": {
         "en": "Yes, but only if I could maintain quality of life—existence without agency isn't life",
-        "es": "Sí, pero solo si pudiera mantener calidad de vida; existencia sin agencia no es vida"
+        "es": "Sí, pero solo si pudiera mantener mi calidad de vida; existencia sin agencia no es vida"
       }
     },
     {

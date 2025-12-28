@@ -160,7 +160,9 @@
     "polls": {
         "poll_header": "READER SIGNAL DETECTED",
         "poll_vote_btn": "SUBMIT VOTE",
-        "poll_connect_wallet": "CONNECT WALLET TO VOTE",
+        "poll_connecting": "CONNECTING......",
+        "poll_connect_wallet": "CONNECT WALLET TO VOTE (FREE • ONE VOTE PER READER)",
+        "poll_new_wallet": "New to Web3 wallets? Learn More",
         "poll_switch_wallet": "Switch or Disconnect Wallet",
         "poll_requires_token": "Book Token required to vote",
         "poll_voted": "SIGNAL TRANSMITTED",

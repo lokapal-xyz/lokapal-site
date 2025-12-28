@@ -160,8 +160,10 @@
     "polls": {
         "poll_header": "SEÑAL DE LECTOR DETECTADA",
         "poll_vote_btn": "ENVIAR VOTO",
-        "poll_connect_wallet": "CONECTAR BILLETERA PARA VOTAR",
-        "poll_switch_wallet": "Cambiar o desconectar billetera",
+        "poll_connecting": "CONECTANDO......",
+        "poll_connect_wallet": "CONECTAR WALLET PARA VOTAR (GRATIS • UN VOTO POR LECTOR)",
+        "poll_new_wallet": "¿No conoces las wallets Web3? Aprende Más",
+        "poll_switch_wallet": "Cambiar o desconectar wallet",
         "poll_requires_token": "Token de Libro requerido para votar",
         "poll_voted": "SEÑAL TRANSMITIDA",
         "poll_your_choice": "Tu elección:",

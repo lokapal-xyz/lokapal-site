@@ -14,28 +14,28 @@
       "id": "opt1",
       "text": {
         "en": "Yes—loyalty to those causing harm is complicity; betraying them is moral obligation",
-        "es": "Sí. Lealtad a quienes causan daño es complicidad; traicionarlos es obligación moral"
+        "es": "Sí. Lealtad a quienes causan daño es complicidad; traicionarlos es una obligación moral"
       }
     },
     {
       "id": "opt2",
       "text": {
         "en": "No—the manner of exit matters; self-serving betrayal for personal gain remains immoral",
-        "es": "No. La forma de salida importa; traición egoísta por ganancia personal sigue siendo inmoral"
+        "es": "No. La forma de salida importa; una traición egoísta por ganancia personal sigue siendo inmoral"
       }
     },
     {
       "id": "opt3",
       "text": {
         "en": "Context-dependent—Kael's motivations were selfish, but the outcome served justice",
-        "es": "Depende del contexto. Las motivaciones de Kael fueron egoístas, pero el resultado sirvió a la justicia"
+        "es": "Depende del contexto. Las motivaciones de Kael fueron egoístas, pero el resultado ayudó a la justicia"
       }
     },
     {
       "id": "opt4",
       "text": {
         "en": "The question assumes 'corrupt loyalty' can exist—true loyalty is inherently moral or it isn't loyalty",
-        "es": "La pregunta asume que puede existir 'lealtad corrupta'. La verdadera lealtad es inherentemente moral o no es lealtad"
+        "es": "La pregunta asume que puede existir la 'lealtad corrupta'. La verdadera lealtad es inherentemente moral o no es lealtad"
       }
     }
   ]

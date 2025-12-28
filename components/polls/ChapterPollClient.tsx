@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback, useMemo } from 'react';
-import { Lock, CheckCircle, BarChart3, Users } from 'lucide-react';
+import { Lock, CheckCircle, BarChart3, Users, X } from 'lucide-react';
 import { useAccount, useReadContract } from 'wagmi';
 import { useConnectModal, useAccountModal } from '@rainbow-me/rainbowkit'; // Import RainbowKit modal hook
 import { useDictionary } from '@/components/contexts/dictionary-provider';
@@ -86,6 +86,9 @@ export default function ChapterPollClient({
       enabled: !!address,
     }
   });
+
+  // Add new state for explainer dialog
+  const [showExplainer, setShowExplainer] = useState(false);
   
   const isTokenOwned = balance ? Number(balance) > 0 : false;
   
@@ -104,7 +107,9 @@ export default function ChapterPollClient({
   // Memoize translations to prevent re-triggering useCallback dependencies
   const t = useMemo(() => ({
     poll_header: dict?.polls?.poll_header || "READER SIGNAL DETECTED",
-    poll_connect_wallet: dict?.polls?.poll_connect_wallet || "CONNECT WALLET",
+    poll_connecting: dict?.polls?.poll_connecting || "CONNECTING......",
+    poll_connect_wallet: dict?.polls?.poll_connect_wallet || "CONNECT WALLET TO VOTE (FREE • ONE VOTE PER READER)",
+    poll_new_wallet: dict?.polls?.poll_new_wallet || "New to Web3 wallets? Learn More",
     poll_switch_wallet: dict?.polls?.poll_switch_wallet || "Switch or Disconnect Wallet",
     poll_vote_btn: dict?.polls?.poll_vote_btn || "SUBMIT VOTE",
     poll_requires_token: dict?.polls?.poll_requires_token || "Book Token required to vote",
@@ -252,7 +257,7 @@ export default function ChapterPollClient({
       <div className="absolute -top-12 -right-12 w-36 h-36 bg-cyan-400/5 rounded-full blur-3xl" />
 
       {/* Header */}
-      <div className="relative z-10">
+      <div className="relative">
         <div className="flex items-center gap-3 mb-4">
           <BarChart3 className="w-5 h-5 text-cyan-400" />
           <h3 className="text-sm font-mono text-cyan-400 uppercase tracking-wider">
@@ -374,44 +379,165 @@ export default function ChapterPollClient({
                 </span>
               </div>
             )}
+          </>
+        )}
 
-            {/* Submit button */}
-            {/* 3. Updated Button Logic */}
+        {/* Submit Button Section */}
+        {!address ? (
+          <>
+            {/* Connect Button */}
             <button
               onClick={handleButtonClick}
-              // Button is disabled if:
-              // 1. Poll is loading or submitting
-              // 2. User is connected but doesn't have the token (and it's required)
-              // 3. User is connected but hasn't selected an option
-              disabled={
-                submitting || 
-                isWalletConnecting ||
-                (address && (!canVote || !selectedOption))
+              disabled={isWalletConnecting}
+              className="w-full p-4 rounded font-mono text-sm font-bold transition-all bg-gradient-to-r from-cyan-400/20 to-blue-400/20 border-2 border-cyan-400/40 text-cyan-400 hover:border-cyan-400/60 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {isWalletConnecting 
+                ? t.poll_connecting
+                : t.poll_connect_wallet
               }
+            </button>
+
+            {/* Learn More Link */}
+            <div className="mt-4 text-center">
+              <button
+                onClick={() => setShowExplainer(true)}
+                className="text-[13px] font-mono text-orange-400 hover:text-cyan-400 transition-colors uppercase tracking-widest cursor-pointer underline decoration-slate-700 underline-offset-4"
+              >
+                {t.poll_new_wallet}
+              </button>
+            </div>
+          </>
+        ) : (
+          <>
+            {/* Submit Vote Button (when connected) */}
+            <button
+              onClick={handleButtonClick}
+              disabled={submitting || isWalletConnecting || (address && (!canVote || !selectedOption))}
               className={`w-full p-4 rounded font-mono text-sm font-bold transition-all ${
                 (!address || (canVote && selectedOption)) && !submitting
                   ? 'bg-gradient-to-r from-cyan-400/20 to-blue-400/20 border-2 border-cyan-400/40 text-cyan-400 hover:border-cyan-400/60 cursor-pointer'
                   : 'bg-slate-800/30 border border-slate-800/50 text-slate-600 cursor-not-allowed opacity-50'
               }`}
             >
-              {isWalletConnecting ? t.poll_loading : 
-              !address ? t.poll_connect_wallet : 
-              submitting ? t.poll_submitting : 
-              t.poll_vote_btn}
+              {submitting ? t.poll_submitting : t.poll_vote_btn}
             </button>
 
-            {/* 3. The Switch/Disconnect Link */}
-            {address && (
-              <div className="mt-4 text-center">
+            {/* Switch/Disconnect Link */}
+            <div className="mt-4 text-center">
+              <button
+                onClick={openAccountModal}
+                className="text-[13px] font-mono text-orange-400 hover:text-cyan-400 transition-colors uppercase tracking-widest cursor-pointer underline decoration-slate-700 underline-offset-4"
+              >
+                {t.poll_switch_wallet}
+              </button>
+            </div>
+          </>
+        )}
+
+        {/* Wallet Explainer Dialog */}
+        {showExplainer && (
+          <div 
+            className="fixed inset-0 bg-black/85 backdrop-blur-sm z-50 flex items-center justify-center p-4 overflow-y-auto"
+            onClick={() => setShowExplainer(false)}
+          >
+            <div 
+              className="bg-slate-900 border-2 border-cyan-500/30 rounded-lg max-w-md w-full relative my-8 max-h-[90vh] flex flex-col"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Header */}
+              <div className="p-4 sm:p-6 border-b border-cyan-500/20 flex items-center justify-between flex-shrink-0">
+                <h3 className="text-lg sm:text-xl font-mono font-bold bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent pr-8">
+                  {lang === 'en' ? 'What is a Web3 Wallet?' : '¿Qué es una Billetera Web3?'}
+                </h3>
                 <button
-                  onClick={openAccountModal}
-                  className="text-[13px] font-mono text-slate-500 hover:text-cyan-400 transition-colors uppercase tracking-widest cursor-pointer underline decoration-slate-700 underline-offset-4"
+                  onClick={() => setShowExplainer(false)}
+                  className="text-slate-500 hover:text-slate-300 transition-colors absolute top-4 right-4 sm:relative sm:top-0 sm:right-0"
                 >
-                  {t.poll_switch_wallet}
+                  <X className="w-5 h-5 sm:w-6 sm:h-6" />
                 </button>
               </div>
-            )}
-          </>
+
+              {/* Content */}
+      <div className="p-4 sm:p-6 space-y-3 sm:space-y-4 text-slate-300 leading-relaxed overflow-y-auto flex-1">
+        <p className="text-sm sm:text-base">
+                  {lang === 'en'
+                    ? "Wallets are used to send, receive, store, and display digital assets like Ethereum and NFTs. Instead of creating new accounts and passwords on every website, just connect your wallet."
+                    : "Las billeteras (o wallets) se utilizan para enviar, recibir, almacenar y mostrar activos digitales como Ethereum y NFTs. En lugar de crear nuevas cuentas y contraseñas en cada sitio web, simplemente conectas tu billetera."
+                  }
+                </p>
+                
+        <p className="text-sm sm:text-base">
+                  {lang === 'en'
+                    ? "For voting in this poll, we use it as an authentication method - similar to logging in with Google or Facebook, but you control your identity."
+                    : "Para votar en esta encuesta, la usamos como método de autenticación - similar a iniciar sesión con Google o Facebook, pero tú controlas tu identidad."
+                  }
+                </p>
+
+                {/* Recommendation Box */}
+        <div className="p-3 sm:p-4 bg-cyan-500/5 border border-cyan-500/20 rounded-lg">
+          <p className="font-mono text-xs sm:text-sm text-cyan-400 mb-2">
+                    {lang === 'en' ? 'RECOMMENDED FOR BEGINNERS:' : 'RECOMENDADO PARA PRINCIPIANTES:'}
+                  </p>
+          <p className="text-xs sm:text-sm">
+                    {lang === 'en'
+                      ? "MetaMask is a popular, free browser extension that takes 2 minutes to set up. It's trusted by millions of users worldwide."
+                      : "MetaMask es una extensión de navegador popular y gratuita que toma 2 minutos configurar. Es confiada por millones de usuarios en todo el mundo."
+                    }
+                  </p>
+                </div>
+
+                {/* Key Points */}
+                <div className="space-y-2">
+                  <div className="flex items-start gap-2">
+                    <CheckCircle className="w-4 h-4 text-green-400 flex-shrink-0 mt-0.5" />
+            <span className="text-xs sm:text-sm">
+                      {lang === 'en'
+                        ? "Voting is completely free"
+                        : "Votar es completamente gratis"
+                      }
+                    </span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <CheckCircle className="w-4 h-4 text-green-400 flex-shrink-0 mt-0.5" />
+                                <span className="text-xs sm:text-sm">
+                      {lang === 'en'
+                        ? "We only use it to verify you're a unique reader"
+                        : "Solo lo usamos para verificar que eres un lector único"
+                      }
+                    </span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <CheckCircle className="w-4 h-4 text-green-400 flex-shrink-0 mt-0.5" />
+                                <span className="text-xs sm:text-sm">
+                      {lang === 'en'
+                        ? "One wallet = one vote (keeps polls fair)"
+                        : "Una billetera = un voto (mantiene las encuestas justas)"
+                      }
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Footer */}
+      <div className="p-4 sm:p-6 border-t border-slate-800 flex flex-col sm:flex-row gap-3 flex-shrink-0">
+                        <button
+                  onClick={() => setShowExplainer(false)}
+                  className="flex-1 px-4 py-3 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded font-mono text-xs sm:text-sm transition-colors"
+                >
+                  {lang === 'en' ? 'CLOSE' : 'CERRAR'}
+                </button>
+                <button
+                  onClick={() => {
+                    setShowExplainer(false);
+                    handleButtonClick();
+                  }}
+                  className="flex-1 px-4 py-3 bg-gradient-to-r from-cyan-400/20 to-blue-400/20 border-2 border-cyan-400/40 text-cyan-400 hover:border-cyan-400/60 rounded font-mono text-xs sm:text-sm font-bold transition-all"
+                >
+                  {lang === 'en' ? 'GOT IT, LET\'S VOTE' : 'ENTENDIDO, VOTEMOS'}
+                </button>
+              </div>
+            </div>
+          </div>
         )}
       </div>
     </div>

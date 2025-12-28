@@ -7,35 +7,35 @@
   "pollType": "philosophical",
   "question": {
     "en": "Raul's transformation from activist to senator: was his fall inevitable?",
-    "es": "La transformación de Raúl de activista a senador: ¿fue inevitable su caída?"
+    "es": "Raúl se transformó de activista a senador: ¿fue inevitable su caída?"
   },
   "options": [
     {
       "id": "opt1",
       "text": {
         "en": "Yes—systems always corrupt those who enter them with good intentions",
-        "es": "Sí. los sistemas siempre corrompen a quienes entran con buenas intenciones"
+        "es": "Sí. Todo sistema siempre corrompe a quienes entran con buenas intenciones"
       }
     },
     {
       "id": "opt2",
       "text": {
         "en": "No—he made specific choices that betrayed his values; he could have chosen differently",
-        "es": "No. tomó decisiones específicas que traicionaron sus valores; pudo elegir diferente"
+        "es": "No. Tomó decisiones específicas que traicionaron sus valores; pudo elegir diferente"
       }
     },
     {
       "id": "opt3",
       "text": {
         "en": "The question itself is wrong—he didn't 'fall,' he just became what power requires",
-        "es": "La pregunta está mal; no 'cayó,' simplemente se convirtió en lo que el poder requiere"
+        "es": "La pregunta es errónea; no 'cayó,' simplemente se convirtió en lo que el poder requiere"
       }
     },
     {
       "id": "opt4",
       "text": {
-        "en": "Don't judge Raul yet—people can change over time",
-        "es": "No juzgues a Raúl todavía; las personas pueden cambiar con el tiempo"
+        "en": "You can't judge Raul yet—people can change over time",
+        "es": "No se puede juzgar a Raúl todavía; las personas pueden cambiar con el tiempo"
       }
     }
   ]

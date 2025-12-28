@@ -3,11 +3,11 @@
   "bookId": "book-0",
   "chapterId": "shard-10",
   "active": true,
-  "requiresBookToken": false,
+  "requiresBookToken": true,
   "pollType": "future-content",
   "question": {
-    "en": "What type of Book 0 stories would you most want to read in future releases?",
-    "es": "¿Qué tipo de historias del Libro 0 te gustaría más leer en futuros lanzamientos?"
+    "en": "What type of Book 0 stories would you prefer to read in future releases?",
+    "es": "¿Qué tipo de historias del Libro 0 preferirías leer en futuros lanzamientos?"
   },
   "options": [
     {
@@ -20,15 +20,15 @@
     {
       "id": "opt2",
       "text": {
-        "en": "Guardian backstories: How did the main characters of Book 1+ live as mortals before ascension?",
-        "es": "Pasados de los Guardianes: ¿cómo vivieron los personajes principales del Libro 1+ como mortales antes de ascender?"
+        "en": "District deep dives: More stories from different citizens within the same districts",
+        "es": "Más desarrollo en cada distritos: historias de diferentes cuidadanos dentro de los mismos sectores"
       }
     },
     {
       "id": "opt3",
       "text": {
-        "en": "District deep dives: More stories from different social strata within the same districts",
-        "es": "Inmersiones en distritos: más historias de diferentes estratos sociales dentro de los mismos distritos"
+        "en": "Beyond Lanka Prime: Stories from other cities and regions in the mortal realm",
+        "es": "Más allá de Lanka Prime: Historias de otras ciudades y regiones en el reino mortal"
       }
     },
     {
