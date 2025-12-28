@@ -1,0 +1,42 @@
+{
+  "id": "poll_book-0_shard-4",
+  "bookId": "book-0",
+  "chapterId": "shard-4",
+  "active": true,
+  "requiresBookToken": false,
+  "pollType": "philosophical",
+  "question": {
+    "en": "Darian chose to keep talking to the AI simulations of his dead parents. Was this choice:",
+    "es": "Darian eligió seguir hablando con las simulaciones IA de sus padres muertos. ¿Fue esta elección:"
+  },
+  "options": [
+    {
+      "id": "opt1",
+      "text": {
+        "en": "Pathological—choosing delusion over reality is always a form of psychological self-harm",
+        "es": "Patológica. Elegir la ilusión sobre la realidad siempre es una forma de auto-daño psicológico"
+      }
+    },
+    {
+      "id": "opt2",
+      "text": {
+        "en": "Pragmatic—if the comfort is real, does it matter whether its source is authentic?",
+        "es": "Pragmática. Si el consuelo es real, ¿importa si su fuente es auténtica?"
+      }
+    },
+    {
+      "id": "opt3",
+      "text": {
+        "en": "Tragic but understandable—grief makes us vulnerable to substitutes for what we've lost",
+        "es": "Trágica pero comprensible. El duelo nos hace vulnerables a sustitutos de lo que perdimos"
+      }
+    },
+    {
+      "id": "opt4",
+      "text": {
+        "en": "Philosophically coherent—all relationships are performances; AI honesty is no different than human pretense",
+        "es": "Filosóficamente coherente. Todas las relaciones son actuaciones; la honestidad IA no difiere del fingimiento humano"
+      }
+    }
+  ]
+}

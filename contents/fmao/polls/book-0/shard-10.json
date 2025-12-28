@@ -1,0 +1,42 @@
+{
+  "id": "poll_book-0_shard-10",
+  "bookId": "book-0",
+  "chapterId": "shard-10",
+  "active": true,
+  "requiresBookToken": false,
+  "pollType": "future-content",
+  "question": {
+    "en": "What type of Book 0 stories would you most want to read in future releases?",
+    "es": "¿Qué tipo de historias del Libro 0 te gustaría más leer en futuros lanzamientos?"
+  },
+  "options": [
+    {
+      "id": "opt1",
+      "text": {
+        "en": "Follow-up stories: What happened to these characters after the end?",
+        "es": "Historias de seguimiento: ¿qué pasó con estos personajes después del final?"
+      }
+    },
+    {
+      "id": "opt2",
+      "text": {
+        "en": "Guardian backstories: How did the main characters of Book 1+ live as mortals before ascension?",
+        "es": "Pasados de los Guardianes: ¿cómo vivieron los personajes principales del Libro 1+ como mortales antes de ascender?"
+      }
+    },
+    {
+      "id": "opt3",
+      "text": {
+        "en": "District deep dives: More stories from different social strata within the same districts",
+        "es": "Inmersiones en distritos: más historias de diferentes estratos sociales dentro de los mismos distritos"
+      }
+    },
+    {
+      "id": "opt4",
+      "text": {
+        "en": "This is a complete set: these ten stories form a narrative unit—adding more would dilute their identity",
+        "es": "Este es un set completo: estas diez historias forman una unidad narrativa; agregar más diluiría su identidad"
+      }
+    }
+  ]
+}

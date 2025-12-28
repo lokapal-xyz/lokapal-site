@@ -1,0 +1,42 @@
+{
+  "id": "poll_book-0_shard-9",
+  "bookId": "book-0",
+  "chapterId": "shard-9",
+  "active": true,
+  "requiresBookToken": false,
+  "pollType": "philosophical",
+  "question": {
+    "en": "What should Leila do now?",
+    "es": "¿Qué debería hacer Leila ahora?"
+  },
+  "options": [
+    {
+      "id": "opt1",
+      "text": {
+        "en": "Accept that she's an addict and will always need to manage this part of herself",
+        "es": "Aceptar que es adicta y siempre necesitará manejar esta parte de sí misma"
+      }
+    },
+    {
+      "id": "opt2",
+      "text": {
+        "en": "Find a new recovery group—genuine support communities exist, she just needs to keep looking",
+        "es": "Encontrar un nuevo grupo de recuperación. Existen comunidades de apoyo genuinas, solo necesita seguir buscando"
+      }
+    },
+    {
+      "id": "opt3",
+      "text": {
+        "en": "Heal by herself—recovery is ultimately an individual journey that no group can provide",
+        "es": "Sanar por sí misma. La recuperación es en última instancia un viaje individual que ningún grupo puede proveer"
+      }
+    },
+    {
+      "id": "opt4",
+      "text": {
+        "en": "Publicly denounce Stefan to prevent him from exploiting other vulnerable people",
+        "es": "Denunciar públicamente a Stefan para evitar que explote a otras personas vulnerables"
+      }
+    }
+  ]
+}

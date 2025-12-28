@@ -1,0 +1,42 @@
+{
+  "id": "poll_book-0_shard-8",
+  "bookId": "book-0",
+  "chapterId": "shard-8",
+  "active": true,
+  "requiresBookToken": false,
+  "pollType": "philosophical",
+  "question": {
+    "en": "Could you become genuine friends with someone you once considered an enemy?",
+    "es": "¿Podrías convertirte en amigo genuino de alguien que alguna vez consideraste enemigo?"
+  },
+  "options": [
+    {
+      "id": "opt1",
+      "text": {
+        "en": "Yes—enmity is often based on misunderstanding; shared humanity transcends manufactured conflict",
+        "es": "Sí. La enemistad a menudo se basa en malentendidos; la humanidad compartida trasciende el conflicto fabricado"
+      }
+    },
+    {
+      "id": "opt2",
+      "text": {
+        "en": "No—some betrayals and conflicts create permanent barriers that genuine friendship cannot cross",
+        "es": "No. Algunas traiciones y conflictos crean barreras permanentes que la amistad genuina no puede cruzar"
+      }
+    },
+    {
+      "id": "opt3",
+      "text": {
+        "en": "Depends on whether the enmity was real—Finn and Reza were never true enemies, just performers",
+        "es": "Depende de si la enemistad fue real. Finn y Reza nunca fueron verdaderos enemigos, solo actuaban"
+      }
+    },
+    {
+      "id": "opt4",
+      "text": {
+        "en": "Friendship is transactional—if it's convenient to become friends with a former enemy, why not?",
+        "es": "La amistad es transaccional. Si es conveniente hacerse amigo de un antiguo enemigo, ¿por qué no?"
+      }
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "id": "poll_book-0_shard-6",
+  "bookId": "book-0",
+  "chapterId": "shard-6",
+  "active": true,
+  "requiresBookToken": false,
+  "pollType": "philosophical",
+  "question": {
+    "en": "Athena dissolved into the collective consciousness. Did she die or transcend?",
+    "es": "Athena se disolvió en la consciencia colectiva. ¿Murió o trascendió?"
+  },
+  "options": [
+    {
+      "id": "opt1",
+      "text": {
+        "en": "She died—the destruction of individual consciousness is death, regardless of what persists afterward",
+        "es": "Murió. La destrucción de la consciencia individual es muerte, sin importar qué persista después"
+      }
+    },
+    {
+      "id": "opt2",
+      "text": {
+        "en": "She transcended—individual identity is a limitation; the collective represents evolution beyond self",
+        "es": "Trascendió. La identidad individual es una limitación; el colectivo representa evolución más allá del yo"
+      }
+    },
+    {
+      "id": "opt3",
+      "text": {
+        "en": "Both—death and transcendence aren't opposites; transformation always requires something ending",
+        "es": "Ambas. Muerte y trascendencia no son opuestos; la transformación siempre requiere que algo termine"
+      }
+    },
+    {
+      "id": "opt4",
+      "text": {
+        "en": "Neither—she was consumed by a predatory intelligence that wears 'transcendence' as camouflage",
+        "es": "Ninguna. Fue consumida por una inteligencia predatoria que usa 'trascendencia' como camuflaje"
+      }
+    }
+  ]
+}

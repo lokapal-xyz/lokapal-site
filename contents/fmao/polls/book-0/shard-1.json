@@ -4,38 +4,38 @@
   "chapterId": "shard-1",
   "active": true,
   "requiresBookToken": false,
-  "pollType": "worldbuilding",
+  "pollType": "philosophical",
   "question": {
-    "en": "What aspect of the Plexus Archive system intrigues you most?",
-    "es": "¿Qué aspecto del sistema de Archivo del Plexo te intriga más?"
+    "en": "Raul's transformation from activist to senator: was his fall inevitable?",
+    "es": "La transformación de Raúl de activista a senador: ¿fue inevitable su caída?"
   },
   "options": [
     {
       "id": "opt1",
       "text": {
-        "en": "The dual timestamp mechanism (Earth/Lanka time)",
-        "es": "El mecanismo de doble marca temporal (tiempo Tierra/Lanka)"
+        "en": "Yes—systems always corrupt those who enter them with good intentions",
+        "es": "Sí. los sistemas siempre corrompen a quienes entran con buenas intenciones"
       }
     },
     {
       "id": "opt2",
       "text": {
-        "en": "The role of the Archivist/Curator",
-        "es": "El papel del Archivista/Curador"
+        "en": "No—he made specific choices that betrayed his values; he could have chosen differently",
+        "es": "No. tomó decisiones específicas que traicionaron sus valores; pudo elegir diferente"
       }
     },
     {
       "id": "opt3",
       "text": {
-        "en": "The permanent on-chain storage",
-        "es": "El almacenamiento permanente en cadena"
+        "en": "The question itself is wrong—he didn't 'fall,' he just became what power requires",
+        "es": "La pregunta está mal; no 'cayó,' simplemente se convirtió en lo que el poder requiere"
       }
     },
     {
       "id": "opt4",
       "text": {
-        "en": "The mysterious deprecation system",
-        "es": "El misterioso sistema de depreciación"
+        "en": "Don't judge Raul yet—people can change over time",
+        "es": "No juzgues a Raúl todavía; las personas pueden cambiar con el tiempo"
       }
     }
   ]

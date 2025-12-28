@@ -1,0 +1,42 @@
+{
+  "id": "poll_book-0_shard-3",
+  "bookId": "book-0",
+  "chapterId": "shard-3",
+  "active": true,
+  "requiresBookToken": false,
+  "pollType": "philosophical",
+  "question": {
+    "en": "What should society do with people who lack empathy and harm others for personal gain?",
+    "es": "¿Qué debería hacer la sociedad con personas que carecen de empatía y dañan a otros por beneficio personal?"
+  },
+  "options": [
+    {
+      "id": "opt1",
+      "text": {
+        "en": "Exclude them from positions of power—they're fundamentally incompatible with ethical responsibility",
+        "es": "Excluirlos de posiciones de poder; son fundamentalmente incompatibles con la responsabilidad ética"
+      }
+    },
+    {
+      "id": "opt2",
+      "text": {
+        "en": "Treat it as a medical condition requiring intervention, not a moral failing requiring punishment",
+        "es": "Tratarlo como condición médica que requiere intervención, no falla moral que requiere castigo"
+      }
+    },
+    {
+      "id": "opt3",
+      "text": {
+        "en": "Create systems that prevent harm regardless of individual psychology—assume bad actors will exist",
+        "es": "Crear sistemas que prevengan daño sin importar psicología individual; asumir que existirán malos actores"
+      }
+    },
+    {
+      "id": "opt4",
+      "text": {
+        "en": "Nothing special—many 'normal' people cause equal harm through conformity to corrupt systems",
+        "es": "Nada especial; muchas personas 'normales' causan igual daño por conformidad a sistemas corruptos"
+      }
+    }
+  ]
+}

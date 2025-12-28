@@ -4,31 +4,38 @@
   "chapterId": "shard-2",
   "active": true,
   "requiresBookToken": false,
-  "pollType": "worldbuilding",
+  "pollType": "philosophical",
   "question": {
-    "en": "What intrigues you most about the Plexus Archive?",
-    "es": "¿Qué te intriga más del Archivo del Plexo?"
+    "en": "If you could extend your life through medical technology, would you?",
+    "es": "Si pudieras extender tu vida indefinidamente mediante tecnología médica, ¿lo harías?"
   },
   "options": [
     {
       "id": "opt1",
       "text": {
-        "en": "The mysterious archival process",
-        "es": "El misterioso proceso de archivo"
+        "en": "Yes—more life means more time to experience, learn, and accomplish meaningful things",
+        "es": "Sí. Más vida significa más tiempo para experimentar, aprender y lograr cosas significativas"
       }
     },
     {
       "id": "opt2",
       "text": {
-        "en": "The dual timestamp system (Earth/Lanka)",
-        "es": "El sistema de doble marca temporal (Tierra/Lanka)"
+        "en": "No—mortality gives life meaning; infinite extension would become its own prison",
+        "es": "No. La mortalidad da sentido a la vida; la extensión infinita se convertiría en su propia prisión"
       }
     },
     {
       "id": "opt3",
       "text": {
-        "en": "The curator's perspective",
-        "es": "La perspectiva del curador"
+        "en": "Yes, but only if I could maintain quality of life—existence without agency isn't life",
+        "es": "Sí, pero solo si pudiera mantener calidad de vida; existencia sin agencia no es vida"
+      }
+    },
+    {
+      "id": "opt4",
+      "text": {
+        "en": "An irrelevant question—life extension technology is science fiction, not a real choice",
+        "es": "Una pregunta irrelevante; la tecnología de extensión de vida es ciencia ficción, no una elección real"
       }
     }
   ]
