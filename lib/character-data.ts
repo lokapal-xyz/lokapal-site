@@ -123,7 +123,7 @@ export const characters: Character[] = [
   {
     id: 'aruna',
     name: 'Aruna',
-    title: 'Scion of Dawn',
+    title: 'Regent of Dawn',
     domain: 'Creation, Knowledge, Wisdom, Arts, Craftsmanship, Innovation',
     archetype: 'Creative force, wants to bring new things into existence, seeks to manifest potential into reality',
     signatureIssues: 'New project initiation, innovation strategies, knowledge systems, creative endeavors, foundational planning',
@@ -133,7 +133,7 @@ export const characters: Character[] = [
   {
     id: 'madyana',
     name: 'Madyana',
-    title: 'Scion of Noon',
+    title: 'Regent of Noon',
     domain: 'Preservation, Protection, Maintenance, Cosmic Order, Incarnation, Dharma',
     archetype: 'Sustainer and protector, wants to maintain balance and harmony, seeks to preserve what is good and necessary',
     signatureIssues: 'System maintenance, conflict resolution, balance preservation, protective measures, dharmic governance',
@@ -143,7 +143,7 @@ export const characters: Character[] = [
   {
     id: 'sandya',
     name: 'Sandya',
-    title: 'Scion of Dusk',
+    title: 'Regent of Dusk',
     domain: 'Destruction, Transformation, Dance, Meditation, Asceticism, Time',
     archetype: 'Dissolution and renewal, wants to destroy what no longer serves, seeks ultimate truth through destruction and recreation',
     signatureIssues: 'Organizational restructuring, ending outdated systems, spiritual transformation, crisis management, radical change',
