@@ -1,0 +1,155 @@
+---
+title: Technical and Business Details
+description: Project Overview
+---
+
+## Technical Implementation
+
+### Blockchain Integration Strategy
+
+**On-Chain (Soroban Smart Contracts):**
+- NFT minting for achievements, story collectibles, endings
+- State recording for critical choices, scores, and progress
+- Verifiable leaderboards and tournament systems
+- Minimal on-chain logic for gas efficiency
+
+**Off-Chain (Traditional Infrastructure):**
+- Game engines and rendering (React, Phaser 3)
+- Asset storage (images, audio, narrative content)
+- Matchmaking and real-time features where needed
+- Caching and performance optimization
+
+**Hybrid Approach:**
+- Core gameplay doesn't require constant blockchain interaction
+- Key moments (chapter completion, achievements, high scores) commit on-chain
+- Wallet connection optional for casual play, required for ownership/progression
+
+### Tech Stack
+
+**Source Agent: ALICE:**
+- React + Vite (fast dev experience, modern tooling)
+- NarraLeaf-React (visual novel engine)
+- Stellar SDK for blockchain integration
+- Stellar Scaffold for wallet connection
+
+**Source Agent: BYRON:**
+- Phaser 3 (mature 2D game framework, WebGL performance)
+- Stellar SDK for on-chain state
+- Tiled for level design
+- Custom dialogue system
+
+**Source Agent: CAROL:**
+- React (terminal and interface UI)
+- Flexible interface architecture to support different UI paradigms per game
+- Stellar SDK for solution verification and lore artifact minting
+
+**Shared Infrastructure:**
+- Soroban smart contracts (Rust)
+- IPFS for decentralized asset storage (when needed)
+- Subgraph or indexer for querying on-chain data
+- Analytics and telemetry (privacy-respecting)
+
+---
+
+## Business Model & Monetization
+
+### Revenue Streams
+
+**1. NFT Sales:**
+- Story chapter NFTs (proof of completion, collectible)
+- Ending NFTs (unique metadata based on choices)
+- Achievement NFTs (rare accomplishments)
+- Cosmetic NFTs (character customization in future games)
+- Pricing: Accessible (sub-$5 for most items), premium for rare collectibles
+
+**2. Tournament Entry Fees:**
+- CAROL hacking competitions
+- BYRON speedrun challenges
+- Community-organized events
+- Prize pools funded by entry fees (percentage to development)
+
+**3. Grants & Ecosystem Funding:**
+- Stellar Foundation ecosystem grants
+- Soroban developer incentives
+- Web3 gaming accelerators
+- Cultural IP development programs
+
+**4. Future Studio Partnerships:**
+- Revenue share on beat-'em-up spin-off
+- Licensing IP to other developers
+- Merchandise and media adaptations
+
+### Free-to-Play Philosophy
+
+**Core Principle:** Games should be playable and enjoyable without spending money. Blockchain adds value, doesn't gate content.
+
+**Free Tier:**
+- Full access to core gameplay
+- Can complete all stories
+- No pay-to-win mechanics
+- Optional wallet connection
+
+**Premium/NFT Tier:**
+- Own your achievements permanently
+- Unlock cross-game benefits
+- Participate in tournaments
+- Support development while getting collectibles
+
+---
+
+## Target Audience
+
+### Primary Audiences
+
+**Blockchain Natives:**
+- Already familiar with Web3, looking for quality entertainment beyond DeFi
+- Appreciate true ownership and on-chain benefits
+- Want to support ecosystem growth
+- Likely Stellar community members
+
+**Indie Game Enthusiasts:**
+- Love narrative-driven, genre-diverse games
+- Curious about Web3 but skeptical of crypto-games
+- Drawn to visual novels, classic RPGs, hacking games
+- Will try Source Agents for gameplay, stay for ownership benefits
+
+**Security-Minded Builders:**
+- Developers, auditors, protocol researchers
+- Appreciate the thematic depth (proactive/reactive/foundational framework)
+- May recognize real security concepts woven into gameplay
+- Potential advocates and community contributors
+
+### Secondary Audiences
+
+**Visual Novel Fans:**
+- Specifically attracted to Source Agent: ALICE
+- May not care about blockchain initially
+- Can play without wallet, convert to Web3 through positive experience
+
+**Classic RPG Gamers:**
+- Drawn to Source Agent: BYRON's Fallout-style gameplay
+- Nostalgic for isometric exploration and choice-driven narratives
+- May come for RPG, discover broader universe
+
+**Terminal Thriller Enthusiasts:**
+- Attracted to Source Agent: CAROL hacking simulator
+- Competitive optimizers and speedrunners
+- Leaderboards and verifiable solutions appeal to this demographic
+
+---
+
+## License
+
+1. Code: MIT — see [LICENSE](https://github.com/lokapal-xyz/sa-birth/blob/main/LICENSE) file.
+2. Story and narrative elements: CC BY-NC-SA 4.0 — see [LICENSE](https://creativecommons.org/licenses/by-nc-sa/4.0/) link.
+
+---
+
+## Appendix
+
+**Franchise Name:** Source Agents  
+**Platform:** Stellar  
+**Genres:** Visual Novel (ALICE), RPG (BYRON), Terminal Thriller (CAROL)  
+**Author and Main Dev:** Ricardo Pintos [(lokapal.eth)](https://app.ens.domains/lokapal.eth)  
+**Website:** [Lokapal](https://www.lokapal.xyz/en)  
+**Telegram:** [lokapalxyz](https://t.me/lokapalxyz)

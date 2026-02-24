@@ -8,6 +8,7 @@
         "main_header": "Serialized fiction, essays, and philosophy",
         "sub_header": "A platform for serialized fiction exploring power, governance, and human agency—alongside essays on storytelling, philosophy, and decentralized systems.",
         "fmao": "From Many, as One - For Readers",
+        "source": "Source Agents - For Gamers",
         "thoughtchain": "Thoughtchain - For Explorers",
         "conciliatorics": "Conciliatorics - For Theorists",
         "name": "Lokapal"
@@ -23,6 +24,7 @@
     },
     "navbar": {
         "links": {
+            "source": "Games",
             "fmao": "Literature",
             "thoughtchain": "Essays",
             "conciliatorics": "Philosophy",
@@ -38,6 +40,11 @@
             "dark": "Dark",
             "system": "System"
         }
+    },
+    "source": {
+        "on_this_page": "On this page",
+        "next": "Next",
+        "previous": "Previous"
     },
     "fmao": {
         "on_this_page": "On this page",
@@ -125,7 +132,16 @@
         "shard-7": "Shard 7 [Krodha Foundries]",
         "shard-8": "Shard 8 [Ghrina Colosseum]",
         "shard-9": "Shard 9 [Kama Strip]",
-        "shard-10": "Shard 10 [Bhaya Compound]"
+        "shard-10": "Shard 10 [Bhaya Compound]",
+
+        "project-overview": "💠 Project Overview",
+        "story-bible": "💠 Story Bible",
+        "creating-blockchain-narratives": "Creating Blockchain Narratives",
+        "the-games": "The Games",
+        "technical-business": "Technical and Business Details",
+        "the-agents": "The Agents",
+        "the-world-beyond": "The World Beyond",
+        "narrative-frameworks": "Narrative Frameworks"
     },
     "blog": {
         "title": "Thoughtchain",

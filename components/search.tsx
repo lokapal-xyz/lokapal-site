@@ -17,7 +17,7 @@ import { Dictionary } from "@/lib/dictionaries";
 import LocalizedLink from "./localized-link";
 import { usePathname } from 'next/navigation';
 
-type Section = "fmao" | "conciliatorics";
+type Section = "source" | "fmao" | "conciliatorics";
 
 export default function Search({ 
   dict
@@ -33,7 +33,7 @@ export default function Search({
   const currentSection = pathParts[1];
   
   // Default to 'fmao' if no section or invalid section
-  const validSections: Section[] = ["fmao", "conciliatorics"];
+  const validSections: Section[] = ["source", "fmao", "conciliatorics"];
   const section = validSections.includes(currentSection as Section) 
     ? currentSection as Section
     : "fmao"; // fallback

@@ -1,0 +1,155 @@
+---
+title: Detalles técnicos y de negocios
+description: Resumen del proyecto
+---
+
+## Implementación Técnica
+
+### Estrategia de Integración Blockchain
+
+**En Cadena (Contratos Inteligentes Soroban):**
+- Acuñado de NFTs para logros, coleccionables de historia y finales
+- Registro de estado para elecciones críticas, puntuaciones y progreso
+- Tablas de clasificación verificables y sistemas de torneos
+- Lógica mínima en cadena para eficiencia de gas
+
+**Fuera de Cadena (Infraestructura Tradicional):**
+- Motores de juego y renderizado (React, Phaser 3)
+- Almacenamiento de activos (imágenes, audio, contenido narrativo)
+- Emparejamiento y funciones en tiempo real donde sea necesario
+- Almacenamiento en caché y optimización del rendimiento
+
+**Enfoque Híbrido:**
+- El juego principal no requiere interacción constante con blockchain
+- Los momentos clave (finalización de capítulos, logros, puntuaciones altas) se registran en cadena
+- La conexión de billetera es opcional para el juego casual, requerida para propiedad/progresión
+
+### Stack Tecnológico
+
+**Source Agent: ALICE:**
+- React + Vite (experiencia de desarrollo rápida, herramientas modernas)
+- NarraLeaf-React (motor de novela visual)
+- Stellar SDK para integración blockchain
+- Stellar Scaffold para conexión de billetera
+
+**Source Agent: BYRON:**
+- Phaser 3 (framework de juegos 2D maduro, rendimiento WebGL)
+- Stellar SDK para estado en cadena
+- Tiled para diseño de niveles
+- Sistema de diálogo personalizado
+
+**Source Agent: CAROL:**
+- React (interfaz de terminal y UI)
+- Arquitectura de interfaz flexible para soportar diferentes paradigmas de UI por juego
+- Stellar SDK para verificación de soluciones y acuñado de artefactos de lore
+
+**Infraestructura Compartida:**
+- Contratos inteligentes Soroban (Rust)
+- IPFS para almacenamiento descentralizado de activos (cuando sea necesario)
+- Subgraph o indexador para consultar datos en cadena
+- Análisis y telemetría (con respeto a la privacidad)
+
+---
+
+## Modelo de Negocio y Monetización
+
+### Fuentes de Ingresos
+
+**1. Ventas de NFTs:**
+- NFTs de capítulos de historia (prueba de finalización, coleccionables)
+- NFTs de finales (metadatos únicos basados en elecciones)
+- NFTs de logros (hazañas raras)
+- NFTs cosméticos (personalización de personajes en futuros juegos)
+- Precios: Accesibles (menos de $5 para la mayoría de los artículos), premium para coleccionables raros
+
+**2. Cuotas de Entrada a Torneos:**
+- Competiciones de hackeo de CAROL
+- Desafíos de speedrun de BYRON
+- Eventos organizados por la comunidad
+- Fondos de premios financiados por cuotas de entrada (porcentaje para el desarrollo)
+
+**3. Subvenciones y Financiación del Ecosistema:**
+- Subvenciones del ecosistema de Stellar Foundation
+- Incentivos para desarrolladores de Soroban
+- Aceleradoras de juegos Web3
+- Programas de desarrollo de IP cultural
+
+**4. Futuras Asociaciones con Estudios:**
+- Reparto de ingresos del spin-off beat-'em-up
+- Licencias de IP a otros desarrolladores
+- Merchandising y adaptaciones a otros medios
+
+### Filosofía de Juego Gratuito
+
+**Principio Fundamental:** Los juegos deben ser jugables y disfrutables sin gastar dinero. Blockchain añade valor, no bloquea contenido.
+
+**Nivel Gratuito:**
+- Acceso completo al juego principal
+- Puede completar todas las historias
+- Sin mecánicas de pago para ganar
+- Conexión de billetera opcional
+
+**Nivel Premium/NFT:**
+- Poseer tus logros permanentemente
+- Desbloquear beneficios entre juegos
+- Participar en torneos
+- Apoyar el desarrollo mientras obtienes coleccionables
+
+---
+
+## Público Objetivo
+
+### Audiencias Primarias
+
+**Nativos de Blockchain:**
+- Ya familiarizados con Web3, en busca de entretenimiento de calidad más allá de DeFi
+- Aprecian la verdadera propiedad y los beneficios en cadena
+- Quieren apoyar el crecimiento del ecosistema
+- Probablemente miembros de la comunidad Stellar
+
+**Entusiastas de Juegos Indie:**
+- Aman los juegos narrativos y de géneros diversos
+- Curiosos sobre Web3 pero escépticos de los crypto-juegos
+- Atraídos por novelas visuales, RPGs clásicos, juegos de hackeo
+- Probarán Source Agents por el juego, se quedarán por los beneficios de propiedad
+
+**Constructores con Mentalidad de Seguridad:**
+- Desarrolladores, auditores, investigadores de protocolos
+- Aprecian la profundidad temática (marco proactivo/reactivo/fundacional)
+- Pueden reconocer conceptos de seguridad reales entretejidos en el juego
+- Posibles defensores y colaboradores de la comunidad
+
+### Audiencias Secundarias
+
+**Fans de Novelas Visuales:**
+- Específicamente atraídos por Source Agent: ALICE
+- Pueden no interesarles inicialmente los aspectos blockchain
+- Pueden jugar sin billetera, convertirse a Web3 a través de una experiencia positiva
+
+**Jugadores Clásicos de RPG:**
+- Atraídos por el estilo de juego tipo Fallout de Source Agent: BYRON
+- Nostálgicos de la exploración isométrica y las narrativas guiadas por elecciones
+- Pueden venir por el RPG, descubrir el universo más amplio
+
+**Entusiastas del Thriller Terminal:**
+- Atraídos por el simulador de hackeo de Source Agent: CAROL
+- Optimizadores competitivos y speedrunners
+- Las tablas de clasificación y las soluciones verificables atraen a esta demografía
+
+---
+
+## Licencia
+
+1. Código: MIT — ver archivo [LICENSE](https://github.com/lokapal-xyz/sa-birth/blob/main/LICENSE).
+2. Elementos de historia y narrativa: CC BY-NC-SA 4.0 — ver enlace [LICENSE](https://creativecommons.org/licenses/by-nc-sa/4.0/).
+
+---
+
+## Apéndice
+
+**Nombre de la Franquicia:** Source Agents  
+**Plataforma:** Stellar  
+**Géneros:** Novela Visual (ALICE), RPG (BYRON), Thriller de terminal (CAROL)  
+**Autor y Desarrollador Principal:** Ricardo Pintos [(lokapal.eth)](https://app.ens.domains/lokapal.eth)  
+**Sitio Web:** [Lokapal](https://www.lokapal.xyz/en)  
+**Telegram:** [lokapalxyz](https://t.me/lokapalxyz)

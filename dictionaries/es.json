@@ -8,6 +8,7 @@
         "main_header": "Ficción serializada, ensayos y filosofía",
         "sub_header": "Una plataforma para ficción serializada que explora el poder, la gobernanza y la agencia humana, junto con ensayos sobre narración, filosofía y sistemas descentralizados.",
         "fmao": "From Many, as One - Para Lectores",
+        "source": "Source Agents - Para Gamers",
         "thoughtchain": "Thoughtchain - Para Exploradores",
         "conciliatorics": "Concliatórica - Para Teóricos",
         "name": "Lokapal"
@@ -23,6 +24,7 @@
     },
     "navbar": {
         "links": {
+            "source": "Juegos",
             "fmao": "Literatura",
             "thoughtchain": "Ensayos",
             "conciliatorics": "Filosofía",
@@ -38,6 +40,11 @@
             "dark": "Oscuro",
             "system": "Sistema"
         }
+    },
+    "source": {
+        "on_this_page": "En esta página",
+        "next": "Siguiente",
+        "previous": "Anterior"
     },
     "fmao": {
         "on_this_page": "En esta página",
@@ -125,7 +132,16 @@
         "shard-7": "Esquirla 7 [Fundiciones del Krodha]",
         "shard-8": "Esquirla 8 [Coliseo de Ghrina]",
         "shard-9": "Esquirla 9 [Paseo del Kama]",
-        "shard-10": "Esquirla 10 [Campo de Bhaya]"
+        "shard-10": "Esquirla 10 [Campo de Bhaya]",
+
+        "project-overview": "💠 Resumen del projecto",
+        "story-bible": "💠 Biblia de la historia",
+        "creating-blockchain-narratives": "Creando narrativas blockchain",
+        "the-games": "Los juegos",
+        "technical-business": "Detalles técnicos y de negocios",
+        "the-agents": "Los agentes",
+        "the-world-beyond": "El mundo exterior",
+        "narrative-frameworks": "Marcos Narrativos"
     },
     "blog": {
         "title": "Thoughtchain",

@@ -11,7 +11,7 @@ export default function Pagination({
 }: {
   pathname: string;
   dict: Dictionary;
-  section: "fmao" | "conciliatorics";
+  section: "source" | "fmao" | "conciliatorics";
   lang: string;
 }) {
   const res = getPreviousNext(pathname, section);

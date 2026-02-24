@@ -15,6 +15,11 @@ import Image from "next/image";
 // Update your navbar config
 export const NAVLINKS = [
   {
+    title: "source",
+    href: `/source${getPageRoutesForSection("source")[0].href}`,
+    absolute: true,
+  },
+  {
     title: "fmao",
     href: `/fmao${getPageRoutesForSection("fmao")[0].href}`,
     absolute: true,

@@ -7,6 +7,32 @@ export type EachRoute = {
   items?: EachRoute[];
 };
 
+// Source Agents-specific routes
+export const SOURCE_ROUTES: EachRoute[] = [
+  {
+    title: "project-overview",
+    href: "/project-overview",
+    noLink: true,
+    items: [
+      { title: "introduction", href: "/introduction" },
+      { title: "creating-blockchain-narratives", href: "/creating-blockchain-narratives" },
+      { title: "the-games", href: "/the-games" },
+      { title: "technical-business", href: "/technical-business" },
+    ],
+  },
+  {
+    title: "story-bible",
+    href: "/story-bible",
+    noLink: true,
+    items: [
+      { title: "introduction", href: "/introduction" },
+      { title: "the-agents", href: "/the-agents" },
+      { title: "the-world-beyond", href: "/the-world-beyond" },
+      { title: "narrative-frameworks", href: "/narrative-frameworks" },
+    ],
+  },
+];
+
 // From Many, as One-specific routes
 export const FMAO_ROUTES: EachRoute[] = [
   {
@@ -153,8 +179,10 @@ export const CONCILIATORICS_ROUTES: EachRoute[] = [
 ];
 
 // Function to get routes for a specific section
-export function getRoutesForSection(section: "fmao" | "conciliatorics" | "about"): EachRoute[] {
+export function getRoutesForSection(section: "source" | "fmao" | "conciliatorics" | "about"): EachRoute[] {
   switch (section) {
+    case "source":
+      return SOURCE_ROUTES;
     case "fmao":
       return FMAO_ROUTES;
     case "conciliatorics":
@@ -179,14 +207,15 @@ export function getRecurrsiveAllLinks(node: EachRoute): Page[] {
 }
 
 // Function to get all page routes for a specific section
-export function getPageRoutesForSection(section: "fmao" | "conciliatorics"): Page[] {
+export function getPageRoutesForSection(section: "source" | "fmao" | "conciliatorics"): Page[] {
   const sectionRoutes = getRoutesForSection(section);
   return sectionRoutes.map((it) => getRecurrsiveAllLinks(it)).flat();
 }
 
 // For components that need to work with all sections (like navbar)
-export function getAllFirstRoutes(): { section: "fmao" | "conciliatorics", firstRoute: Page }[] {
+export function getAllFirstRoutes(): { section: "source" | "fmao" | "conciliatorics", firstRoute: Page }[] {
   return [
+    { section: "source", firstRoute: getPageRoutesForSection("source")[0] },
     { section: "fmao", firstRoute: getPageRoutesForSection("fmao")[0] },
     { section: "conciliatorics", firstRoute: getPageRoutesForSection("conciliatorics")[0] },
   ];
