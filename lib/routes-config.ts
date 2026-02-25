@@ -27,7 +27,7 @@ export const SOURCE_ROUTES: EachRoute[] = [
     items: [
       { title: "introduction", href: "/introduction" },
       { title: "the-agents", href: "/the-agents" },
-      { title: "the-world-beyond", href: "/the-world-beyond" },
+      { title: "the-world", href: "/the-world" },
       { title: "narrative-frameworks", href: "/narrative-frameworks" },
     ],
   },
