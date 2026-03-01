@@ -25,10 +25,10 @@ export const SOURCE_ROUTES: EachRoute[] = [
     href: "/story-bible",
     noLink: true,
     items: [
-      { title: "introduction", href: "/introduction" },
+      { title: "franchise-timeline", href: "/franchise-timeline" },
       { title: "the-agents", href: "/the-agents" },
-      { title: "the-world", href: "/the-world" },
-      { title: "narrative-frameworks", href: "/narrative-frameworks" },
+      { title: "architecture", href: "/architecture" },
+      { title: "hesperia", href: "/hesperia" },
     ],
   },
 ];
