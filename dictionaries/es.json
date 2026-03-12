@@ -138,11 +138,13 @@
         "story-bible": "💠 Biblia de la historia",
         "creating-blockchain-narratives": "Creando narrativas blockchain",
         "the-games": "Los juegos",
-        "technical-business": "Detalles técnicos y de negocios",
+        "technical-business": "Detalles técnicos y comerciales",
         "the-agents": "Los agentes",
         "the-world": "El mundo",
         "hesperia": "Hesperia",
-        "narrative-frameworks": "Marcos narrativos"
+        "architecture": "Arquitectura L1/L2",
+        "franchise-timeline": "Cronología de la franquicia"
+
     },
     "blog": {
         "title": "Thoughtchain",
